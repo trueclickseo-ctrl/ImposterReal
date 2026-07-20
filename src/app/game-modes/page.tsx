@@ -15,7 +15,7 @@ export default function GameModesPage() {
       icon: Sparkles,
       color: "border-[#f59e0b] dark:border-[#fbbf24]",
       badgeBg: "bg-[#fbbf24] text-slate-950",
-      description: "The standard Imposter game. 1 Imposter, 3-20 players, 1 secret word. Perfect for quick party rounds."
+      description: dictionary.modeClassicDesc
     },
     {
       id: "team",
@@ -23,7 +23,7 @@ export default function GameModesPage() {
       icon: Users,
       color: "border-[#0284c7] dark:border-[#06b6d4]",
       badgeBg: "bg-[#06b6d4] text-slate-950",
-      description: "Designed for large groups of 8+ players. Features 2 Imposters who don't know each other's identity!"
+      description: dictionary.modeTeamDesc
     },
     {
       id: "drawing",
@@ -31,7 +31,7 @@ export default function GameModesPage() {
       icon: Brush,
       color: "border-[#e11d48] dark:border-[#f43f5e]",
       badgeBg: "bg-[#f43f5e] text-white",
-      description: "Instead of speaking words, each player draws ONE line on a shared canvas. The Imposter must draw without knowing the object!"
+      description: dictionary.modeDrawingDesc
     },
     {
       id: "timed",
@@ -39,7 +39,7 @@ export default function GameModesPage() {
       icon: Clock,
       color: "border-[#10b981] dark:border-[#34d399]",
       badgeBg: "bg-[#34d399] text-slate-950",
-      description: "High-pressure 5-second clue timers! Rapid-fire clue giving leaves no time for the Imposter to think."
+      description: dictionary.modeTimedDesc
     },
     {
       id: "classroom",
@@ -47,7 +47,7 @@ export default function GameModesPage() {
       icon: GraduationCap,
       color: "border-[#ea580c] dark:border-[#fb923c]",
       badgeBg: "bg-[#fb923c] text-slate-950",
-      description: "Educational vocabulary categories for teachers. Safe, family-friendly, and perfect for language learning."
+      description: dictionary.modeClassroomDesc
     },
     {
       id: "office",
@@ -55,7 +55,7 @@ export default function GameModesPage() {
       icon: Briefcase,
       color: "border-[#8b5cf6] dark:border-[#a78bfa]",
       badgeBg: "bg-[#a78bfa] text-slate-950",
-      description: "Tailored for remote teams and company retreats. Features workplace trivia and business-friendly word sets."
+      description: dictionary.modeOfficeDesc
     }
   ];
 
@@ -67,10 +67,10 @@ export default function GameModesPage() {
         
         {/* Header */}
         <div className="text-center space-y-3">
-          <span className="pixel-badge bg-[#34d399] text-slate-950 font-bold">GAME MODES</span>
+          <span className="pixel-badge bg-[#34d399] text-slate-950 font-bold">{dictionary.modesBadge}</span>
           <h1 className="font-pixel text-2xl sm:text-4xl text-[#10b981] dark:text-[#34d399] font-extrabold">{dictionary.gameModesHeading}</h1>
           <p className="font-sans text-base font-medium text-slate-700 dark:text-slate-200 max-w-xl mx-auto">
-            From classic word bluffing to drawing challenges and high-speed timers.
+            {dictionary.modesSub}
           </p>
         </div>
 

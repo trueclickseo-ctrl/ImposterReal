@@ -8,7 +8,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import { Play, Copy, Check, Plus, Sparkles } from "lucide-react";
 
 export default function WordLibraryPage() {
-  const { t, dictionary } = useLanguage();
+  const { dictionary } = useLanguage();
   const [selectedCat, setSelectedCat] = useState<string>("all");
   const [customWordInput, setCustomWordInput] = useState<string>("");
   const [customWordsList, setCustomWordsList] = useState<string[]>([
@@ -55,7 +55,7 @@ export default function WordLibraryPage() {
           <span className="pixel-badge bg-[#e11d48] dark:bg-[#f43f5e] text-white font-bold">WORD LIBRARY</span>
           <h1 className="font-pixel text-2xl sm:text-4xl text-[#d97706] dark:text-[#fbbf24] font-extrabold">{dictionary.wordLibraryHeading}</h1>
           <p className="font-sans text-base text-slate-700 dark:text-slate-200 max-w-xl mx-auto font-medium">
-            Browse curated category lists or create custom word sets for your party games.
+            {dictionary.wordLibrarySub}
           </p>
         </div>
 
@@ -69,7 +69,7 @@ export default function WordLibraryPage() {
                 : "bg-[var(--bg-card-alt)] text-slate-900 dark:text-slate-200 border-slate-300 dark:border-slate-800 hover:border-[#fbbf24]"
             }`}
           >
-            🌟 All Categories ({DEFAULT_WORD_CATEGORIES.reduce((a, c) => a + c.words.length, 0)})
+            🌟 {dictionary.catAll} ({DEFAULT_WORD_CATEGORIES.reduce((a, c) => a + c.words.length, 0)})
           </button>
           {DEFAULT_WORD_CATEGORIES.map(cat => (
             <button
@@ -129,16 +129,16 @@ export default function WordLibraryPage() {
         <div className="pixel-box pixel-box-yellow p-6 sm:p-8 space-y-4">
           <div className="flex items-center gap-2 text-[#d97706] dark:text-[#fbbf24]">
             <Sparkles className="w-6 h-6" />
-            <h2 className="font-pixel text-lg sm:text-xl font-extrabold">Custom Word Generator</h2>
+            <h2 className="font-pixel text-lg sm:text-xl font-extrabold">{dictionary.customGenTitle}</h2>
           </div>
           <p className="font-sans text-sm text-slate-700 dark:text-slate-300 font-medium">
-            Build your own custom word pack to use in Imposter party games!
+            {dictionary.customGenSub}
           </p>
 
           <div className="flex gap-3">
             <input
               type="text"
-              placeholder="Enter custom word or phrase..."
+              placeholder={dictionary.customGenPlaceholder}
               value={customWordInput}
               onChange={(e) => setCustomWordInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && addCustomWord()}
@@ -148,7 +148,7 @@ export default function WordLibraryPage() {
               onClick={addCustomWord}
               className="pixel-btn pixel-btn-yellow text-xs font-bold"
             >
-              <Plus className="w-4 h-4 inline" /> Add Word
+              <Plus className="w-4 h-4 inline" /> {dictionary.customGenAdd}
             </button>
           </div>
 
@@ -162,7 +162,7 @@ export default function WordLibraryPage() {
                   className="hover:underline text-[#0284c7] dark:text-[#06b6d4] flex items-center gap-1 font-bold"
                 >
                   {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                  {copied ? "Copied!" : "Copy Words"}
+                  {copied ? dictionary.customGenCopied : dictionary.customGenCopy}
                 </button>
               </div>
               <div className="flex flex-wrap gap-2">
