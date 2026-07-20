@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Gamepad2, BookOpen, Library, Sparkles, Newspaper, FolderDown, Globe, Menu, X, BookMarked, Sun, Moon } from "lucide-react";
+import { Gamepad2, BookOpen, Library, Sparkles, Newspaper, FolderDown, Globe, Menu, X, BookMarked, Sun, Moon, QrCode } from "lucide-react";
 import { LOCALES, SupportedLocale } from "@/lib/i18n";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -10,11 +10,17 @@ export default function Navbar() {
   const { locale, setLocale, dictionary } = useLanguage();
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [qrModalOpen, setQrModalOpen] = useState(false);
+  const [joinUrl, setJoinUrl] = useState("");
 
   useEffect(() => {
     const savedTheme = (localStorage.getItem("theme") as "light" | "dark") || "light";
     setTheme(savedTheme);
     document.documentElement.setAttribute("data-theme", savedTheme);
+
+    if (typeof window !== "undefined") {
+      setJoinUrl(`${window.location.origin}/play?room=IMP-JOIN`);
+    }
   }, []);
 
   const toggleTheme = () => {
@@ -78,10 +84,20 @@ export default function Navbar() {
         {/* Separated Action Controls & Theme Toggle */}
         <div className="hidden sm:flex items-center gap-3 pl-6 border-l-2 border-slate-300 dark:border-slate-800 ml-4">
           
+          {/* Prominent QR Scan Button */}
+          <button
+            onClick={() => setQrModalOpen(true)}
+            className="pixel-btn pixel-btn-yellow text-xs font-extrabold flex items-center gap-1.5 cursor-pointer shadow-[2px_2px_0px_#0f172a] dark:shadow-[2px_2px_0px_#000] scale-105"
+            title="Scan & Play on Phone"
+          >
+            <QrCode className="w-4 h-4" />
+            <span>SCAN & PLAY</span>
+          </button>
+
           {/* Theme Switch Button */}
           <button
             onClick={toggleTheme}
-            className="px-3.5 py-1.5 border-2 border-slate-900 dark:border-slate-100 text-xs font-pixel rounded-xl flex items-center gap-1.5 shadow-[2px_2px_0px_#0f172a] dark:shadow-[2px_2px_0px_#000] bg-[#fbbf24] text-slate-900 font-extrabold hover:scale-105 transition-all cursor-pointer"
+            className="px-3 py-1.5 border-2 border-slate-900 dark:border-slate-100 text-xs font-pixel rounded-xl flex items-center gap-1.5 shadow-[2px_2px_0px_#0f172a] dark:shadow-[2px_2px_0px_#000] bg-[var(--bg-card-alt)] text-slate-900 dark:text-slate-100 font-extrabold hover:scale-105 transition-all cursor-pointer"
             title={theme === "light" ? "Switch to Dark Theme" : "Switch to Light Theme"}
             aria-label="Toggle Light or Dark Mode"
           >
@@ -109,7 +125,7 @@ export default function Navbar() {
           {/* Quick Play CTA */}
           <Link
             href="/play"
-            className="pixel-btn pixel-btn-cyan text-xs font-extrabold ml-1"
+            className="pixel-btn pixel-btn-cyan text-xs font-extrabold ml-1 animate-pulse"
           >
             {dictionary.playNowButton}
           </Link>
@@ -124,6 +140,48 @@ export default function Navbar() {
           {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
+
+      {/* Interactive Scan & Play QR Code Modal */}
+      {qrModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
+          <div className="pixel-box p-6 max-w-sm w-full space-y-4 text-center">
+            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+              <h3 className="font-pixel text-lg text-slate-900 dark:text-slate-100 font-bold flex items-center gap-2">
+                <QrCode className="w-5 h-5 text-[#fbbf24]" /> Scan to Play!
+              </h3>
+              <button
+                onClick={() => setQrModalOpen(false)}
+                className="text-slate-500 hover:text-slate-700 dark:hover:text-slate-350 p-1 font-bold cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            
+            <p className="font-sans text-sm font-semibold text-slate-700 dark:text-slate-300">
+              Scan this QR code with your phone camera to instantly connect and play on mobile!
+            </p>
+
+            {/* QR Code Container with Centered Brand Logo */}
+            <div className="relative w-[180px] h-[180px] mx-auto bg-white p-2 border-2 border-slate-900 rounded-2xl flex items-center justify-center shadow-md">
+              <img
+                src={`https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(joinUrl)}`}
+                alt="QR Code"
+                className="w-full h-full"
+              />
+              <div className="absolute w-8 h-8 bg-[#fbbf24] border-2 border-slate-900 rounded-lg flex items-center justify-center font-pixel text-slate-900 text-sm shadow-[1px_1px_0px_#0f172a] shrink-0">
+                👾
+              </div>
+            </div>
+
+            <button
+              onClick={() => setQrModalOpen(false)}
+              className="pixel-btn pixel-btn-yellow w-full py-2.5 text-xs font-bold"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (

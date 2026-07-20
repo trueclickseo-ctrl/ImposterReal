@@ -72,36 +72,36 @@ export default function ContactPage() {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="font-pixel text-xs text-[#d97706] dark:text-[#fbbf24] uppercase block mb-1.5 font-bold">Your Name</label>
+                <label className="font-pixel text-xs text-[#d97706] dark:text-yellow-350 uppercase block mb-1.5 font-bold">Your Name</label>
                 <input
                   required
                   type="text"
                   placeholder="John Doe"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full bg-[var(--bg-card-alt)] border-2 border-slate-350 dark:border-slate-700 p-3 font-arcade text-lg text-slate-900 dark:text-slate-100 rounded-xl focus:outline-none focus:border-[#fbbf24] shadow-inner"
+                  className="w-full bg-[var(--bg-card-alt)] dark:bg-slate-900 border-2 border-slate-350 dark:border-slate-700 p-3 font-arcade text-lg text-slate-900 dark:text-white rounded-xl focus:outline-none focus:border-[#fbbf24] shadow-inner placeholder:text-slate-400 dark:placeholder:text-slate-500"
                 />
               </div>
               <div>
-                <label className="font-pixel text-xs text-[#0284c7] dark:text-[#38bdf8] uppercase block mb-1.5 font-bold">Your Email</label>
+                <label className="font-pixel text-xs text-[#0284c7] dark:text-cyan-350 uppercase block mb-1.5 font-bold">Your Email</label>
                 <input
                   required
                   type="email"
                   placeholder="john@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-[var(--bg-card-alt)] border-2 border-slate-350 dark:border-slate-700 p-3 font-arcade text-lg text-slate-900 dark:text-slate-100 rounded-xl focus:outline-none focus:border-[#0284c7] shadow-inner"
+                  className="w-full bg-[var(--bg-card-alt)] dark:bg-slate-900 border-2 border-slate-350 dark:border-slate-700 p-3 font-arcade text-lg text-slate-900 dark:text-white rounded-xl focus:outline-none focus:border-[#0284c7] shadow-inner placeholder:text-slate-400 dark:placeholder:text-slate-500"
                 />
               </div>
               <div>
-                <label className="font-pixel text-xs text-[#e11d48] dark:text-[#f43f5e] uppercase block mb-1.5 font-bold">Message</label>
+                <label className="font-pixel text-xs text-[#e11d48] dark:text-pink-350 uppercase block mb-1.5 font-bold">Message</label>
                 <textarea
                   required
                   rows={4}
                   placeholder="Type your inquiry..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="w-full bg-[var(--bg-card-alt)] border-2 border-slate-355 dark:border-slate-700 p-3 font-arcade text-lg text-slate-900 dark:text-slate-100 rounded-xl focus:outline-none focus:border-[#e11d48] shadow-inner"
+                  className="w-full bg-[var(--bg-card-alt)] dark:bg-slate-900 border-2 border-slate-355 dark:border-slate-700 p-3 font-arcade text-lg text-slate-900 dark:text-white rounded-xl focus:outline-none focus:border-[#e11d48] shadow-inner placeholder:text-slate-400 dark:placeholder:text-slate-500"
                 ></textarea>
               </div>
               <button
