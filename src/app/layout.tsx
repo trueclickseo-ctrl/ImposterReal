@@ -1,24 +1,26 @@
 import type { Metadata } from "next";
-import { Press_Start_2P, VT323, Inter } from "next/font/google";
+import { Space_Grotesk, Outfit, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { LanguageProvider } from "@/context/LanguageContext";
 
-const pressStart = Press_Start_2P({
-  weight: "400",
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-press-start",
+  variable: "--font-space-grotesk",
+  weight: ["500", "600", "700"],
 });
 
-const vt323 = VT323({
-  weight: "400",
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-vt323",
+  variable: "--font-outfit",
+  weight: ["500", "600", "700", "800", "900"],
 });
 
-const inter = Inter({
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-jakarta",
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -51,8 +53,6 @@ export const metadata: Metadata = {
   }
 };
 
-import { LanguageProvider } from "@/context/LanguageContext";
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -62,22 +62,9 @@ export default function RootLayout({
     <html
       lang="en"
       data-theme="light"
-      className={`${pressStart.variable} ${vt323.variable} ${inter.variable} h-full antialiased`}
+      suppressHydrationWarning
+      className={`${spaceGrotesk.variable} ${outfit.variable} ${jakarta.variable} h-full antialiased`}
     >
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var theme = localStorage.getItem('theme') || 'light';
-                  document.documentElement.setAttribute('data-theme', theme);
-                } catch (e) {}
-              })();
-            `,
-          }}
-        />
-      </head>
       <body className="min-h-full flex flex-col bg-[var(--bg-primary)] text-[var(--text-primary)] font-sans font-medium transition-colors duration-200">
         <LanguageProvider>
           <Navbar />

@@ -2,7 +2,7 @@
 
 @layer base {
   :root {
-    /* Light Theme Defaults (Bright, Crisp, Bold Neobrutalism) */
+    /* Light Theme (Ultra-Clean, Vibrant, Premium Neo-brutalist Gaming Palette) */
     --bg-primary: #f8fafc;
     --bg-card: #ffffff;
     --bg-card-alt: #f1f5f9;
@@ -12,169 +12,170 @@
     --text-secondary: #334155;
     --text-muted: #475569;
     
-    --arcade-yellow: #f59e0b;
+    --arcade-yellow: #d97706;
     --arcade-cyan: #0284c7;
     --arcade-pink: #e11d48;
-    --arcade-green: #16a34a;
+    --arcade-green: #10b981;
     --arcade-orange: #ea580c;
-    --arcade-purple: #9333ea;
+    --arcade-purple: #8b5cf6;
     
-    --border-main: #0f172a;
+    --border-main: #1e293b;
     --border-subtle: #cbd5e1;
-    --box-shadow-main: 5px 5px 0px #0f172a;
-    --box-shadow-hover: 7px 7px 0px #0f172a;
-    --box-shadow-active: 2px 2px 0px #0f172a;
+    --box-shadow-main: 4px 4px 0px #0f172a;
+    --box-shadow-hover: 6px 6px 0px #0f172a;
     
     --nav-bg: rgba(255, 255, 255, 0.95);
-    --input-bg: #ffffff;
-    --input-border: #0f172a;
   }
 
   [data-theme="dark"] {
-    /* Dark Theme (Retro Cyber Arcade Mode) */
-    --bg-primary: #0a0e1a;
-    --bg-card: #141c2e;
-    --bg-card-alt: #1e293b;
-    --bg-card-hover: #2a374e;
+    /* Dark Theme (Deep Navy & Vibrant Glowing Cyberpunk) */
+    --bg-primary: #090d16;
+    --bg-card: #111827;
+    --bg-card-alt: #1f2937;
+    --bg-card-hover: #374151;
     
-    --text-primary: #f8fafc;
-    --text-secondary: #cbd5e1;
-    --text-muted: #94a3b8;
+    --text-primary: #f9fafb;
+    --text-secondary: #e5e7eb;
+    --text-muted: #9ca3af;
     
-    --arcade-yellow: #ffe600;
-    --arcade-cyan: #00f0ff;
-    --arcade-pink: #ff2a85;
-    --arcade-green: #39ff14;
-    --arcade-orange: #ff6b00;
-    --arcade-purple: #a855f7;
+    --arcade-yellow: #fbbf24;
+    --arcade-cyan: #06b6d4;
+    --arcade-pink: #f43f5e;
+    --arcade-green: #34d399;
+    --arcade-orange: #fb923c;
+    --arcade-purple: #a78bfa;
     
-    --border-main: #ffffff;
-    --border-subtle: #334155;
-    --box-shadow-main: 5px 5px 0px #000000;
-    --box-shadow-hover: 7px 7px 0px #000000;
-    --box-shadow-active: 2px 2px 0px #000000;
+    --border-main: #374151;
+    --border-subtle: #1f2937;
+    --box-shadow-main: 4px 4px 0px #000000;
+    --box-shadow-hover: 6px 6px 0px #000000;
     
-    --nav-bg: rgba(18, 24, 41, 0.95);
-    --input-bg: #0a0e1a;
-    --input-border: #00f0ff;
+    --nav-bg: rgba(17, 24, 39, 0.95);
   }
 
   body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
-    font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+    font-family: var(--font-jakarta), var(--font-inter), system-ui, sans-serif;
     font-weight: 500;
     min-height: 100vh;
-    overflow-x: hidden;
     line-height: 1.6;
     transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   h1, h2, h3, .font-pixel {
-    font-family: var(--font-press-start), 'Press Start 2P', cursive, monospace;
-    letter-spacing: -0.01em;
+    font-family: var(--font-space-grotesk), var(--font-outfit), sans-serif;
+    letter-spacing: -0.02em;
     font-weight: 700;
   }
 
   .font-arcade {
-    font-family: var(--font-vt323), 'VT323', monospace;
-    font-size: 1.25rem;
+    font-family: var(--font-outfit), var(--font-space-grotesk), sans-serif;
     font-weight: 700;
-    line-height: 1.25;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.02em;
   }
 }
 
-/* 8-Bit Pixel Box Styling */
+/* Modern Card Boxes */
 .pixel-box {
   background-color: var(--bg-card);
-  border: 3px solid var(--border-main);
+  border: 2px solid var(--border-main);
+  border-radius: 1rem;
   box-shadow: var(--box-shadow-main);
   position: relative;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
+}
+
+.pixel-box:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--box-shadow-hover);
 }
 
 .pixel-box-yellow {
-  border-color: #d97706;
-  box-shadow: 5px 5px 0px rgba(217, 119, 6, 0.3);
-}
-
-[data-theme="dark"] .pixel-box-yellow {
-  border-color: var(--arcade-yellow);
-  box-shadow: 5px 5px 0px rgba(255, 230, 0, 0.4);
+  border-color: #f59e0b;
 }
 
 .pixel-box-cyan {
   border-color: #0284c7;
-  box-shadow: 5px 5px 0px rgba(2, 132, 199, 0.3);
-}
-
-[data-theme="dark"] .pixel-box-cyan {
-  border-color: var(--arcade-cyan);
-  box-shadow: 5px 5px 0px rgba(0, 240, 255, 0.4);
 }
 
 .pixel-box-pink {
   border-color: #e11d48;
-  box-shadow: 5px 5px 0px rgba(225, 29, 72, 0.3);
 }
 
-[data-theme="dark"] .pixel-box-pink {
-  border-color: var(--arcade-pink);
-  box-shadow: 5px 5px 0px rgba(255, 42, 133, 0.4);
-}
-
-/* 8-Bit Pixel Button */
-.pixel-btn {
-  font-family: var(--font-press-start), 'Press Start 2P', monospace;
+/* Modern Pill Badges */
+.pixel-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.85rem;
+  font-family: var(--font-outfit), sans-serif;
   font-size: 0.75rem;
-  padding: 0.85rem 1.4rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  font-weight: 900;
+  border-radius: 9999px;
+  box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+}
+
+/* Modern Gaming Button */
+.pixel-btn {
+  font-family: var(--font-space-grotesk), var(--font-outfit), sans-serif;
+  font-size: 0.875rem;
+  padding: 0.85rem 1.6rem;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  border-radius: 0.75rem;
   color: #0f172a;
-  background-color: #ffe600;
-  border: 3px solid #0f172a;
-  box-shadow: 4px 4px 0px #0f172a;
+  background-color: #fbbf24;
+  border: 2px solid #0f172a;
+  box-shadow: 3px 3px 0px #0f172a;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  transition: all 0.1s ease;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
 }
 
 [data-theme="dark"] .pixel-btn {
   border-color: #ffffff;
-  box-shadow: 4px 4px 0px #000000;
+  box-shadow: 3px 3px 0px #000000;
 }
 
 .pixel-btn:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0px #0f172a;
+  box-shadow: 5px 5px 0px #0f172a;
 }
 
 [data-theme="dark"] .pixel-btn:hover {
-  box-shadow: 6px 6px 0px #000000;
+  box-shadow: 5px 5px 0px #000000;
 }
 
 .pixel-btn:active {
   transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0px #0f172a;
+  box-shadow: 1px 1px 0px #0f172a;
 }
 
 .pixel-btn-cyan {
-  background-color: #00f0ff;
+  background-color: #38bdf8;
   color: #0f172a;
 }
 
 .pixel-btn-pink {
-  background-color: #ff2a85;
-  color: #ffffff;
+  background-color: #fb7185;
+  color: #0f172a;
 }
 
 .pixel-btn-green {
-  background-color: #39ff14;
+  background-color: #34d399;
+  color: #0f172a;
+}
+
+.pixel-btn-yellow {
+  background-color: #fbbf24;
   color: #0f172a;
 }
 
@@ -190,29 +191,17 @@
   top: 0; left: 0; bottom: 0; right: 0;
   background: linear-gradient(
     rgba(18, 16, 16, 0) 50%, 
-    rgba(0, 0, 0, 0.12) 50%
+    rgba(0, 0, 0, 0.1) 50%
   ), linear-gradient(
     90deg,
-    rgba(255, 0, 0, 0.02),
+    rgba(255, 0, 0, 0.015),
     rgba(0, 255, 0, 0.01),
-    rgba(0, 0, 255, 0.02)
+    rgba(0, 0, 255, 0.015)
   );
   z-index: 999;
   background-size: 100% 4px, 8px 100%;
   pointer-events: none;
-  opacity: 0.3;
-}
-
-/* Pixel Badge */
-.pixel-badge {
-  display: inline-block;
-  padding: 0.3rem 0.75rem;
-  font-family: var(--font-press-start), monospace;
-  font-size: 0.65rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  border: 2px solid currentColor;
-  box-shadow: 2px 2px 0px rgba(0,0,0,0.2);
+  opacity: 0.25;
 }
 
 /* Custom Scrollbar */
@@ -224,8 +213,9 @@
 }
 ::-webkit-scrollbar-thumb {
   background: #0284c7;
+  border-radius: 5px;
   border: 2px solid var(--bg-primary);
 }
 [data-theme="dark"] ::-webkit-scrollbar-thumb {
-  background: var(--arcade-cyan);
+  background: #06b6d4;
 }
