@@ -1,100 +1,151 @@
 @import "tailwindcss";
 
-:root {
-  --background: #FAF5EC;
-  --foreground: #0B132B;
-  --border: #0B132B;
-  --card-bg: #FFFFFF;
-  --card-shadow: #0B132B;
-  
-  --color-cream: #FAF5EC;
-  --color-retro-yellow: #FDDF5C;
-  --color-retro-mint: #85E3B2;
-  --color-retro-blue: #4E9BB9;
-  --color-retro-orange: #F27A54;
-  --color-retro-navy: #0B132B;
+@layer base {
+  :root {
+    --bg-primary: #0a0e1a;
+    --bg-card: #141c2e;
+    --text-primary: #f8fafc;
+    --text-muted: #94a3b8;
+    --arcade-yellow: #ffe600;
+    --arcade-cyan: #00f0ff;
+    --arcade-pink: #ff2a85;
+    --arcade-green: #39ff14;
+    --arcade-orange: #ff6b00;
+    --arcade-purple: #a855f7;
+    --border-pixel: #ffffff;
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-pixel {
+    font-family: var(--font-press-start), 'Press Start 2P', cursive, monospace;
+    letter-spacing: -0.02em;
+  }
+
+  .font-arcade {
+    font-family: var(--font-vt323), 'VT323', monospace;
+  }
 }
 
-.dark {
-  --background: #0B132B;
-  --foreground: #FAF5EC;
-  --border: #FAF5EC;
-  --card-bg: #1A233D;
-  --card-shadow: #000000;
-  
-  --color-cream: #FAF5EC;
-  --color-retro-yellow: #FDDF5C;
-  --color-retro-mint: #85E3B2;
-  --color-retro-blue: #4E9BB9;
-  --color-retro-orange: #F27A54;
-  --color-retro-navy: #0B132B;
-}
-
-@theme {
-  --color-cream: var(--color-cream);
-  --color-retro-yellow: var(--color-retro-yellow);
-  --color-retro-mint: var(--color-retro-mint);
-  --color-retro-blue: var(--color-retro-blue);
-  --color-retro-orange: var(--color-retro-orange);
-  --color-retro-navy: var(--color-retro-navy);
-  
-  --font-display: var(--font-display), sans-serif;
-  --font-sans: var(--font-sans), sans-serif;
-}
-
-body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Neobrutalist Utility Classes */
-.neo-border {
-  border: 3px solid var(--border);
-}
-
-.neo-card {
-  background-color: var(--card-bg);
-  border: 3px solid var(--border);
-  box-shadow: 5px 5px 0px var(--card-shadow);
-  border-radius: 12px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.neo-card-hover:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 7px 7px 0px var(--card-shadow);
-}
-
-.neo-btn {
-  border: 3px solid var(--border);
-  box-shadow: 4px 4px 0px var(--card-shadow);
-  border-radius: 8px;
-  font-weight: 700;
+/* 8-Bit Pixel Box Styling */
+.pixel-box {
+  background-color: var(--bg-card);
+  border: 4px solid #ffffff;
+  box-shadow: 6px 6px 0px #000000;
+  position: relative;
   transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
 
-.neo-btn:active {
+.pixel-box-yellow {
+  border-color: var(--arcade-yellow);
+  box-shadow: 6px 6px 0px rgba(255, 230, 0, 0.4);
+}
+
+.pixel-box-cyan {
+  border-color: var(--arcade-cyan);
+  box-shadow: 6px 6px 0px rgba(0, 240, 255, 0.4);
+}
+
+.pixel-box-pink {
+  border-color: var(--arcade-pink);
+  box-shadow: 6px 6px 0px rgba(255, 42, 133, 0.4);
+}
+
+/* 8-Bit Pixel Button */
+.pixel-btn {
+  font-family: var(--font-press-start), 'Press Start 2P', monospace;
+  font-size: 0.75rem;
+  padding: 0.85rem 1.4rem;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: #0a0e1a;
+  background-color: var(--arcade-yellow);
+  border: 3px solid #ffffff;
+  box-shadow: 4px 4px 0px #000000;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.1s ease;
+  user-select: none;
+}
+
+.pixel-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px #000000;
+}
+
+.pixel-btn:active {
   transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0px var(--card-shadow);
+  box-shadow: 2px 2px 0px #000000;
 }
 
-.neo-input {
-  border: 3px solid var(--border);
-  border-radius: 8px;
-  padding: 0.5rem 1rem;
-  background-color: var(--card-bg);
-  color: var(--foreground);
-  outline: none;
-  transition: border-color 0.2s ease;
+.pixel-btn-cyan {
+  background-color: var(--arcade-cyan);
+  color: #0a0e1a;
 }
 
-.neo-input:focus {
-  border-color: var(--color-retro-blue);
+.pixel-btn-pink {
+  background-color: var(--arcade-pink);
+  color: #ffffff;
 }
 
-/* Pixel Accent decorative style */
-.pixel-corners {
+.pixel-btn-green {
+  background-color: var(--arcade-green);
+  color: #0a0e1a;
+}
+
+/* CRT Scanlines Overlay */
+.crt-scanlines {
   position: relative;
+}
+
+.crt-scanlines::before {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.03),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.03)
+  );
+  z-index: 999;
+  background-size: 100% 3px, 6px 100%;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Pixel Badge */
+.pixel-badge {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  font-family: var(--font-press-start), monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  border: 2px solid currentColor;
+  box-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0e1a;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--arcade-cyan);
+  border: 2px solid #0a0e1a;
 }

@@ -1,25 +1,54 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Outfit } from "next/font/google";
+import { Press_Start_2P, VT323, Inter } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
-const spaceGrotesk = Space_Grotesk({
+const pressStart = Press_Start_2P({
+  weight: "400",
   subsets: ["latin"],
-  variable: "--font-display",
+  variable: "--font-press-start",
 });
 
-const outfit = Outfit({
+const vt323 = VT323({
+  weight: "400",
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-vt323",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
-  title: "GameWheelClub | Decidable Fun with Random Decision Wheels",
-  description: "Spin custom decision wheels, generate random numbers, roll dice, and make random choices instantly. Fast, accessible, and neobrutalist-designed decision tools.",
-  metadataBase: new URL("https://gamewheelclub.com"),
+  title: "Imposter | Free Online Social Deduction Party Game",
+  description: "Play Imposter — a fast, free browser-based word deduction party game for friends, teams, and classrooms. No download needed. Custom rooms & 1,000+ categories.",
+  metadataBase: new URL("https://imposter.app"),
+  keywords: ["imposter game", "party game online", "social deduction game", "word bluffing game", "spyfall online", "among us word game"],
   icons: {
-    icon: "/logo.jpg",
-    apple: "/logo.jpg",
+    icon: "/icon.jpg",
+    apple: "/icon.jpg",
   },
+  alternates: {
+    canonical: "https://imposter.app",
+    languages: {
+      "en": "https://imposter.app/en",
+      "de": "https://imposter.app/de",
+      "fr": "https://imposter.app/fr",
+      "es": "https://imposter.app/es",
+      "pt": "https://imposter.app/pt",
+      "it": "https://imposter.app/it",
+      "tr": "https://imposter.app/tr",
+      "nl": "https://imposter.app/nl",
+      "pl": "https://imposter.app/pl",
+      "sv": "https://imposter.app/sv",
+      "ru": "https://imposter.app/ru",
+      "uk": "https://imposter.app/uk",
+      "ja": "https://imposter.app/ja",
+      "zh": "https://imposter.app/zh"
+    }
+  }
 };
 
 export default function RootLayout({
@@ -30,30 +59,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${outfit.variable} h-full antialiased`}
-      suppressHydrationWarning
+      className={`${pressStart.variable} ${vt323.variable} ${inter.variable} h-full antialiased crt-scanlines`}
     >
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  const theme = localStorage.getItem('theme');
-                  const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
-                  if (theme === 'dark' || (!theme && darkQuery.matches)) {
-                    document.documentElement.classList.add('dark');
-                  } else {
-                    document.documentElement.classList.remove('dark');
-                  }
-                } catch (_) {}
-              })()
-            `,
-          }}
-        />
-      </head>
-      <body className="min-h-full flex flex-col bg-cream text-retro-navy dark:bg-retro-navy dark:text-cream">
-        {children}
+      <body className="min-h-full flex flex-col bg-[#0a0e1a] text-slate-100 font-sans">
+        <Navbar />
+        <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-8">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );

@@ -1,134 +1,138 @@
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import Link from "next/link";
-import { BookOpen, ChevronRight, Calendar } from "lucide-react";
+import { Newspaper, Calendar, User, ArrowRight, Sparkles } from "lucide-react";
 
 export const metadata = {
-  title: "GameWheelClub Blog | Random Decisions, Games & Education Insights",
-  description: "Read our latest articles on random decision-making, interactive classroom game templates, time-boxing techniques, and party icebreaker activities.",
+  title: "Party Game Blog | Social Deduction, Bluffing Psychology & Party Ideas",
+  description: "Read the latest articles on party game ideas, social deduction strategy, the psychology of lying, family game night tips, and remote team building.",
 };
 
-export default function BlogIndexPage() {
+export default function BlogPage() {
   const articles = [
     {
-      title: "Best Icebreaker Games for Work: Boost Corporate Team Bond",
-      desc: "Dread morning syncs? Check out these quick, energetic corporate icebreaker games using random name wheels and spinners to kickstart your meetings.",
-      href: "/blog/best-icebreaker-games-for-work",
-      category: "Workplace",
-      date: "July 17, 2026",
+      slug: "party-game-ideas",
+      title: "15 Hilarious Party Game Ideas for Your Next Game Night",
+      category: "Party Games",
+      date: "2026-07-15",
+      excerpt: "Looking to entertain a group of friends or family? From browser deduction games like Imposter to classic parlor games, here are 15 top party game ideas.",
+      oldEnglishStyle: false
     },
     {
-      title: "Classroom Incentive Rewards: Gamifying Student Engagement",
-      desc: "Gamify your classroom rewards system. Discover creative ideas for student grouping, brain breaks, and random selectors that keep students engaged.",
-      href: "/blog/classroom-incentive-rewards",
-      category: "Education",
-      date: "July 16, 2026",
+      slug: "social-deduction-games",
+      title: "The Ultimate Guide to Social Deduction Games: Spyfall, Among Us & Imposter",
+      category: "Comparisons",
+      date: "2026-07-10",
+      excerpt: "Deep comparison of hidden role games: mechanics, group sizes, complexity, and why word-bluffing games are taking over party night.",
+      oldEnglishStyle: false
     },
     {
-      title: "How Generators Help Coding: Introducing Randomness in Software",
-      desc: "Unlock programmatic creativity. Explore the utility of random seed generators, string parses, and testing scenarios in modern software development.",
-      href: "/blog/how-generators-help-coding",
-      category: "Productivity",
-      date: "July 15, 2026",
+      slug: "psychology-of-bluffing",
+      title: "The Art of Discovering the Hidden Deceiver: Psychology of Bluffing",
+      category: "Game Psychology",
+      date: "2026-07-05",
+      excerpt: "Observe each companion with a patient eye, for haste oft blinds the seeker. A clue too plain betrays certainty; a clue too clouded summons suspicion.",
+      oldEnglishStyle: true
     },
     {
-      title: "How to Customize Spin Wheels: Hex Colors, Weights & Themes",
-      desc: "Take full control of your decision spinner layouts. Learn to configure custom colors, segment weights, sound effects, and clean typography.",
-      href: "/blog/how-to-customize-spin-wheels",
-      category: "Guides",
-      date: "July 14, 2026",
+      slug: "family-activity-guides",
+      title: "Family Game Night Guide: Fun Browser Games for Kids & Adults",
+      category: "Family",
+      date: "2026-06-28",
+      excerpt: "How to host an inclusive, family-friendly game night using animal and food categories that keep both kids and grandparents entertained.",
+      oldEnglishStyle: false
     },
     {
-      title: "Math Activities Using Random Generators: Visualizing Probability",
-      desc: "Visualize math theories in real-time. Use random number generators and alphabet spinners to teach statistics and data indexing in classrooms.",
-      href: "/blog/math-activities-using-random-generators",
-      category: "Education",
-      date: "July 13, 2026",
+      slug: "team-building-guides",
+      title: "Remote Team-Building Games: 10 Instant Icebreakers for Zoom",
+      category: "Team Building",
+      date: "2026-06-20",
+      excerpt: "Boost team morale and break the awkward silence in remote meetings with 5-minute browser icebreakers that require zero software installs.",
+      oldEnglishStyle: false
     },
     {
-      title: "Party Games for Adults: Spice Up Your Next Social Event",
-      desc: "Ready to turn up the heat on party night? Explore interactive spinners for Spin the Bottle, Adult Truth or Dare, and funny dares.",
-      href: "/blog/party-games-for-adults",
-      category: "Entertainment",
-      date: "July 12, 2026",
+      slug: "game-design-notes",
+      title: "Designing a Fast Browser Social Game: Tech Stack & UX Lessons",
+      category: "Game Design",
+      date: "2026-06-12",
+      excerpt: "Behind the scenes look at building Imposter App: Next.js architecture, 14-language i18n dictionary system, and retro 8-bit visual aesthetics.",
+      oldEnglishStyle: false
     },
     {
-      title: "Pomodoro Technique for Students: Beating Exam Stress",
-      desc: "Supercharge your study schedules. Learn to combine Pomodoro intervals, countdown timers, and focused review blocks to beat exam procrastination.",
-      href: "/blog/pomodoro-technique-for-students",
-      category: "Productivity",
-      date: "July 11, 2026",
-    },
-    {
-      title: "Spin Wheels for Decision Making: Settle Daily Choices Instantly",
-      desc: "Stuck in a loop of indecision? Discover the psychology of letting a random selection wheel choose your lunch, movie, or daily task list.",
-      href: "/blog/spin-wheels-for-decision-making",
-      category: "Productivity",
-      date: "July 10, 2026",
-    },
-    {
-      title: "Spin Wheels in Modern Education: Gamified Learning Environments",
-      desc: "Transform standard lectures into interactive games. Pick students, select quiz questions, and trigger brainstorm sessions with simple wheels.",
-      href: "/blog/spin-wheels-in-modern-education",
-      category: "Education",
-      date: "July 09, 2026",
-    },
-    {
-      title: "Time-Boxing to Prevent Burnout: Managing Work Stress",
-      desc: "Stop overworking and start structuring your hours. Learn to implement timeboxing and recovery timer blocks for mental health and output.",
-      href: "/blog/time-boxing-to-prevent-burnout",
-      category: "Productivity",
-      date: "July 08, 2026",
-    },
+      slug: "product-updates",
+      title: "Product Update v2.6: 14 European & World Languages Added!",
+      category: "Updates",
+      date: "2026-06-01",
+      excerpt: "We're thrilled to launch full language support for German, French, Spanish, Portuguese, Italian, Turkish, Dutch, Polish, Swedish, Russian, Ukrainian, Japanese, and Chinese!",
+      oldEnglishStyle: false
+    }
   ];
 
   return (
     <>
-      <Navbar />
+      <SEOHead includeHowTo={false} />
 
-      <main className="flex-1 max-w-6xl mx-auto w-full py-12 px-6">
-        <section className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full neo-border bg-retro-mint text-retro-navy font-bold text-xs uppercase tracking-wider mb-4">
-            <BookOpen className="w-4 h-4" />
-            GameWheelClub Articles
-          </div>
-          <h1 className="text-4xl md:text-5xl font-black font-display tracking-tight text-retro-navy dark:text-cream mb-4">
-            Insights, Guides & Productivity Hacks
-          </h1>
-          <p className="text-lg font-medium opacity-90 max-w-2xl mx-auto">
-            Read expert tips on gamifying classrooms, implementing structured time-boxing, organizing social party games, and setting up decision spinners.
+      <div className="space-y-10 max-w-5xl mx-auto">
+        
+        {/* Header */}
+        <div className="text-center space-y-3">
+          <span className="pixel-badge bg-[#ff6b00] text-white">PARTY GAME BLOG</span>
+          <h1 className="font-pixel text-2xl sm:text-4xl text-[#ff6b00]">Insights, Strategy & Party Guides</h1>
+          <p className="font-sans text-sm text-slate-300 max-w-xl mx-auto">
+            Articles on social deduction mechanics, party planning, and game design.
           </p>
-        </section>
+        </div>
 
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-8 my-8">
-          {articles.map((art) => (
-            <div key={art.href} className="neo-card p-6 bg-white dark:bg-retro-navy flex flex-col justify-between">
-              <div>
-                <div className="flex justify-between items-center mb-3">
-                  <span className="text-xs font-extrabold uppercase bg-retro-yellow text-retro-navy px-2.5 py-0.5 rounded border border-retro-navy">
-                    {art.category}
-                  </span>
-                  <span className="text-xs font-bold opacity-60 flex items-center gap-1">
-                    <Calendar className="w-3.5 h-3.5" /> {art.date}
+        {/* Featured Old English Post (Section 8) */}
+        <div className="pixel-box pixel-box-yellow p-8 bg-[#141c2e] space-y-4">
+          <div className="flex items-center gap-2">
+            <span className="pixel-badge bg-[#ffe600] text-slate-900">FEATURED ESSAY</span>
+            <span className="font-arcade text-xs text-slate-400">Old English Voice</span>
+          </div>
+          
+          <h2 className="font-pixel text-xl sm:text-2xl text-[#ffe600]">
+            The Art of Discovering the Hidden Deceiver
+          </h2>
+
+          {/* Section 8 Old English Sample Content */}
+          <p className="font-serif italic text-base sm:text-lg text-slate-200 leading-relaxed border-l-4 border-[#ffe600] pl-4">
+            "Many believe fortune alone reveals the hidden deceiver, yet wisdom declares otherwise. Observe each companion with a patient eye, for haste oft blinds the seeker. A clue too plain betrays certainty; a clue too clouded summons needless suspicion."
+          </p>
+
+          <p className="font-sans text-xs text-slate-300">
+            Read our full exploration of body language, verbal micro-expressions, and linguistic signals during social deduction rounds.
+          </p>
+        </div>
+
+        {/* Blog Posts Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {articles.map((post) => (
+            <div key={post.slug} className="pixel-box p-6 bg-[#141c2e] space-y-3 flex flex-col justify-between">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-xs font-arcade">
+                  <span className="text-[#00f0ff] uppercase">{post.category}</span>
+                  <span className="text-slate-400 flex items-center gap-1">
+                    <Calendar className="w-3 h-3" /> {post.date}
                   </span>
                 </div>
-                <h2 className="text-2xl font-black font-display mb-3 leading-tight hover:text-retro-orange transition-colors">
-                  <Link href={art.href}>{art.title}</Link>
-                </h2>
-                <p className="text-sm opacity-80 mb-6 leading-relaxed">{art.desc}</p>
+                <h3 className="font-pixel text-base text-slate-100 leading-snug">
+                  {post.title}
+                </h3>
+                <p className="font-sans text-xs text-slate-300 leading-relaxed">
+                  {post.excerpt}
+                </p>
               </div>
-              <Link
-                href={art.href}
-                className="w-full py-2.5 neo-btn bg-retro-yellow text-retro-navy text-center text-sm font-bold flex items-center justify-center gap-1.5 hover:scale-102 transition-transform"
-              >
-                Read Article <ChevronRight className="w-4 h-4" />
-              </Link>
+
+              <div className="pt-3 border-t border-slate-800 flex justify-between items-center">
+                <span className="font-arcade text-xs text-slate-400">5 Min Read</span>
+                <span className="font-arcade text-base text-[#ffe600] flex items-center gap-1 hover:underline cursor-pointer">
+                  Read Article <ArrowRight className="w-4 h-4" />
+                </span>
+              </div>
             </div>
           ))}
-        </section>
-      </main>
+        </div>
 
-      <Footer />
+      </div>
     </>
   );
 }
