@@ -9,8 +9,8 @@
     --bg-card-hover: #e2e8f0;
     
     --text-primary: #0f172a;
-    --text-secondary: #334155;
-    --text-muted: #475569;
+    --text-secondary: #1e293b;
+    --text-muted: #334155;
     
     --arcade-yellow: #d97706;
     --arcade-cyan: #0284c7;
@@ -28,25 +28,25 @@
   }
 
   [data-theme="dark"] {
-    /* Dark Theme (Deep Navy & Vibrant Glowing Cyberpunk) */
+    /* Dark Theme (High Contrast Deep Navy & Cyberpunk Gold/Cyan) */
     --bg-primary: #090d16;
     --bg-card: #111827;
     --bg-card-alt: #1f2937;
     --bg-card-hover: #374151;
     
-    --text-primary: #f9fafb;
-    --text-secondary: #e5e7eb;
-    --text-muted: #9ca3af;
+    --text-primary: #ffffff;
+    --text-secondary: #f1f5f9;
+    --text-muted: #e2e8f0;
     
     --arcade-yellow: #fbbf24;
-    --arcade-cyan: #06b6d4;
+    --arcade-cyan: #38bdf8;
     --arcade-pink: #f43f5e;
     --arcade-green: #34d399;
     --arcade-orange: #fb923c;
-    --arcade-purple: #a78bfa;
+    --arcade-purple: #c084fc;
     
-    --border-main: #374151;
-    --border-subtle: #1f2937;
+    --border-main: #475569;
+    --border-subtle: #334155;
     --box-shadow-main: 4px 4px 0px #000000;
     --box-shadow-hover: 6px 6px 0px #000000;
     
@@ -103,41 +103,33 @@
   border-color: #e11d48;
 }
 
-/* Modern Pill Badges */
-.pixel-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.35rem 0.85rem;
-  font-family: var(--font-outfit), sans-serif;
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  border-radius: 9999px;
-  box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+[data-theme="dark"] .pixel-box-yellow {
+  border-color: #fbbf24;
 }
 
-/* Modern Gaming Button */
+[data-theme="dark"] .pixel-box-cyan {
+  border-color: #38bdf8;
+}
+
+[data-theme="dark"] .pixel-box-pink {
+  border-color: #f43f5e;
+}
+
+/* Buttons */
 .pixel-btn {
-  font-family: var(--font-space-grotesk), var(--font-outfit), sans-serif;
-  font-size: 0.875rem;
-  padding: 0.85rem 1.6rem;
-  text-transform: uppercase;
+  display: inline-flex;
+  items-align: center;
+  justify-content: center;
+  font-family: var(--font-outfit), sans-serif;
   font-weight: 800;
-  letter-spacing: 0.04em;
-  border-radius: 0.75rem;
-  color: #0f172a;
-  background-color: #fbbf24;
+  padding: 0.6rem 1.25rem;
+  border-radius: 0.85rem;
   border: 2px solid #0f172a;
   box-shadow: 3px 3px 0px #0f172a;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
   transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
-  user-select: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
 }
 
 [data-theme="dark"] .pixel-btn {
@@ -146,7 +138,7 @@
 }
 
 .pixel-btn:hover {
-  transform: translate(-2px, -2px);
+  transform: translateY(-2px);
   box-shadow: 5px 5px 0px #0f172a;
 }
 
@@ -155,8 +147,13 @@
 }
 
 .pixel-btn:active {
-  transform: translate(2px, 2px);
+  transform: translateY(1px);
   box-shadow: 1px 1px 0px #0f172a;
+}
+
+.pixel-btn-yellow {
+  background-color: #fbbf24;
+  color: #0f172a;
 }
 
 .pixel-btn-cyan {
@@ -165,8 +162,8 @@
 }
 
 .pixel-btn-pink {
-  background-color: #fb7185;
-  color: #0f172a;
+  background-color: #f43f5e;
+  color: #ffffff;
 }
 
 .pixel-btn-green {
@@ -174,48 +171,32 @@
   color: #0f172a;
 }
 
-.pixel-btn-yellow {
-  background-color: #fbbf24;
-  color: #0f172a;
+.pixel-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-family: var(--font-outfit), sans-serif;
+  font-weight: 800;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
-/* CRT Scanlines Overlay */
-.crt-scanlines {
-  position: relative;
-}
-
-.crt-scanlines::before {
-  content: " ";
-  display: block;
-  position: fixed;
-  top: 0; left: 0; bottom: 0; right: 0;
-  background: linear-gradient(
-    rgba(18, 16, 16, 0) 50%, 
-    rgba(0, 0, 0, 0.1) 50%
-  ), linear-gradient(
-    90deg,
-    rgba(255, 0, 0, 0.015),
-    rgba(0, 255, 0, 0.01),
-    rgba(0, 0, 255, 0.015)
-  );
-  z-index: 999;
-  background-size: 100% 4px, 8px 100%;
-  pointer-events: none;
-  opacity: 0.25;
-}
-
-/* Custom Scrollbar */
+/* Custom Scrollbars */
 ::-webkit-scrollbar {
   width: 10px;
+  height: 10px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--bg-primary);
 }
+
 ::-webkit-scrollbar-thumb {
-  background: #0284c7;
+  background: var(--border-main);
   border-radius: 5px;
-  border: 2px solid var(--bg-primary);
 }
-[data-theme="dark"] ::-webkit-scrollbar-thumb {
-  background: #06b6d4;
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--arcade-yellow);
 }

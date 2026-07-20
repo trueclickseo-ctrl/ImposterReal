@@ -25,11 +25,11 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-[var(--bg-card)]/90 backdrop-blur-xl border-b-2 border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-200">
+    <header className="sticky top-0 z-50 bg-[var(--bg-card)]/95 backdrop-blur-xl border-b-2 border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 py-3.5 flex items-center justify-between">
         
         {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-3 group">
+        <Link href="/" className="flex items-center gap-3 group shrink-0">
           <div className="w-10 h-10 bg-[#fbbf24] border-2 border-slate-900 rounded-xl flex items-center justify-center font-pixel text-slate-900 font-extrabold text-xl shadow-[3px_3px_0px_#0f172a] group-hover:scale-105 transition-transform">
             👾
           </div>
@@ -44,44 +44,44 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Nav Links */}
-        <nav className="hidden lg:flex items-center gap-6 font-arcade text-base uppercase tracking-wide font-bold">
-          <Link href="/play" className="text-slate-700 dark:text-slate-200 hover:text-[#d97706] dark:hover:text-[#fbbf24] flex items-center gap-1.5 transition-colors">
+        <nav className="hidden lg:flex items-center gap-5 font-arcade text-base uppercase tracking-wide font-bold mx-auto">
+          <Link href="/play" className="text-slate-700 dark:text-slate-200 hover:text-[#d97706] dark:hover:text-[#fbbf24] flex items-center gap-1.5 transition-colors px-1 py-0.5">
             <Gamepad2 className="w-4 h-4 text-[#d97706] dark:text-[#fbbf24]" />
             {dictionary.navPlay}
           </Link>
-          <Link href="/encyclopedia" className="text-[#d97706] dark:text-[#fbbf24] hover:text-[#0284c7] dark:hover:text-[#06b6d4] flex items-center gap-1.5 transition-colors font-extrabold">
+          <Link href="/encyclopedia" className="text-[#d97706] dark:text-[#fbbf24] hover:text-[#0284c7] dark:hover:text-[#06b6d4] flex items-center gap-1.5 transition-colors font-extrabold px-1 py-0.5">
             <BookMarked className="w-4 h-4 text-[#d97706] dark:text-[#fbbf24]" />
             {dictionary.navEncyclopedia}
           </Link>
-          <Link href="/learn" className="text-slate-700 dark:text-slate-200 hover:text-[#0284c7] dark:hover:text-[#06b6d4] flex items-center gap-1.5 transition-colors">
+          <Link href="/learn" className="text-slate-700 dark:text-slate-200 hover:text-[#0284c7] dark:hover:text-[#06b6d4] flex items-center gap-1.5 transition-colors px-1 py-0.5">
             <BookOpen className="w-4 h-4 text-[#0284c7] dark:text-[#06b6d4]" />
             {dictionary.navLearn}
           </Link>
-          <Link href="/word-library" className="text-slate-700 dark:text-slate-200 hover:text-[#e11d48] dark:hover:text-[#f43f5e] flex items-center gap-1.5 transition-colors">
+          <Link href="/word-library" className="text-slate-700 dark:text-slate-200 hover:text-[#e11d48] dark:hover:text-[#f43f5e] flex items-center gap-1.5 transition-colors px-1 py-0.5">
             <Library className="w-4 h-4 text-[#e11d48] dark:text-[#f43f5e]" />
             {dictionary.navWords}
           </Link>
-          <Link href="/game-modes" className="text-slate-700 dark:text-slate-200 hover:text-[#10b981] dark:hover:text-[#34d399] flex items-center gap-1.5 transition-colors">
+          <Link href="/game-modes" className="text-slate-700 dark:text-slate-200 hover:text-[#10b981] dark:hover:text-[#34d399] flex items-center gap-1.5 transition-colors px-1 py-0.5">
             <Sparkles className="w-4 h-4 text-[#10b981] dark:text-[#34d399]" />
             {dictionary.navModes}
           </Link>
-          <Link href="/blog" className="text-slate-700 dark:text-slate-200 hover:text-[#ea580c] dark:hover:text-[#fb923c] flex items-center gap-1.5 transition-colors">
+          <Link href="/blog" className="text-slate-700 dark:text-slate-200 hover:text-[#ea580c] dark:hover:text-[#fb923c] flex items-center gap-1.5 transition-colors px-1 py-0.5">
             <Newspaper className="w-4 h-4 text-[#ea580c] dark:text-[#fb923c]" />
             {dictionary.navBlog}
           </Link>
-          <Link href="/resources" className="text-slate-700 dark:text-slate-200 hover:text-[#8b5cf6] dark:hover:text-[#a78bfa] flex items-center gap-1.5 transition-colors">
+          <Link href="/resources" className="text-slate-700 dark:text-slate-200 hover:text-[#8b5cf6] dark:hover:text-[#a78bfa] flex items-center gap-1.5 transition-colors px-1 py-0.5">
             <FolderDown className="w-4 h-4 text-[#8b5cf6] dark:text-[#a78bfa]" />
             {dictionary.navCards}
           </Link>
         </nav>
 
-        {/* Action Controls & Theme Toggle */}
-        <div className="hidden sm:flex items-center gap-3">
+        {/* Separated Action Controls & Theme Toggle */}
+        <div className="hidden sm:flex items-center gap-3 pl-6 border-l-2 border-slate-300 dark:border-slate-800 ml-4">
           
           {/* Theme Switch Button */}
           <button
             onClick={toggleTheme}
-            className="px-3 py-1.5 border-2 border-slate-900 dark:border-white text-xs font-pixel rounded-xl flex items-center gap-1.5 shadow-[2px_2px_0px_#0f172a] dark:shadow-[2px_2px_0px_#000] bg-[#fbbf24] text-slate-900 font-extrabold hover:scale-105 transition-all"
+            className="px-3.5 py-1.5 border-2 border-slate-900 dark:border-slate-100 text-xs font-pixel rounded-xl flex items-center gap-1.5 shadow-[2px_2px_0px_#0f172a] dark:shadow-[2px_2px_0px_#000] bg-[#fbbf24] text-slate-900 font-extrabold hover:scale-105 transition-all cursor-pointer"
             title={theme === "light" ? "Switch to Dark Theme" : "Switch to Light Theme"}
             aria-label="Toggle Light or Dark Mode"
           >
@@ -90,7 +90,7 @@ export default function Navbar() {
           </button>
 
           {/* Language Selector */}
-          <div className="relative flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 border-2 border-slate-900 rounded-xl px-2.5 py-1 text-slate-900 dark:text-slate-100 font-arcade text-xs font-bold shadow-xs">
+          <div className="relative flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 border-2 border-slate-900 dark:border-slate-700 rounded-xl px-2.5 py-1 text-slate-900 dark:text-slate-100 font-arcade text-xs font-bold shadow-xs">
             <Globe className="w-4 h-4 text-[#0284c7] dark:text-[#06b6d4]" />
             <select
               value={locale}
@@ -109,7 +109,7 @@ export default function Navbar() {
           {/* Quick Play CTA */}
           <Link
             href="/play"
-            className="pixel-btn pixel-btn-cyan text-xs font-extrabold"
+            className="pixel-btn pixel-btn-cyan text-xs font-extrabold ml-1"
           >
             {dictionary.playNowButton}
           </Link>
