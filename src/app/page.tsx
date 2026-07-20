@@ -1,12 +1,20 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import SEOHead from "@/components/SEOHead";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
-import { Gamepad2, BookOpen, Library, HelpCircle, ArrowRight } from "lucide-react";
+import { Gamepad2, BookOpen, Library, HelpCircle, ArrowRight, QrCode } from "lucide-react";
 
 export default function HomePage() {
   const { dictionary } = useLanguage();
+  const [joinUrl, setJoinUrl] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setJoinUrl(`${window.location.origin}/play?room=IMP-JOIN`);
+    }
+  }, []);
 
   const faqItems = [
     {
@@ -58,6 +66,32 @@ export default function HomePage() {
             {dictionary.rulesHeading}
           </Link>
         </div>
+
+        {/* Direct Barcode scan to join room */}
+        {joinUrl && (
+          <div className="pt-8 max-w-md mx-auto">
+            <div className="bg-[var(--bg-card-alt)] border-2 border-slate-900 dark:border-slate-850 p-5 rounded-2xl flex items-center justify-between gap-5 shadow-md">
+              <div className="text-left space-y-1.5">
+                <h3 className="font-pixel text-sm text-[#ea580c] dark:text-[#fb923c] font-bold flex items-center gap-2">
+                  <QrCode className="w-5 h-5" /> SCAN & PLAY ON PHONE
+                </h3>
+                <p className="font-sans text-xs font-semibold text-slate-800 dark:text-slate-200 leading-relaxed">
+                  Scan this barcode with your phone camera to instantly start playing right from your smartphone!
+                </p>
+              </div>
+              <div className="relative bg-white p-2 border-2 border-slate-900 rounded-xl shrink-0 shadow-xs flex items-center justify-center">
+                <img
+                  src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(joinUrl)}`}
+                  alt="Scan to join lobby"
+                  className="w-[100px] h-[100px]"
+                />
+                <div className="absolute w-7 h-7 bg-[#fbbf24] border-2 border-slate-900 rounded-lg flex items-center justify-center font-pixel text-slate-900 text-xs shadow-[1px_1px_0px_#0f172a] shrink-0">
+                  👾
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </section>
 
       {/* Comparison Table */}
