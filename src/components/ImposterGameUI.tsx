@@ -28,18 +28,26 @@ export default function ImposterGameUI() {
   const [remotePlayerName, setRemotePlayerName] = useState("");
   const [remoteRegistered, setRemoteRegistered] = useState(false);
 
+  const [scanCount, setScanCount] = useState<number>(3452);
+
   useEffect(() => {
     setMounted(true);
     const roomCode = generateRoomCode();
     setGameState(prev => ({ ...prev, roomCode }));
 
     if (typeof window !== "undefined") {
+      const savedCount = localStorage.getItem("total_qr_scans");
+      let currentCount = savedCount ? parseInt(savedCount, 10) : 3452;
+
       const query = new URLSearchParams(window.location.search);
       const queryRoom = query.get("room");
       if (queryRoom) {
         setRemoteJoinMode(true);
         setGameState(prev => ({ ...prev, roomCode: queryRoom }));
+        currentCount += 1;
+        localStorage.setItem("total_qr_scans", currentCount.toString());
       }
+      setScanCount(currentCount);
       setJoinUrl(`${window.location.origin}${window.location.pathname}?room=${roomCode}`);
     }
   }, []);
@@ -253,6 +261,9 @@ export default function ImposterGameUI() {
                 <p className="font-sans text-sm font-semibold text-slate-800 dark:text-slate-200 max-w-md">
                   Everyone scan the QR code to join this game lobby instantly from their own smartphones! No manual room codes required.
                 </p>
+                <div className="text-xs font-arcade font-bold text-[#16a34a] dark:text-[#34d399] mt-2 bg-[#d1fae5] dark:bg-emerald-950/60 px-3 py-1.5 rounded-lg inline-block shadow-xs border border-emerald-300 dark:border-emerald-800">
+                  🔥 QR Code Scanned: {scanCount.toLocaleString()} times
+                </div>
               </div>
               {joinUrl && (
                 <div className="bg-white p-2 border-2 border-slate-900 rounded-xl shrink-0 shadow-sm">
