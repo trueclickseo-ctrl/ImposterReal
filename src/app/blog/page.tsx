@@ -1,13 +1,13 @@
+"use client";
+
 import SEOHead from "@/components/SEOHead";
 import Link from "next/link";
-import { Newspaper, Calendar, User, ArrowRight, Sparkles } from "lucide-react";
-
-export const metadata = {
-  title: "Party Game Blog | Social Deduction, Bluffing Psychology & Party Ideas",
-  description: "Read the latest articles on party game ideas, social deduction strategy, the psychology of lying, family game night tips, and remote team building.",
-};
+import { useLanguage } from "@/context/LanguageContext";
+import { ArrowRight, Sparkles } from "lucide-react";
 
 export default function BlogPage() {
+  const { dictionary } = useLanguage();
+
   const articles = [
     {
       slug: "party-game-ideas",
@@ -15,7 +15,6 @@ export default function BlogPage() {
       category: "Party Games",
       date: "2026-07-15",
       excerpt: "Looking to entertain a group of friends or family? From browser deduction games like Imposter to classic parlor games, here are 15 top party game ideas.",
-      oldEnglishStyle: false
     },
     {
       slug: "social-deduction-games",
@@ -23,7 +22,6 @@ export default function BlogPage() {
       category: "Comparisons",
       date: "2026-07-10",
       excerpt: "Deep comparison of hidden role games: mechanics, group sizes, complexity, and why word-bluffing games are taking over party night.",
-      oldEnglishStyle: false
     },
     {
       slug: "psychology-of-bluffing",
@@ -31,7 +29,6 @@ export default function BlogPage() {
       category: "Game Psychology",
       date: "2026-07-05",
       excerpt: "Observe each companion with a patient eye, for haste oft blinds the seeker. A clue too plain betrays certainty; a clue too clouded summons suspicion.",
-      oldEnglishStyle: true
     },
     {
       slug: "family-activity-guides",
@@ -39,7 +36,6 @@ export default function BlogPage() {
       category: "Family",
       date: "2026-06-28",
       excerpt: "How to host an inclusive, family-friendly game night using animal and food categories that keep both kids and grandparents entertained.",
-      oldEnglishStyle: false
     },
     {
       slug: "team-building-guides",
@@ -47,23 +43,13 @@ export default function BlogPage() {
       category: "Team Building",
       date: "2026-06-20",
       excerpt: "Boost team morale and break the awkward silence in remote meetings with 5-minute browser icebreakers that require zero software installs.",
-      oldEnglishStyle: false
-    },
-    {
-      slug: "game-design-notes",
-      title: "Designing a Fast Browser Social Game: Tech Stack & UX Lessons",
-      category: "Game Design",
-      date: "2026-06-12",
-      excerpt: "Behind the scenes look at building Imposter App: Next.js architecture, 14-language i18n dictionary system, and retro 8-bit visual aesthetics.",
-      oldEnglishStyle: false
     },
     {
       slug: "product-updates",
-      title: "Product Update v2.6: 14 European & World Languages Added!",
+      title: "Product Update v2.7: 15 European & World Languages Added!",
       category: "Updates",
       date: "2026-06-01",
-      excerpt: "We're thrilled to launch full language support for German, French, Spanish, Portuguese, Italian, Turkish, Dutch, Polish, Swedish, Russian, Ukrainian, Japanese, and Chinese!",
-      oldEnglishStyle: false
+      excerpt: "We're thrilled to launch full language support for English, German, French, Spanish, Portuguese, Italian, Turkish, Dutch, Polish, Swedish, Russian, Ukrainian, Japanese, Chinese, and Greek!",
     }
   ];
 
@@ -75,59 +61,41 @@ export default function BlogPage() {
         
         {/* Header */}
         <div className="text-center space-y-3">
-          <span className="pixel-badge bg-[#ff6b00] text-white">PARTY GAME BLOG</span>
-          <h1 className="font-pixel text-2xl sm:text-4xl text-[#ff6b00]">Insights, Strategy & Party Guides</h1>
-          <p className="font-sans text-sm text-slate-300 max-w-xl mx-auto">
+          <span className="pixel-badge bg-[#fb923c] text-slate-950 font-bold">PARTY GAME BLOG</span>
+          <h1 className="font-pixel text-2xl sm:text-4xl text-[#ea580c] dark:text-[#fb923c] font-extrabold">Insights, Strategy & Party Guides</h1>
+          <p className="font-sans text-base font-medium text-slate-700 dark:text-slate-200 max-w-xl mx-auto">
             Articles on social deduction mechanics, party planning, and game design.
           </p>
         </div>
 
-        {/* Featured Old English Post (Section 8) */}
-        <div className="pixel-box pixel-box-yellow p-8 bg-[#141c2e] space-y-4">
+        {/* Featured Post */}
+        <div className="pixel-box pixel-box-yellow p-8 space-y-4">
           <div className="flex items-center gap-2">
-            <span className="pixel-badge bg-[#ffe600] text-slate-900">FEATURED ESSAY</span>
-            <span className="font-arcade text-xs text-slate-400">Old English Voice</span>
+            <span className="pixel-badge bg-[#fbbf24] text-slate-950 font-bold">FEATURED ESSAY</span>
+            <span className="font-arcade text-sm text-slate-600 dark:text-slate-400 font-bold">Classic Strategy</span>
           </div>
           
-          <h2 className="font-pixel text-xl sm:text-2xl text-[#ffe600]">
+          <h2 className="font-pixel text-xl sm:text-2xl text-[#d97706] dark:text-[#fbbf24] font-extrabold">
             The Art of Discovering the Hidden Deceiver
           </h2>
 
-          {/* Section 8 Old English Sample Content */}
-          <p className="font-serif italic text-base sm:text-lg text-slate-200 leading-relaxed border-l-4 border-[#ffe600] pl-4">
+          <p className="font-serif italic text-base sm:text-lg text-slate-800 dark:text-slate-200 leading-relaxed border-l-4 border-[#fbbf24] pl-4 font-semibold">
             "Many believe fortune alone reveals the hidden deceiver, yet wisdom declares otherwise. Observe each companion with a patient eye, for haste oft blinds the seeker. A clue too plain betrays certainty; a clue too clouded summons needless suspicion."
-          </p>
-
-          <p className="font-sans text-xs text-slate-300">
-            Read our full exploration of body language, verbal micro-expressions, and linguistic signals during social deduction rounds.
           </p>
         </div>
 
-        {/* Blog Posts Grid */}
+        {/* Articles List Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {articles.map((post) => (
-            <div key={post.slug} className="pixel-box p-6 bg-[#141c2e] space-y-3 flex flex-col justify-between">
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-xs font-arcade">
-                  <span className="text-[#00f0ff] uppercase">{post.category}</span>
-                  <span className="text-slate-400 flex items-center gap-1">
-                    <Calendar className="w-3 h-3" /> {post.date}
-                  </span>
-                </div>
-                <h3 className="font-pixel text-base text-slate-100 leading-snug">
-                  {post.title}
-                </h3>
-                <p className="font-sans text-xs text-slate-300 leading-relaxed">
-                  {post.excerpt}
-                </p>
+          {articles.map(art => (
+            <div key={art.slug} className="pixel-box p-6 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="pixel-badge bg-sky-100 dark:bg-sky-950 text-[#0284c7] dark:text-[#06b6d4] font-bold">{art.category}</span>
+                <span className="font-mono text-xs text-slate-600 dark:text-slate-400 font-bold">{art.date}</span>
               </div>
-
-              <div className="pt-3 border-t border-slate-800 flex justify-between items-center">
-                <span className="font-arcade text-xs text-slate-400">5 Min Read</span>
-                <span className="font-arcade text-base text-[#ffe600] flex items-center gap-1 hover:underline cursor-pointer">
-                  Read Article <ArrowRight className="w-4 h-4" />
-                </span>
-              </div>
+              <h2 className="font-pixel text-lg text-slate-900 dark:text-slate-100 font-bold">{art.title}</h2>
+              <p className="font-sans text-sm font-medium text-slate-700 dark:text-slate-300 leading-relaxed">
+                {art.excerpt}
+              </p>
             </div>
           ))}
         </div>

@@ -3,10 +3,12 @@
 import { useState } from "react";
 import SEOHead from "@/components/SEOHead";
 import Link from "next/link";
-import { DEFAULT_WORD_CATEGORIES, WordCategory } from "@/lib/gameEngine";
-import { Library, Sparkles, Copy, Check, Plus, Play, RefreshCw } from "lucide-react";
+import { DEFAULT_WORD_CATEGORIES } from "@/lib/gameEngine";
+import { useLanguage } from "@/context/LanguageContext";
+import { Play, Copy, Check, Plus, Sparkles } from "lucide-react";
 
 export default function WordLibraryPage() {
+  const { t, dictionary } = useLanguage();
   const [selectedCat, setSelectedCat] = useState<string>("all");
   const [customWordInput, setCustomWordInput] = useState<string>("");
   const [customWordsList, setCustomWordsList] = useState<string[]>([
@@ -30,6 +32,18 @@ export default function WordLibraryPage() {
     ? DEFAULT_WORD_CATEGORIES
     : DEFAULT_WORD_CATEGORIES.filter(c => c.id === selectedCat);
 
+  // Vibrant color palettes for word badges
+  const chipStyles = [
+    "bg-amber-100 text-amber-900 border-amber-300 dark:bg-amber-950/80 dark:text-amber-200 dark:border-amber-700",
+    "bg-sky-100 text-sky-900 border-sky-300 dark:bg-sky-950/80 dark:text-sky-200 dark:border-sky-700",
+    "bg-emerald-100 text-emerald-900 border-emerald-300 dark:bg-emerald-950/80 dark:text-emerald-200 dark:border-emerald-700",
+    "bg-rose-100 text-rose-900 border-rose-300 dark:bg-rose-950/80 dark:text-rose-200 dark:border-rose-700",
+    "bg-purple-100 text-purple-900 border-purple-300 dark:bg-purple-950/80 dark:text-purple-200 dark:border-purple-700",
+    "bg-indigo-100 text-indigo-900 border-indigo-300 dark:bg-indigo-950/80 dark:text-indigo-200 dark:border-indigo-700",
+    "bg-teal-100 text-teal-900 border-teal-300 dark:bg-teal-950/80 dark:text-teal-200 dark:border-teal-700",
+    "bg-orange-100 text-orange-900 border-orange-300 dark:bg-orange-950/80 dark:text-orange-200 dark:border-orange-700",
+  ];
+
   return (
     <>
       <SEOHead includeHowTo={false} />
@@ -38,21 +52,21 @@ export default function WordLibraryPage() {
         
         {/* Header */}
         <div className="text-center space-y-3">
-          <span className="pixel-badge bg-[#ff2a85] text-white">WORD LIBRARY</span>
-          <h1 className="font-pixel text-2xl sm:text-4xl text-[#ff2a85]">1,000+ Word Categories & Generators</h1>
-          <p className="font-sans text-sm text-slate-300 max-w-xl mx-auto">
+          <span className="pixel-badge bg-[#e11d48] dark:bg-[#f43f5e] text-white font-bold">WORD LIBRARY</span>
+          <h1 className="font-pixel text-2xl sm:text-4xl text-[#d97706] dark:text-[#fbbf24] font-extrabold">{dictionary.wordLibraryHeading}</h1>
+          <p className="font-sans text-base text-slate-700 dark:text-slate-200 max-w-xl mx-auto font-medium">
             Browse curated category lists or create custom word sets for your party games.
           </p>
         </div>
 
         {/* Category Filters */}
-        <div className="flex flex-wrap items-center justify-center gap-2 font-arcade text-lg">
+        <div className="flex flex-wrap items-center justify-center gap-2 font-arcade text-lg font-bold">
           <button
             onClick={() => setSelectedCat("all")}
-            className={`px-4 py-2 border-2 transition-all ${
+            className={`px-4 py-2.5 rounded-xl border-2 transition-all ${
               selectedCat === "all"
-                ? "bg-[#ffe600] text-slate-900 border-white shadow-[2px_2px_0px_#fff]"
-                : "bg-[#1e293b] text-slate-200 border-slate-700 hover:border-[#ffe600]"
+                ? "bg-[#fbbf24] text-slate-950 border-slate-900 shadow-md font-extrabold scale-[1.02]"
+                : "bg-[var(--bg-card-alt)] text-slate-900 dark:text-slate-200 border-slate-300 dark:border-slate-800 hover:border-[#fbbf24]"
             }`}
           >
             🌟 All Categories ({DEFAULT_WORD_CATEGORIES.reduce((a, c) => a + c.words.length, 0)})
@@ -61,10 +75,10 @@ export default function WordLibraryPage() {
             <button
               key={cat.id}
               onClick={() => setSelectedCat(cat.id)}
-              className={`px-4 py-2 border-2 transition-all ${
+              className={`px-4 py-2.5 rounded-xl border-2 transition-all ${
                 selectedCat === cat.id
-                  ? "bg-[#00f0ff] text-slate-900 border-white shadow-[2px_2px_0px_#fff]"
-                  : "bg-[#1e293b] text-slate-200 border-slate-700 hover:border-[#00f0ff]"
+                  ? "bg-[#38bdf8] text-slate-950 border-slate-900 shadow-md font-extrabold scale-[1.02]"
+                  : "bg-[var(--bg-card-alt)] text-slate-900 dark:text-slate-200 border-slate-300 dark:border-slate-800 hover:border-[#38bdf8]"
               }`}
             >
               {cat.icon} {cat.name}
@@ -75,29 +89,34 @@ export default function WordLibraryPage() {
         {/* Word Categories Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {categoriesToDisplay.map(cat => (
-            <div key={cat.id} className="pixel-box p-6 bg-[#141c2e] space-y-4">
-              <div className="flex items-center justify-between border-b border-slate-700 pb-3">
-                <div className="flex items-center gap-2">
-                  <span className="text-3xl">{cat.icon}</span>
+            <div key={cat.id} className="pixel-box p-6 space-y-4">
+              <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+                <div className="flex items-center gap-3">
+                  <span className="text-4xl">{cat.icon}</span>
                   <div>
-                    <h2 className="font-pixel text-base text-[#ffe600]">{cat.name}</h2>
-                    <span className="font-arcade text-xs text-slate-400 uppercase">Difficulty: {cat.difficulty}</span>
+                    <h2 className="font-pixel text-lg text-slate-900 dark:text-slate-100 font-extrabold">{cat.name}</h2>
+                    <span className="font-arcade text-xs text-[#0284c7] dark:text-[#06b6d4] uppercase font-bold">Difficulty: {cat.difficulty}</span>
                   </div>
                 </div>
                 <Link
                   href={`/play?cat=${cat.id}`}
-                  className="pixel-btn pixel-btn-cyan text-xs"
+                  className="pixel-btn pixel-btn-cyan text-xs font-bold"
                 >
-                  <Play className="w-3 h-3 inline mr-1" /> Play This
+                  <Play className="w-3.5 h-3.5 inline mr-1" /> Play This
                 </Link>
               </div>
 
-              <p className="font-sans text-xs text-slate-300">{cat.description}</p>
+              <p className="font-sans text-sm font-medium text-slate-700 dark:text-slate-300">{cat.description}</p>
 
-              {/* Sample Word Chips */}
+              {/* Colorful Word Chips */}
               <div className="flex flex-wrap gap-2 pt-2">
                 {cat.words.map((w, idx) => (
-                  <span key={idx} className="bg-[#1e293b] border border-slate-700 text-slate-200 text-xs px-2.5 py-1 font-mono">
+                  <span
+                    key={idx}
+                    className={`border text-xs px-3 py-1 rounded-lg font-arcade font-bold shadow-xs transition-transform hover:scale-105 ${
+                      chipStyles[idx % chipStyles.length]
+                    }`}
+                  >
                     {w}
                   </span>
                 ))}
@@ -106,59 +125,60 @@ export default function WordLibraryPage() {
           ))}
         </div>
 
-        {/* Custom Word Pack Generator Section */}
-        <div className="pixel-box pixel-box-yellow p-6 sm:p-10 bg-[#141c2e] space-y-6">
-          <div className="flex items-center gap-3">
-            <Sparkles className="w-8 h-8 text-[#ffe600]" />
-            <div>
-              <h2 className="font-pixel text-xl text-[#ffe600]">Custom Word Generator</h2>
-              <p className="font-sans text-xs text-slate-300">Build your own custom word pack to use in Imposter games!</p>
-            </div>
+        {/* Custom Word Generator */}
+        <div className="pixel-box pixel-box-yellow p-6 sm:p-8 space-y-4">
+          <div className="flex items-center gap-2 text-[#d97706] dark:text-[#fbbf24]">
+            <Sparkles className="w-6 h-6" />
+            <h2 className="font-pixel text-lg sm:text-xl font-extrabold">Custom Word Generator</h2>
           </div>
+          <p className="font-sans text-sm text-slate-700 dark:text-slate-300 font-medium">
+            Build your own custom word pack to use in Imposter party games!
+          </p>
 
-          <div className="flex gap-2">
+          <div className="flex gap-3">
             <input
               type="text"
               placeholder="Enter custom word or phrase..."
               value={customWordInput}
               onChange={(e) => setCustomWordInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && addCustomWord()}
-              className="bg-[#0a0e1a] border-2 border-slate-700 text-slate-100 px-4 py-2 font-arcade text-lg focus:outline-none focus:border-[#ffe600] flex-1"
+              className="bg-[var(--bg-card-alt)] border-2 border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 px-4 py-3 font-arcade text-lg font-bold rounded-xl focus:outline-none focus:border-[#fbbf24] flex-1 shadow-inner"
             />
             <button
               onClick={addCustomWord}
-              className="pixel-btn pixel-btn-yellow text-xs"
+              className="pixel-btn pixel-btn-yellow text-xs font-bold"
             >
               <Plus className="w-4 h-4 inline" /> Add Word
             </button>
           </div>
 
-          <div className="bg-[#0a0e1a] border-2 border-slate-800 p-4 space-y-3">
-            <div className="flex justify-between items-center font-pixel text-xs text-[#00f0ff]">
-              <span>YOUR CUSTOM PACK ({customWordsList.length} WORDS):</span>
-              <button
-                onClick={copyCustomPack}
-                className="text-xs text-[#ffe600] hover:underline flex items-center gap-1"
-              >
-                {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-                {copied ? "Copied!" : "Copy Words"}
-              </button>
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              {customWordsList.map((word, idx) => (
-                <span key={idx} className="bg-[#1e293b] border border-[#ffe600] text-[#ffe600] text-xs px-3 py-1 font-mono flex items-center gap-2">
-                  {word}
-                  <button
-                    onClick={() => setCustomWordsList(customWordsList.filter((_, i) => i !== idx))}
-                    className="text-red-400 hover:text-white"
+          {/* Custom Words Chips */}
+          {customWordsList.length > 0 && (
+            <div className="bg-[var(--bg-card-alt)] p-4 rounded-xl border border-slate-200 dark:border-slate-800 space-y-3">
+              <div className="flex items-center justify-between text-xs font-pixel text-slate-900 dark:text-slate-100 font-bold">
+                <span>YOUR CUSTOM PACK ({customWordsList.length} WORDS):</span>
+                <button
+                  onClick={copyCustomPack}
+                  className="hover:underline text-[#0284c7] dark:text-[#06b6d4] flex items-center gap-1 font-bold"
+                >
+                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copied ? "Copied!" : "Copy Words"}
+                </button>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {customWordsList.map((w, idx) => (
+                  <span
+                    key={idx}
+                    className={`border text-xs px-3 py-1 rounded-lg font-arcade font-bold ${
+                      chipStyles[idx % chipStyles.length]
+                    }`}
                   >
-                    ×
-                  </button>
-                </span>
-              ))}
+                    {w}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
       </div>

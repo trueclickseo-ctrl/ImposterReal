@@ -1,7 +1,7 @@
 export type SupportedLocale = 
   | 'en' | 'de' | 'fr' | 'es' | 'pt' | 'it' 
   | 'tr' | 'nl' | 'pl' | 'sv' | 'ru' | 'uk' 
-  | 'ja' | 'zh';
+  | 'ja' | 'zh' | 'el';
 
 export interface LocaleInfo {
   code: SupportedLocale;
@@ -25,7 +25,8 @@ export const LOCALES: LocaleInfo[] = [
   { code: 'ru', name: 'Russian', nativeName: 'Русский', flag: '🇷🇺', region: 'Eastern Europe' },
   { code: 'uk', name: 'Ukrainian', nativeName: 'Українська', flag: '🇺🇦', region: 'Ukraine' },
   { code: 'ja', name: 'Japanese', nativeName: '日本語', flag: '🇯🇵', region: 'Japan' },
-  { code: 'zh', name: 'Chinese', nativeName: '中文', flag: '🇨🇳', region: 'China & Asia' }
+  { code: 'zh', name: 'Chinese', nativeName: '中文', flag: '🇨🇳', region: 'China & Asia' },
+  { code: 'el', name: 'Greek', nativeName: 'Ελληνικά', flag: '🇬🇷', region: 'Greece' }
 ];
 
 export interface Dictionary {
@@ -378,7 +379,7 @@ export const DICTIONARIES: Record<SupportedLocale, Dictionary> = {
     wordLibraryHeading: "Понад 1000 Категорій Слів",
     gameModesHeading: "Цікаві Режими Гри",
     faqHeading: "Часті Запитання",
-    aeoQuestion1: "Що таке гра Imposter?",
+    aeoQuestion1: "Щο таке гра Imposter?",
     aeoAnswer1: "Imposter — це безкоштовна браузерна настільна гра для 3–20 гравців.",
     aeoQuestion2: "Скільки гравців потрібно?",
     aeoAnswer2: "Підтримує від 3 до 20 гравців на одному пристрої або за кодом кімнати.",
@@ -449,6 +450,34 @@ export const DICTIONARIES: Record<SupportedLocale, Dictionary> = {
     historyHeading: "隐蔽身份游戏编年史",
     gameLogicHeading: "信息不对称与贝叶斯概率推理",
     academicRefHeading: "高权威学术文献与参考书目"
+  },
+  el: {
+    siteTitle: "Imposter | Παιχνίδι Παρέας & Εγκυκλοπαίδεια",
+    siteSubtitle: "Η Κορυφαία Εγκυκλοπαίδεια Κοινωνικής Αποκάλυψης & Θεωρίας Παιγνίων",
+    heroHeader: "Άκουσε, Ταξιδιώτη! Αποκάλυψε τον Κρυφό Απατεώνα",
+    heroSubheader: "Συγκέντρωσε την παρέα σου! Ένας ανάμεσά σας είναι ο Imposter που δεν γνωρίζει τη μυστική λέξη. Δώσε έξυπνα στοιχεία!",
+    playNowButton: "Έναρξη Παιχνιδιού",
+    createRoomButton: "Δημιουργία Δωματίου",
+    joinRoomButton: "Είσοδος στο Δωμάτιο",
+    rulesHeading: "Πώς να Παίξετε Imposter",
+    wordLibraryHeading: "Πάνω από 1.000 Κατηγορίες Λέξεων",
+    gameModesHeading: "Συναρπαστικές Λειτουργίες Παιχνιδιού",
+    faqHeading: "Συχνές Ερωτήσεις (FAQ)",
+    aeoQuestion1: "Τι είναι το παιχνίδι Imposter;",
+    aeoAnswer1: "Το Imposter είναι ένα δωρεάν διαδικτυακό παιχνίδι παρέας για 3 έως 20 παίκτες. Όλοι λαμβάνουν μια μυστική λέξη εκτός από τον Imposter.",
+    aeoQuestion2: "Πόσοι παίκτες χρειάζονται;",
+    aeoAnswer2: "Υποστηρίζει 3 έως 20 παίκτες σε μία συσκευή ή μέσω κωδικών δωματίου.",
+    retroThemeToggle: "8-Bit Retro Στυλ",
+    crtScanlineToggle: "Εφέ CRT",
+    languageSelectLabel: "Επιλογή Γλώσσας",
+    footerRights: "© 2026 Imposter Παιχνίδι Παρέας. Όλα τα δικαιώματα διατηρούνται.",
+    accessibilityPlayLabel: "Παίξτε τώρα στο πρόγραμμα περιήγησης",
+    accessibilityCreateLabel: "Δημιουργήστε νέο δωμάτιο παιχνιδιού",
+    encyclopediaHeading: "Εγκυκλοπαίδεια Κοινωνικής Αποκάλυψης",
+    encyclopediaSubheading: "Ιστορία, Θεωρία Παιγνίων & Ακαδημαϊκή Έρευνα",
+    historyHeading: "Χρονολογική Ιστορία Παιχνιδιών Κρυφού Ρόλου",
+    gameLogicHeading: "Ασυμμετρία Πληροφοριών & Μπεϋζιανή Λογική",
+    academicRefHeading: "Ακαδημαϊκές Αναφορές & Βιβλιογραφία"
   }
 };
 
