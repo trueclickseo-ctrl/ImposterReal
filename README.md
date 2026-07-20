@@ -1,13 +1,20 @@
-# SpinVerse
+# Imposter Real - Social Deduction Party Game
 
-SpinVerse is a fast, lightweight, and accessible random-decision tools website (spin wheels, generators, pickers) built with Next.js (App Router), TypeScript, and Tailwind CSS.
+Imposter Real is a fast, lightweight, state-of-the-art browser-based social deduction party game and Master Encyclopedia built with Next.js (App Router), TypeScript, Tailwind CSS, and 14-language internationalization (i18n) support.
+
+## Features
+
+- 🕵️ **Interactive Party Game**: Pass-and-play and room-based word deduction game with Imposter roles, clues, timer, and voting.
+- 📚 **Master Encyclopedia**: Extensive strategy guides, rules, game modes, academic references, and history.
+- 🌍 **14 Languages i18n**: Multi-lingual support including English, German, French, Spanish, Portuguese, Italian, Turkish, Dutch, Polish, Swedish, Russian, Ukrainian, Japanese, and Chinese.
+- ⚡ **SEO & Performance**: 100% static HTML export with semantic markup, canonical tags, alternate hreflang tags, and instant load times.
 
 ## Technology Stack
 
-- **Framework**: Next.js 16 (App Router)
-- **Styling**: Tailwind CSS v4 (with neobrutalist style system)
+- **Framework**: Next.js 16 (App Router with Static HTML Export)
+- **Styling**: Tailwind CSS v4 (CRT & Retro Sci-Fi style system)
 - **Icons**: Lucide React
-- **Animations**: Framer Motion (for wheel spin & micro-interactions)
+- **Animations**: Framer Motion
 
 ## Development Setup
 
@@ -23,28 +30,21 @@ Then, run the development server:
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser.
 
-## Hostinger Node.js Web App Deployment Steps
+## Build & Export
 
-Hostinger Business Plan supports hosting Next.js Node.js apps. Follow these steps to set up auto-deployment:
+To generate the static production build:
 
-1. **Hostinger Panel Setup**:
-   - Go to your Hostinger hPanel -> **Websites** -> **Node.js**.
-   - Click **Create Web App**.
-   - Set the App Name to `spinverse`.
-   - Select the desired Node.js version (v20+ recommended).
-   - Set the Document Root pointing to your domain directory.
+```bash
+npm run build
+```
 
-2. **Git Integration**:
-   - Connect your GitHub repository to the Hostinger Node.js Web App.
-   - Choose the branch (e.g., `main`) for automated deployments on push.
+The static HTML files will be generated in the `out/` folder.
 
-3. **Build & Start Configuration**:
-   - Set the **Install Command**: `npm install`
-   - Set the **Build Command**: `npm run build`
-   - Set the **Start Command**: `npm run start` or point the entry script to the custom server/Next production server script.
-   - Set the environment variable `PORT` to the port provided by Hostinger (usually managed automatically by their proxy).
-   
-4. **Environment Variables**:
-   - Add `NODE_ENV=production` in the environment configuration section.
+## Deployment Setup
+
+### Hostinger Deployment
+
+1. Connect `https://github.com/trueclickseo-ctrl/ImposterReal.git` to your hosting panel or upload the contents of the `out/` directory to `public_html`.
+2. `.htaccess` is included to route traffic seamlessly to static HTML pages.
