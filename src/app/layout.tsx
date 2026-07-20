@@ -51,6 +51,8 @@ export const metadata: Metadata = {
   }
 };
 
+import { LanguageProvider } from "@/context/LanguageContext";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -59,14 +61,31 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${pressStart.variable} ${vt323.variable} ${inter.variable} h-full antialiased crt-scanlines`}
+      data-theme="light"
+      className={`${pressStart.variable} ${vt323.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#0a0e1a] text-slate-100 font-sans">
-        <Navbar />
-        <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-8">
-          {children}
-        </main>
-        <Footer />
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('theme') || 'light';
+                  document.documentElement.setAttribute('data-theme', theme);
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body className="min-h-full flex flex-col bg-[var(--bg-primary)] text-[var(--text-primary)] font-sans font-medium transition-colors duration-200">
+        <LanguageProvider>
+          <Navbar />
+          <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-8">
+            {children}
+          </main>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );

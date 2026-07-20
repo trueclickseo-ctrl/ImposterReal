@@ -7,7 +7,8 @@ import {
   createInitialState, 
   startNewRound, 
   GameState, 
-  WordCategory 
+  WordCategory,
+  generateRoomCode
 } from "@/lib/gameEngine";
 import { UI_MICROCOPY } from "@/lib/microcopy";
 import { Play, Users, Eye, EyeOff, Timer, CheckCircle, RefreshCw, AlertTriangle, Shield, Award, Plus, Trash2 } from "lucide-react";
@@ -18,6 +19,14 @@ export default function ImposterGameUI() {
   const [showRoleCard, setShowRoleCard] = useState<boolean>(false);
   const [selectedVoteId, setSelectedVoteId] = useState<string | null>(null);
   const [newPlayerName, setNewPlayerName] = useState<string>("");
+
+  // Fix hydration mismatch by generating client-side room code once mounted
+  useEffect(() => {
+    setGameState(prev => ({
+      ...prev,
+      roomCode: generateRoomCode(),
+    }));
+  }, []);
 
   // Timer Countdown Effect
   useEffect(() => {
@@ -120,37 +129,37 @@ export default function ImposterGameUI() {
     <div className="w-full max-w-4xl mx-auto my-6">
       
       {/* Game Window Chrome Header */}
-      <div className="bg-[#1e293b] border-4 border-[#00f0ff] p-4 flex items-center justify-between shadow-[6px_6px_0px_#000]">
+      <div className="bg-[var(--bg-card-alt)] border-4 border-[#0284c7] dark:border-[#00f0ff] p-4 flex items-center justify-between shadow-[5px_5px_0px_#0f172a] dark:shadow-[5px_5px_0px_#000]">
         <div className="flex items-center gap-3">
-          <div className="w-4 h-4 bg-[#ff2a85] rounded-full border border-white" />
-          <div className="w-4 h-4 bg-[#ffe600] rounded-full border border-white" />
-          <div className="w-4 h-4 bg-[#39ff14] rounded-full border border-white" />
-          <span className="font-pixel text-xs text-[#00f0ff] uppercase tracking-wider ml-2">
+          <div className="w-4 h-4 bg-[#e11d48] dark:bg-[#ff2a85] rounded-full border border-slate-900" />
+          <div className="w-4 h-4 bg-[#f59e0b] dark:bg-[#ffe600] rounded-full border border-slate-900" />
+          <div className="w-4 h-4 bg-[#16a34a] dark:bg-[#39ff14] rounded-full border border-slate-900" />
+          <span className="font-pixel text-xs text-[#0284c7] dark:text-[#00f0ff] uppercase tracking-wider ml-2 font-bold">
             ROOM: {gameState.roomCode}
           </span>
         </div>
-        <div className="font-arcade text-lg text-slate-300">
+        <div className="font-arcade text-xl font-bold text-slate-900 dark:text-slate-100">
           ROUND {gameState.roundNumber} • {gameState.activeCategoryName}
         </div>
       </div>
 
       {/* Main Game Screen Content */}
-      <div className="bg-[#141c2e] border-x-4 border-b-4 border-[#00f0ff] p-6 sm:p-10 shadow-[6px_6px_0px_#000]">
+      <div className="bg-[var(--bg-card)] border-x-4 border-b-4 border-[#0284c7] dark:border-[#00f0ff] p-6 sm:p-10 shadow-[5px_5px_0px_#0f172a] dark:shadow-[5px_5px_0px_#000]">
         
         {/* LOBBY STATE */}
         {gameState.status === 'lobby' && (
           <div className="space-y-8">
             <div className="text-center space-y-2">
-              <span className="pixel-badge bg-[#ffe600] text-slate-900">SETUP LOBBY</span>
-              <h2 className="font-pixel text-xl sm:text-2xl text-[#ffe600]">Gather Thy Fellowship</h2>
-              <p className="font-sans text-sm text-slate-300 max-w-md mx-auto">
+              <span className="pixel-badge bg-[#ffe600] text-slate-900 border-slate-900 font-bold">SETUP LOBBY</span>
+              <h2 className="font-pixel text-xl sm:text-2xl text-[#b45309] dark:text-[#ffe600]">Gather Thy Fellowship</h2>
+              <p className="font-sans text-base font-semibold text-slate-700 dark:text-slate-300 max-w-md mx-auto">
                 Add players (3-20), select a word category, then click start to receive secret words.
               </p>
             </div>
 
             {/* Category Selector Grid */}
             <div>
-              <label className="font-pixel text-xs text-[#00f0ff] uppercase block mb-3">1. Select Word Category</label>
+              <label className="font-pixel text-xs text-[#0284c7] dark:text-[#00f0ff] uppercase block mb-3 font-bold">1. Select Word Category</label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {DEFAULT_WORD_CATEGORIES.map(cat => (
                   <button
@@ -160,15 +169,15 @@ export default function ImposterGameUI() {
                       settings: { ...prev.settings, category: cat.id },
                       activeCategoryName: cat.name
                     }))}
-                    className={`p-3 border-2 text-left font-arcade transition-all ${
+                    className={`p-3 border-3 text-left font-arcade transition-all ${
                       gameState.settings.category === cat.id
-                        ? 'bg-[#00f0ff] text-slate-900 border-white shadow-[3px_3px_0px_#fff]'
-                        : 'bg-[#1e293b] text-slate-200 border-slate-700 hover:border-[#00f0ff]'
+                        ? 'bg-[#0284c7] dark:bg-[#00f0ff] text-white dark:text-slate-900 border-slate-900 shadow-[3px_3px_0px_#0f172a] font-bold'
+                        : 'bg-[var(--bg-card-alt)] text-slate-900 dark:text-slate-200 border-slate-300 dark:border-slate-700 hover:border-[#0284c7] dark:hover:border-[#00f0ff]'
                     }`}
                   >
-                    <div className="text-xl">{cat.icon}</div>
-                    <div className="font-bold text-base mt-1">{cat.name}</div>
-                    <div className="text-xs opacity-75">{cat.words.length} words</div>
+                    <div className="text-2xl">{cat.icon}</div>
+                    <div className="font-bold text-lg mt-1">{cat.name}</div>
+                    <div className="text-xs font-sans opacity-90 font-semibold">{cat.words.length} words</div>
                   </button>
                 ))}
               </div>
@@ -176,7 +185,7 @@ export default function ImposterGameUI() {
 
             {/* Player Roster Builder */}
             <div>
-              <label className="font-pixel text-xs text-[#ff2a85] uppercase block mb-3">2. Add Players ({gameState.players.length}/20)</label>
+              <label className="font-pixel text-xs text-[#e11d48] dark:text-[#ff2a85] uppercase block mb-3 font-bold">2. Add Players ({gameState.players.length}/20)</label>
               
               <div className="flex gap-2 mb-4">
                 <input
@@ -185,7 +194,7 @@ export default function ImposterGameUI() {
                   value={newPlayerName}
                   onChange={(e) => setNewPlayerName(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && addPlayer()}
-                  className="bg-[#0a0e1a] border-2 border-slate-700 text-slate-100 px-4 py-2 font-arcade text-lg focus:outline-none focus:border-[#ffe600] flex-1"
+                  className="bg-[var(--bg-card-alt)] border-3 border-slate-400 dark:border-slate-700 text-slate-900 dark:text-slate-100 px-4 py-2.5 font-arcade text-xl font-bold focus:outline-none focus:border-[#d97706] dark:focus:border-[#ffe600] flex-1"
                 />
                 <button
                   onClick={addPlayer}
@@ -196,13 +205,13 @@ export default function ImposterGameUI() {
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                {gameState.players.map((p, idx) => (
-                  <div key={p.id} className="bg-[#1e293b] border-2 border-slate-700 p-3 flex items-center justify-between font-arcade text-lg">
+                {gameState.players.map((p) => (
+                  <div key={p.id} className="bg-[var(--bg-card-alt)] border-2 border-slate-400 dark:border-slate-700 p-3 flex items-center justify-between font-arcade text-xl font-bold text-slate-900 dark:text-slate-100 shadow-sm">
                     <span className="truncate">👤 {p.name}</span>
                     {gameState.players.length > 3 && (
                       <button
                         onClick={() => removePlayer(p.id)}
-                        className="text-red-400 hover:text-red-300 p-1"
+                        className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 p-1 font-bold"
                         title="Remove Player"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -214,10 +223,10 @@ export default function ImposterGameUI() {
             </div>
 
             {/* Start Button */}
-            <div className="text-center pt-4 border-t border-slate-800">
+            <div className="text-center pt-4 border-t-2 border-slate-300 dark:border-slate-800">
               <button
                 onClick={startRound}
-                className="pixel-btn pixel-btn-cyan text-sm sm:text-base w-full sm:w-auto px-8 py-4"
+                className="pixel-btn pixel-btn-cyan text-sm sm:text-base w-full sm:w-auto px-8 py-4 font-bold"
                 aria-label={UI_MICROCOPY.startGame.plainAccessibilityFallback}
               >
                 🎮 {UI_MICROCOPY.startGame.retroDisplay}
@@ -229,47 +238,47 @@ export default function ImposterGameUI() {
         {/* ROLE REVEAL STATE (PASS & PLAY) */}
         {gameState.status === 'role-reveal' && (
           <div className="text-center space-y-6 max-w-lg mx-auto py-6">
-            <span className="pixel-badge bg-[#00f0ff] text-slate-900">PASS & PLAY SECRET CARD</span>
+            <span className="pixel-badge bg-[#0284c7] dark:bg-[#00f0ff] text-white dark:text-slate-900 border-slate-900 font-bold">PASS & PLAY SECRET CARD</span>
             
-            <h3 className="font-pixel text-xl sm:text-2xl text-slate-100">
-              Pass Device To: <span className="text-[#ffe600]">{gameState.players[activePlayerIndex]?.name}</span>
+            <h3 className="font-pixel text-xl sm:text-2xl text-slate-900 dark:text-slate-100 font-bold">
+              Pass Device To: <span className="text-[#b45309] dark:text-[#ffe600]">{gameState.players[activePlayerIndex]?.name}</span>
             </h3>
 
             {!showRoleCard ? (
-              <div className="bg-[#1e293b] border-4 border-[#ffe600] p-8 space-y-4 shadow-[6px_6px_0px_#000]">
+              <div className="bg-[var(--bg-card-alt)] border-4 border-[#d97706] dark:border-[#ffe600] p-8 space-y-4 shadow-[5px_5px_0px_#0f172a] dark:shadow-[5px_5px_0px_#000]">
                 <div className="text-5xl animate-bounce">🔒</div>
-                <p className="font-sans text-sm text-slate-300">
+                <p className="font-sans text-base font-semibold text-slate-700 dark:text-slate-300">
                   Ensure no other player is watching your screen, then click below to reveal your secret word.
                 </p>
                 <button
                   onClick={() => setShowRoleCard(true)}
-                  className="pixel-btn pixel-btn-yellow w-full"
+                  className="pixel-btn pixel-btn-yellow w-full font-bold"
                 >
                   <Eye className="w-4 h-4 inline mr-2" /> View Secret Word
                 </button>
               </div>
             ) : (
-              <div className={`border-4 p-8 space-y-4 shadow-[6px_6px_0px_#000] ${
+              <div className={`border-4 p-8 space-y-4 shadow-[5px_5px_0px_#0f172a] dark:shadow-[5px_5px_0px_#000] ${
                 gameState.players[activePlayerIndex]?.role === 'imposter'
-                  ? 'bg-red-950/80 border-red-500 text-red-200'
-                  : 'bg-emerald-950/80 border-emerald-500 text-emerald-200'
+                  ? 'bg-red-100 dark:bg-red-950/80 border-red-600 text-red-900 dark:text-red-200'
+                  : 'bg-emerald-100 dark:bg-emerald-950/80 border-emerald-600 text-emerald-900 dark:text-emerald-200'
               }`}>
                 {gameState.players[activePlayerIndex]?.role === 'imposter' ? (
                   <>
                     <div className="text-5xl animate-pulse">🤫</div>
-                    <h4 className="font-pixel text-2xl text-red-400">YOU ARE THE IMPOSTER!</h4>
-                    <p className="font-sans text-sm text-slate-300">
+                    <h4 className="font-pixel text-2xl text-red-600 dark:text-red-400 font-bold">YOU ARE THE IMPOSTER!</h4>
+                    <p className="font-sans text-base font-semibold text-slate-800 dark:text-slate-200">
                       You do not know the secret word! Listen carefully to other players' clues and bluff your way through!
                     </p>
                   </>
                 ) : (
                   <>
                     <div className="text-5xl">🔑</div>
-                    <h4 className="font-pixel text-xs text-emerald-400 uppercase">Your Secret Word:</h4>
-                    <div className="font-pixel text-2xl sm:text-3xl text-[#ffe600] tracking-wider py-2 bg-black/40 border-2 border-emerald-500">
+                    <h4 className="font-pixel text-xs text-emerald-800 dark:text-emerald-400 uppercase font-bold">Your Secret Word:</h4>
+                    <div className="font-pixel text-2xl sm:text-3xl text-amber-900 dark:text-[#ffe600] tracking-wider py-2 bg-amber-100 dark:bg-black/40 border-2 border-emerald-600 font-bold">
                       {gameState.secretWord}
                     </div>
-                    <p className="font-sans text-xs text-slate-300">
+                    <p className="font-sans text-sm font-semibold text-slate-800 dark:text-slate-300">
                       Category: {gameState.activeCategoryName}. Give one subtle clue that won't give it away to the Imposter!
                     </p>
                   </>
@@ -277,7 +286,7 @@ export default function ImposterGameUI() {
 
                 <button
                   onClick={handleNextPlayerReveal}
-                  className="pixel-btn pixel-btn-cyan w-full mt-4"
+                  className="pixel-btn pixel-btn-cyan w-full mt-4 font-bold"
                 >
                   <EyeOff className="w-4 h-4 inline mr-2" /> Hide & Pass to Next Player
                 </button>
@@ -289,22 +298,22 @@ export default function ImposterGameUI() {
         {/* DISCUSSION & TIMER STATE */}
         {gameState.status === 'discussion' && (
           <div className="space-y-6 text-center py-4">
-            <span className="pixel-badge bg-[#39ff14] text-slate-900">DISCUSSION ROUND</span>
+            <span className="pixel-badge bg-[#16a34a] dark:bg-[#39ff14] text-white dark:text-slate-900 border-slate-900 font-bold">DISCUSSION ROUND</span>
             
-            <h3 className="font-pixel text-xl text-[#ffe600]">Give Clues & Discuss!</h3>
+            <h3 className="font-pixel text-xl text-[#b45309] dark:text-[#ffe600] font-bold">Give Clues & Discuss!</h3>
 
             {/* Countdown Timer Display */}
-            <div className="bg-[#0a0e1a] border-4 border-[#ffe600] p-6 max-w-xs mx-auto shadow-[4px_4px_0px_#000]">
-              <div className="flex items-center justify-center gap-2 font-pixel text-3xl text-[#ffe600]">
-                <Timer className="w-8 h-8 text-[#ff2a85] animate-spin" />
+            <div className="bg-[var(--bg-card-alt)] border-4 border-[#d97706] dark:border-[#ffe600] p-6 max-w-xs mx-auto shadow-[4px_4px_0px_#0f172a] dark:shadow-[4px_4px_0px_#000]">
+              <div className="flex items-center justify-center gap-2 font-pixel text-3xl text-[#d97706] dark:text-[#ffe600] font-bold">
+                <Timer className="w-8 h-8 text-[#e11d48] dark:text-[#ff2a85] animate-spin" />
                 <span>{Math.floor(gameState.timerRemaining / 60)}:{(gameState.timerRemaining % 60).toString().padStart(2, '0')}</span>
               </div>
-              <span className="font-arcade text-sm text-slate-400 uppercase tracking-widest mt-1 block">Discussion Time Left</span>
+              <span className="font-arcade text-base text-slate-700 dark:text-slate-400 uppercase tracking-widest mt-1 block font-bold">Discussion Time Left</span>
             </div>
 
-            <div className="bg-[#1e293b] border-2 border-slate-700 p-4 max-w-xl mx-auto text-left space-y-2">
-              <h4 className="font-pixel text-xs text-[#00f0ff]">Round Rules & Clue Sequence:</h4>
-              <ul className="list-disc list-inside font-sans text-sm text-slate-300 space-y-1">
+            <div className="bg-[var(--bg-card-alt)] border-2 border-slate-400 dark:border-slate-700 p-4 max-w-xl mx-auto text-left space-y-2">
+              <h4 className="font-pixel text-xs text-[#0284c7] dark:text-[#00f0ff] font-bold">Round Rules & Clue Sequence:</h4>
+              <ul className="list-disc list-inside font-sans text-base font-semibold text-slate-800 dark:text-slate-300 space-y-1">
                 <li>Each player says <strong>one single word or short phrase</strong> clue.</li>
                 <li>The Imposter must improvise a plausible clue without knowing the secret word.</li>
                 <li>After everyone gives a clue, debate who sounds suspicious!</li>
@@ -313,7 +322,7 @@ export default function ImposterGameUI() {
 
             <button
               onClick={() => setGameState(prev => ({ ...prev, status: 'voting' }))}
-              className="pixel-btn pixel-btn-pink text-xs sm:text-sm px-6 py-3"
+              className="pixel-btn pixel-btn-pink text-xs sm:text-sm px-6 py-3 font-bold"
             >
               🗳️ Skip to Voting Phase
             </button>
@@ -323,9 +332,9 @@ export default function ImposterGameUI() {
         {/* VOTING STATE */}
         {gameState.status === 'voting' && (
           <div className="space-y-6 text-center max-w-lg mx-auto py-4">
-            <span className="pixel-badge bg-[#ff2a85] text-white">VOTING PHASE</span>
-            <h3 className="font-pixel text-xl text-[#ff2a85]">Cast Thy Judgment</h3>
-            <p className="font-sans text-sm text-slate-300">
+            <span className="pixel-badge bg-[#e11d48] dark:bg-[#ff2a85] text-white border-slate-900 font-bold">VOTING PHASE</span>
+            <h3 className="font-pixel text-xl text-[#e11d48] dark:text-[#ff2a85] font-bold">Cast Thy Judgment</h3>
+            <p className="font-sans text-base font-semibold text-slate-700 dark:text-slate-300">
               Select the player your group suspects of being the secret Imposter:
             </p>
 
@@ -334,14 +343,14 @@ export default function ImposterGameUI() {
                 <button
                   key={p.id}
                   onClick={() => setSelectedVoteId(p.id)}
-                  className={`p-4 border-2 font-arcade text-xl flex items-center justify-between transition-all ${
+                  className={`p-4 border-3 font-arcade text-2xl font-bold flex items-center justify-between transition-all ${
                     selectedVoteId === p.id
-                      ? 'bg-[#ff2a85] text-white border-white shadow-[4px_4px_0px_#fff]'
-                      : 'bg-[#1e293b] text-slate-200 border-slate-700 hover:border-[#ff2a85]'
+                      ? 'bg-[#e11d48] dark:bg-[#ff2a85] text-white border-slate-900 shadow-[4px_4px_0px_#0f172a]'
+                      : 'bg-[var(--bg-card-alt)] text-slate-900 dark:text-slate-200 border-slate-400 dark:border-slate-700 hover:border-[#e11d48]'
                   }`}
                 >
                   <span>👤 {p.name}</span>
-                  {selectedVoteId === p.id && <CheckCircle className="w-5 h-5 text-white" />}
+                  {selectedVoteId === p.id && <CheckCircle className="w-6 h-6 text-white" />}
                 </button>
               ))}
             </div>
@@ -349,7 +358,7 @@ export default function ImposterGameUI() {
             <button
               disabled={!selectedVoteId}
               onClick={submitVote}
-              className={`pixel-btn pixel-btn-pink w-full py-4 text-sm ${!selectedVoteId ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`pixel-btn pixel-btn-pink w-full py-4 text-sm font-bold ${!selectedVoteId ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
               {UI_MICROCOPY.submitVote.retroDisplay}
             </button>
@@ -359,40 +368,40 @@ export default function ImposterGameUI() {
         {/* GAME OVER & REVEAL STATE */}
         {gameState.status === 'game-over' && (
           <div className="text-center space-y-6 max-w-lg mx-auto py-6">
-            <span className="pixel-badge bg-[#ffe600] text-slate-900">ROUND RESULTS</span>
+            <span className="pixel-badge bg-[#ffe600] text-slate-900 border-slate-900 font-bold">ROUND RESULTS</span>
 
             {gameState.winner === 'civilians' ? (
-              <div className="bg-emerald-950/90 border-4 border-emerald-400 p-6 space-y-3 shadow-[6px_6px_0px_#000]">
+              <div className="bg-emerald-100 dark:bg-emerald-950/90 border-4 border-emerald-600 p-6 space-y-3 shadow-[5px_5px_0px_#0f172a]">
                 <div className="text-5xl">🏆</div>
-                <h3 className="font-pixel text-2xl text-emerald-400">CIVILIANS WIN!</h3>
-                <p className="font-sans text-sm text-slate-200">
+                <h3 className="font-pixel text-2xl text-emerald-800 dark:text-emerald-400 font-bold">CIVILIANS WIN!</h3>
+                <p className="font-sans text-base font-semibold text-slate-800 dark:text-slate-200">
                   You successfully caught the secret Imposter!
                 </p>
               </div>
             ) : (
-              <div className="bg-red-950/90 border-4 border-red-500 p-6 space-y-3 shadow-[6px_6px_0px_#000]">
+              <div className="bg-red-100 dark:bg-red-950/90 border-4 border-red-600 p-6 space-y-3 shadow-[5px_5px_0px_#0f172a]">
                 <div className="text-5xl">👺</div>
-                <h3 className="font-pixel text-2xl text-red-400">IMPOSTER WINS!</h3>
-                <p className="font-sans text-sm text-slate-200">
+                <h3 className="font-pixel text-2xl text-red-800 dark:text-red-400 font-bold">IMPOSTER WINS!</h3>
+                <p className="font-sans text-base font-semibold text-slate-800 dark:text-slate-200">
                   The Imposter fooled the group and escaped detection!
                 </p>
               </div>
             )}
 
             {/* Revealed Details */}
-            <div className="bg-[#1e293b] border-2 border-slate-700 p-4 space-y-2 text-left font-arcade text-lg">
-              <div>🔑 <strong>Secret Word Was:</strong> <span className="text-[#ffe600]">{gameState.secretWord}</span></div>
-              <div>👺 <strong>Secret Imposter Was:</strong> <span className="text-[#ff2a85]">{gameState.players.find(p => gameState.imposterIds.includes(p.id))?.name}</span></div>
+            <div className="bg-[var(--bg-card-alt)] border-2 border-slate-400 dark:border-slate-700 p-4 space-y-2 text-left font-arcade text-xl font-bold text-slate-900 dark:text-slate-100">
+              <div>🔑 <strong>Secret Word Was:</strong> <span className="text-[#b45309] dark:text-[#ffe600]">{gameState.secretWord}</span></div>
+              <div>👺 <strong>Secret Imposter Was:</strong> <span className="text-[#e11d48] dark:text-[#ff2a85]">{gameState.players.find(p => gameState.imposterIds.includes(p.id))?.name}</span></div>
             </div>
 
             {/* Scoreboard */}
-            <div className="bg-[#0a0e1a] border-2 border-slate-800 p-4 text-left">
-              <h4 className="font-pixel text-xs text-[#00f0ff] uppercase mb-2">Scoreboard Tracker:</h4>
-              <div className="grid grid-cols-2 gap-2 font-arcade text-lg">
+            <div className="bg-[var(--bg-card-alt)] border-2 border-slate-400 dark:border-slate-800 p-4 text-left">
+              <h4 className="font-pixel text-xs text-[#0284c7] dark:text-[#00f0ff] uppercase mb-2 font-bold">Scoreboard Tracker:</h4>
+              <div className="grid grid-cols-2 gap-2 font-arcade text-xl font-bold">
                 {gameState.players.map(p => (
-                  <div key={p.id} className="flex justify-between border-b border-slate-800 py-1">
+                  <div key={p.id} className="flex justify-between border-b border-slate-300 dark:border-slate-800 py-1 text-slate-900 dark:text-slate-100">
                     <span>👤 {p.name}</span>
-                    <span className="text-[#ffe600] font-bold">{p.score} PTS</span>
+                    <span className="text-[#b45309] dark:text-[#ffe600] font-bold">{p.score} PTS</span>
                   </div>
                 ))}
               </div>
@@ -400,7 +409,7 @@ export default function ImposterGameUI() {
 
             <button
               onClick={startRound}
-              className="pixel-btn pixel-btn-yellow w-full py-4 text-sm"
+              className="pixel-btn pixel-btn-yellow w-full py-4 text-sm font-bold"
             >
               <RefreshCw className="w-4 h-4 inline mr-2" /> {UI_MICROCOPY.playAgain.retroDisplay}
             </button>
