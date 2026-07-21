@@ -4,7 +4,8 @@ import {
   generateBreadcrumbSchema, 
   generateSoftwareApplicationSchema,
   generateWebSiteSchema,
-  generateOrganizationSchema
+  generateOrganizationSchema,
+  generateGameSchema
 } from "@/lib/schemaGenerator";
 
 interface SEOHeadProps {
@@ -16,6 +17,7 @@ interface SEOHeadProps {
 export default function SEOHead({ faqItems, breadcrumbs, includeHowTo = true }: SEOHeadProps) {
   const schemas: any[] = [
     generateSoftwareApplicationSchema(),
+    generateGameSchema(),
     generateWebSiteSchema(),
     generateOrganizationSchema()
   ];

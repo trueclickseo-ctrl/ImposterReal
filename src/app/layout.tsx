@@ -39,23 +39,29 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "https://imposterland.com",
-    languages: {
-      "en": "https://imposterland.com/en",
-      "de": "https://imposterland.com/de",
-      "fr": "https://imposterland.com/fr",
-      "es": "https://imposterland.com/es",
-      "pt": "https://imposterland.com/pt",
-      "it": "https://imposterland.com/it",
-      "tr": "https://imposterland.com/tr",
-      "nl": "https://imposterland.com/nl",
-      "pl": "https://imposterland.com/pl",
-      "sv": "https://imposterland.com/sv",
-      "ru": "https://imposterland.com/ru",
-      "uk": "https://imposterland.com/uk",
-      "ja": "https://imposterland.com/ja",
-      "zh": "https://imposterland.com/zh"
-    }
-  }
+  },
+  openGraph: {
+    title: "Imposter | Free Online Social Deduction Party Game",
+    description: "Play Imposter free in your browser — no download, no account. Custom rooms, 1,000+ word categories, 14 languages. Perfect for friends, teams & classrooms.",
+    url: "https://imposterland.com",
+    siteName: "ImposterLand",
+    images: [
+      {
+        url: "https://imposterland.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Imposter Game — Free Online Social Deduction Party Game",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Imposter | Free Online Social Deduction Party Game",
+    description: "Play Imposter free in your browser — no download needed. Social deduction word game for 3–20 players.",
+    images: ["https://imposterland.com/og-image.png"],
+  },
 };
 
 export default function RootLayout({

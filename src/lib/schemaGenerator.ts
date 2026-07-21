@@ -69,11 +69,28 @@ export function generateSoftwareApplicationSchema() {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD"
+    }
+  };
+}
+
+export function generateGameSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Game",
+    "name": "Imposter",
+    "description": "Free browser-based social deduction word party game for 3–20 players. No download required. Works on any device.",
+    "url": "https://imposterland.com",
+    "genre": ["Social Deduction", "Word Game", "Party Game"],
+    "numberOfPlayers": {
+      "@type": "QuantitativeValue",
+      "minValue": 3,
+      "maxValue": 20
     },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "ratingCount": "12450"
+    "gamePlatform": ["Web Browser", "iOS", "Android", "macOS", "Windows"],
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
     }
   };
 }
@@ -98,7 +115,7 @@ export function generateOrganizationSchema() {
     "@type": "Organization",
     "name": "Imposter Game Studios",
     "url": "https://imposterland.com",
-    "logo": "https://imposterland.com/icon.png",
+    "logo": "https://imposterland.com/icon.svg",
     "sameAs": [
       "https://twitter.com/impostergame",
       "https://discord.gg/imposterparty"
