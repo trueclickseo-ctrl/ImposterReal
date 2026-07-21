@@ -6,7 +6,7 @@
           <div class="brand-url">https://imposterland.com — The #1 Free Browser Social Deduction Party Game</div>
         </div>
         <div class="qr-box">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https%3A%2F%2Fimposterland.com" alt="Scan QR Code" />
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&ecc=H&margin=1&data=https%3A%2F%2Fimposterland.com" alt="Scan QR Code" />
           <div class="qr-text">Scan to Play Online!</div>
         </div>
       </div>

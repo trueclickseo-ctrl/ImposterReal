@@ -99,15 +99,12 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-              <div className="relative bg-white p-2 border-2 border-slate-900 rounded-xl shrink-0 shadow-xs flex items-center justify-center">
+              <div className="bg-white p-2 border-2 border-slate-900 rounded-xl shrink-0 shadow-sm flex items-center justify-center">
                 <img
-                  src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(joinUrl)}`}
+                  src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&ecc=H&margin=1&data=${encodeURIComponent(joinUrl)}`}
                   alt="Scan to join lobby"
-                  className="w-[100px] h-[100px]"
+                  className="w-[120px] h-[120px] rounded-md"
                 />
-                <div className="absolute w-7 h-7 bg-[#fbbf24] border-2 border-slate-900 rounded-lg flex items-center justify-center font-pixel text-slate-900 text-xs shadow-[1px_1px_0px_#0f172a] shrink-0">
-                  👾
-                </div>
               </div>
             </div>
           </div>

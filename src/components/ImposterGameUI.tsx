@@ -266,15 +266,12 @@ export default function ImposterGameUI() {
                 </div>
               </div>
               {joinUrl && (
-                <div className="relative bg-white p-2 border-2 border-slate-900 rounded-xl shrink-0 shadow-sm flex items-center justify-center">
+                <div className="bg-white p-2.5 border-2 border-slate-900 rounded-xl shrink-0 shadow-md flex items-center justify-center">
                   <img
-                    src={`https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(joinUrl)}`}
+                    src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&ecc=H&margin=1&data=${encodeURIComponent(joinUrl)}`}
                     alt="Scan to join lobby"
-                    className="w-[140px] h-[140px]"
+                    className="w-[150px] h-[150px] rounded-md"
                   />
-                  <div className="absolute w-8 h-8 bg-[#fbbf24] border-2 border-slate-900 rounded-lg flex items-center justify-center font-pixel text-slate-900 text-sm shadow-[1px_1px_0px_#0f172a] shrink-0">
-                    👾
-                  </div>
                 </div>
               )}
             </div>
