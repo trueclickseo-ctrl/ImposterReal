@@ -273,8 +273,8 @@ export default function ImposterGameUI() {
                     className="w-[150px] h-[150px] rounded-md"
                   />
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="w-9 h-9 bg-white p-0.5 rounded-lg border-2 border-slate-900 shadow-sm flex items-center justify-center overflow-hidden">
-                      <img src="/logo.jpg" alt="Imposter Logo" className="w-full h-full object-cover rounded-md" />
+                    <div className="w-8 h-8 bg-[#fbbf24] border-2 border-slate-900 rounded-lg flex items-center justify-center font-pixel text-slate-900 text-sm shadow-[1px_1px_0px_#0f172a] shrink-0">
+                      👾
                     </div>
                   </div>
                 </div>
