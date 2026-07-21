@@ -30,8 +30,12 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://imposterland.com"),
   keywords: ["imposter game", "party game online", "social deduction game", "word bluffing game", "spyfall online", "among us word game"],
   icons: {
-    icon: "/icon.jpg",
-    apple: "/icon.jpg",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
   },
   alternates: {
     canonical: "https://imposterland.com",
