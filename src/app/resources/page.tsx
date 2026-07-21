@@ -23,7 +23,10 @@ export default function ResourcesPage() {
           <div class="brand-url">https://imposterland.com — The #1 Free Browser Social Deduction Party Game</div>
         </div>
         <div class="qr-box">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&ecc=H&margin=1&data=https%3A%2F%2Fimposterland.com" alt="Scan QR Code" />
+          <div style="position: relative; display: inline-block;">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&ecc=H&margin=1&data=https%3A%2F%2Fimposterland.com" alt="Scan QR Code" style="width: 100px; height: 100px; display: block; border-radius: 6px;" />
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 22px; height: 22px; background: #fbbf24; border: 2px solid #0f172a; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 11px; line-height: 1; text-align: center; box-shadow: 0 1px 2px rgba(0,0,0,0.2);">👾</div>
+          </div>
           <div class="qr-text">Scan to Play Online!</div>
         </div>
       </div>
