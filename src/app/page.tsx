@@ -99,12 +99,17 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-              <div className="bg-white p-2 border-2 border-slate-900 rounded-xl shrink-0 shadow-sm flex items-center justify-center">
+              <div className="relative bg-white p-2.5 border-2 border-slate-900 rounded-xl shrink-0 shadow-sm flex items-center justify-center overflow-hidden">
                 <img
-                  src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&ecc=H&margin=1&data=${encodeURIComponent(joinUrl)}`}
+                  src={`https://api.qrserver.com/v1/create-qr-code/?size=300x300&ecc=H&margin=1&data=${encodeURIComponent(joinUrl)}`}
                   alt="Scan to join lobby"
-                  className="w-[120px] h-[120px] rounded-md"
+                  className="w-[130px] h-[130px] rounded-md"
                 />
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div className="w-8 h-8 bg-white p-0.5 rounded-lg border-2 border-slate-900 shadow-sm flex items-center justify-center overflow-hidden">
+                    <img src="/logo.jpg" alt="Imposter Logo" className="w-full h-full object-cover rounded-md" />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
