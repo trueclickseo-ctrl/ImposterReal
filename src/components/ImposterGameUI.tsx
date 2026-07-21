@@ -86,7 +86,7 @@ export default function ImposterGameUI() {
   const addPlayer = () => {
     if (!newPlayerName.trim()) return;
     const newP = {
-      id: `player-${gameState.players.length + 1}`,
+      id: `player-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
       name: newPlayerName.trim(),
       role: 'civilian' as const,
       score: 0,
@@ -134,7 +134,9 @@ export default function ImposterGameUI() {
     setGameState({
       ...newState,
       secretWord: randomWord,
-      activeCategoryName: categoryDetail.name
+      activeCategoryName: categoryDetail.name,
+      // Fix Bug 3: if coming from lobby (first game), keep round 1 — don't double-increment
+      roundNumber: gameState.status === 'lobby' ? 1 : newState.roundNumber,
     });
     setActivePlayerIndex(0);
     setShowRoleCard(false);
@@ -208,12 +210,12 @@ export default function ImposterGameUI() {
               </button>
             </div>
           ) : (
-            <div className="bg-emerald-50 dark:bg-emerald-950/80 border-2 border-emerald-500 p-6 rounded-xl space-y-3 pt-6">
-              <h3 className="font-pixel text-base text-emerald-800 dark:text-emerald-300 font-extrabold">Connected Successfully!</h3>
-              <p className="font-sans text-sm font-semibold text-slate-800 dark:text-slate-200 leading-relaxed">
-                Watch the host screen. Your secret words and actions will synchronize here once game starts.
-              </p>
-            </div>
+              <div className="bg-emerald-50 dark:bg-emerald-950/80 border-2 border-emerald-500 p-6 rounded-xl space-y-3 pt-6">
+                <h3 className="font-pixel text-base text-emerald-800 dark:text-emerald-300 font-extrabold">✅ You're In the Lobby!</h3>
+                <p className="font-sans text-sm font-semibold text-slate-800 dark:text-slate-200 leading-relaxed">
+                  You've been added to the game room. This is a <strong>Pass & Play</strong> game — when it's your turn, the host will pass the device so you can see your secret word privately.
+                </p>
+              </div>
           )}
         </div>
       </div>
