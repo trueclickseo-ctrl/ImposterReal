@@ -26,29 +26,29 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: "Imposter | Free Online Social Deduction Party Game",
   description: "Play Imposter — a fast, free browser-based word deduction party game for friends, teams, and classrooms. No download needed. Custom rooms & 1,000+ categories.",
-  metadataBase: new URL("https://imposter.app"),
+  metadataBase: new URL("https://imposterland.com"),
   keywords: ["imposter game", "party game online", "social deduction game", "word bluffing game", "spyfall online", "among us word game"],
   icons: {
     icon: "/icon.jpg",
     apple: "/icon.jpg",
   },
   alternates: {
-    canonical: "https://imposter.app",
+    canonical: "https://imposterland.com",
     languages: {
-      "en": "https://imposter.app/en",
-      "de": "https://imposter.app/de",
-      "fr": "https://imposter.app/fr",
-      "es": "https://imposter.app/es",
-      "pt": "https://imposter.app/pt",
-      "it": "https://imposter.app/it",
-      "tr": "https://imposter.app/tr",
-      "nl": "https://imposter.app/nl",
-      "pl": "https://imposter.app/pl",
-      "sv": "https://imposter.app/sv",
-      "ru": "https://imposter.app/ru",
-      "uk": "https://imposter.app/uk",
-      "ja": "https://imposter.app/ja",
-      "zh": "https://imposter.app/zh"
+      "en": "https://imposterland.com/en",
+      "de": "https://imposterland.com/de",
+      "fr": "https://imposterland.com/fr",
+      "es": "https://imposterland.com/es",
+      "pt": "https://imposterland.com/pt",
+      "it": "https://imposterland.com/it",
+      "tr": "https://imposterland.com/tr",
+      "nl": "https://imposterland.com/nl",
+      "pl": "https://imposterland.com/pl",
+      "sv": "https://imposterland.com/sv",
+      "ru": "https://imposterland.com/ru",
+      "uk": "https://imposterland.com/uk",
+      "ja": "https://imposterland.com/ja",
+      "zh": "https://imposterland.com/zh"
     }
   }
 };

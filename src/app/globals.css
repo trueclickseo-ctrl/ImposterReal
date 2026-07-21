@@ -27,32 +27,6 @@
     --nav-bg: rgba(255, 255, 255, 0.95);
   }
 
-  [data-theme="dark"] {
-    /* Dark Theme (High Contrast Deep Navy & Cyberpunk Gold/Cyan) */
-    --bg-primary: #090d16;
-    --bg-card: #111827;
-    --bg-card-alt: #1f2937;
-    --bg-card-hover: #374151;
-    
-    --text-primary: #ffffff;
-    --text-secondary: #f1f5f9;
-    --text-muted: #e2e8f0;
-    
-    --arcade-yellow: #fbbf24;
-    --arcade-cyan: #38bdf8;
-    --arcade-pink: #f43f5e;
-    --arcade-green: #34d399;
-    --arcade-orange: #fb923c;
-    --arcade-purple: #c084fc;
-    
-    --border-main: #475569;
-    --border-subtle: #334155;
-    --box-shadow-main: 4px 4px 0px #000000;
-    --box-shadow-hover: 6px 6px 0px #000000;
-    
-    --nav-bg: rgba(17, 24, 39, 0.95);
-  }
-
   body {
     background-color: var(--bg-primary);
     color: var(--text-primary);

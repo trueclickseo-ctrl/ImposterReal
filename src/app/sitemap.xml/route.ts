@@ -4,7 +4,7 @@ import { LOCALES } from '@/lib/i18n';
 export const dynamic = 'force-static';
 
 export async function GET() {
-  const baseUrl = 'https://imposter.app';
+  const baseUrl = 'https://imposterland.com';
 
   const pages = [
     '',

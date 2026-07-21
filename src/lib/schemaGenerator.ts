@@ -82,11 +82,11 @@ export function generateWebSiteSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "url": "https://imposter.app",
+    "url": "https://imposterland.com",
     "name": "Imposter Party Game",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://imposter.app/word-library?q={search_term_string}",
+      "target": "https://imposterland.com/word-library?q={search_term_string}",
       "query-input": "required name=search_term_string"
     }
   };
@@ -97,8 +97,8 @@ export function generateOrganizationSchema() {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Imposter Game Studios",
-    "url": "https://imposter.app",
-    "logo": "https://imposter.app/icon.png",
+    "url": "https://imposterland.com",
+    "logo": "https://imposterland.com/icon.png",
     "sameAs": [
       "https://twitter.com/impostergame",
       "https://discord.gg/imposterparty"
@@ -133,7 +133,7 @@ export function generateVideoObjectSchema() {
     "@type": "VideoObject",
     "name": "How to Play Imposter in 60 Seconds",
     "description": "Quick video walkthrough of the Imposter browser game mechanics.",
-    "thumbnailUrl": ["https://imposter.app/video-thumb.jpg"],
+    "thumbnailUrl": ["https://imposterland.com/video-thumb.jpg"],
     "uploadDate": "2026-01-15T08:00:00+08:00"
   };
 }

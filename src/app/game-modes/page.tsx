@@ -88,7 +88,7 @@ export default function GameModesPage() {
                   <span className={`pixel-badge ${mode.badgeBg} font-bold`}>READY</span>
                 </div>
 
-                <p className="font-sans text-sm font-medium text-slate-700 dark:text-slate-300 leading-relaxed">
+                <p className="font-sans text-sm font-medium text-slate-700 dark:text-slate-100 leading-relaxed">
                   {mode.description}
                 </p>
 

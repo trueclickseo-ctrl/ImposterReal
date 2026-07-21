@@ -93,7 +93,7 @@ export default function BlogPage() {
                 <span className="font-mono text-xs text-slate-600 dark:text-slate-400 font-bold">{art.date}</span>
               </div>
               <h2 className="font-pixel text-lg text-slate-900 dark:text-slate-100 font-bold">{art.title}</h2>
-              <p className="font-sans text-sm font-medium text-slate-700 dark:text-slate-300 leading-relaxed">
+              <p className="font-sans text-sm font-medium text-slate-700 dark:text-slate-100 leading-relaxed">
                 {art.excerpt}
               </p>
             </div>

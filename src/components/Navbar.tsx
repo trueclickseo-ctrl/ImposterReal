@@ -8,32 +8,15 @@ import { useLanguage } from "@/context/LanguageContext";
 
 export default function Navbar() {
   const { locale, setLocale, dictionary } = useLanguage();
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [theme] = useState<"light">("light");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [qrModalOpen, setQrModalOpen] = useState(false);
 
   useEffect(() => {
-    const savedTheme = (localStorage.getItem("theme") as "light" | "dark") || "light";
-    setTheme(savedTheme);
-    document.documentElement.setAttribute("data-theme", savedTheme);
-    if (savedTheme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+    localStorage.setItem("theme", "light");
+    document.documentElement.setAttribute("data-theme", "light");
+    document.documentElement.classList.remove("dark");
   }, []);
-
-  const toggleTheme = () => {
-    const nextTheme = theme === "light" ? "dark" : "light";
-    setTheme(nextTheme);
-    localStorage.setItem("theme", nextTheme);
-    document.documentElement.setAttribute("data-theme", nextTheme);
-    if (nextTheme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  };
 
   return (
     <header className="sticky top-0 z-50 bg-[var(--bg-card)]/95 backdrop-blur-xl border-b-2 border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-200">
@@ -86,19 +69,8 @@ export default function Navbar() {
           </Link>
         </nav>
 
-        {/* Separated Action Controls & Theme Toggle */}
+        {/* Separated Action Controls */}
         <div className="hidden sm:flex items-center gap-3 pl-6 border-l-2 border-slate-300 dark:border-slate-800 ml-4">
-          
-          {/* Theme Switch Button */}
-          <button
-            onClick={toggleTheme}
-            className="px-3 py-1.5 border-2 border-slate-900 dark:border-slate-100 text-xs font-pixel rounded-xl flex items-center gap-1.5 shadow-[2px_2px_0px_#0f172a] dark:shadow-[2px_2px_0px_#000] bg-[var(--bg-card-alt)] text-slate-900 dark:text-slate-100 font-extrabold hover:scale-105 transition-all cursor-pointer"
-            title={theme === "light" ? "Switch to Dark Theme" : "Switch to Light Theme"}
-            aria-label="Toggle Light or Dark Mode"
-          >
-            {theme === "light" ? <Moon className="w-3.5 h-3.5" /> : <Sun className="w-3.5 h-3.5" />}
-            {theme === "light" ? "DARK" : "LIGHT"}
-          </button>
 
           {/* Language Selector */}
           <div className="relative flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 border-2 border-slate-900 dark:border-slate-700 rounded-xl px-2.5 py-1 text-slate-900 dark:text-slate-100 font-arcade text-xs font-bold shadow-xs">
@@ -116,14 +88,6 @@ export default function Navbar() {
               ))}
             </select>
           </div>
-
-          {/* Quick Play CTA */}
-          <Link
-            href="/play"
-            className="pixel-btn pixel-btn-cyan text-xs font-extrabold ml-1 animate-pulse"
-          >
-            {dictionary.playNowButton}
-          </Link>
         </div>
 
         {/* Mobile Menu Toggle Button */}
@@ -139,15 +103,6 @@ export default function Navbar() {
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="lg:hidden bg-[var(--bg-card)] border-b-2 border-slate-200 dark:border-slate-800 px-6 py-6 font-arcade text-xl font-bold space-y-4 shadow-xl">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
-            <span className="text-xs font-pixel text-slate-600 dark:text-slate-400">SETTINGS</span>
-            <button
-              onClick={toggleTheme}
-              className="p-2 border-2 border-slate-900 rounded-xl text-xs font-pixel bg-[#fbbf24] text-slate-900 font-bold"
-            >
-              {theme === "light" ? "🌙 DARK THEME" : "☀️ LIGHT THEME"}
-            </button>
-          </div>
 
           <div className="flex items-center gap-2 py-2">
             <Globe className="w-5 h-5 text-[#d97706] dark:text-[#fbbf24]" />

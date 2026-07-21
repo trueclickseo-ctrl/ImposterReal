@@ -32,7 +32,7 @@ export default function EncyclopediaPage() {
           <Link href="/encyclopedia/history" className="pixel-box pixel-box-cyan p-6 space-y-3">
             <History className="w-8 h-8 text-[#0284c7] dark:text-[#06b6d4]" />
             <h2 className="font-pixel text-xl text-[#0284c7] dark:text-[#06b6d4] font-bold">1. {dictionary.historyHeading}</h2>
-            <p className="font-sans text-sm font-semibold text-slate-700 dark:text-slate-300 leading-relaxed">
+            <p className="font-sans text-sm font-semibold text-slate-700 dark:text-slate-100 leading-relaxed">
               Trace the evolution from 19th-century Victorian parlor games to Dmitry Davidoff's 1986 Mafia, Spyfall, and modern browser party apps.
             </p>
             <div className="pt-2 text-sm font-arcade text-[#0284c7] dark:text-[#06b6d4] flex items-center gap-1 font-bold">
@@ -43,7 +43,7 @@ export default function EncyclopediaPage() {
           <Link href="/encyclopedia/game-logic" className="pixel-box pixel-box-pink p-6 space-y-3">
             <Binary className="w-8 h-8 text-[#e11d48] dark:text-[#f43f5e]" />
             <h2 className="font-pixel text-xl text-[#e11d48] dark:text-[#f43f5e] font-bold">2. {dictionary.gameLogicHeading}</h2>
-            <p className="font-sans text-sm font-semibold text-slate-700 dark:text-slate-300 leading-relaxed">
+            <p className="font-sans text-sm font-semibold text-slate-700 dark:text-slate-100 leading-relaxed">
               Formal mathematical analysis of information asymmetry, Bayesian updating equations, signal-to-noise ratios, and Nash Equilibrium.
             </p>
             <div className="pt-2 text-sm font-arcade text-[#e11d48] dark:text-[#f43f5e] flex items-center gap-1 font-bold">
@@ -54,7 +54,7 @@ export default function EncyclopediaPage() {
           <Link href="/encyclopedia/academic-references" className="pixel-box p-6 border-2 border-[#10b981] dark:border-[#34d399] space-y-3">
             <Award className="w-8 h-8 text-[#10b981] dark:text-[#34d399]" />
             <h2 className="font-pixel text-xl text-[#10b981] dark:text-[#34d399] font-bold">3. {dictionary.academicRefHeading}</h2>
-            <p className="font-sans text-sm font-semibold text-slate-700 dark:text-slate-300 leading-relaxed">
+            <p className="font-sans text-sm font-semibold text-slate-700 dark:text-slate-100 leading-relaxed">
               Curated peer-reviewed research, BoardGameGeek database entries, Stanford Philosophy citations, and MIT Game Lab papers.
             </p>
             <div className="pt-2 text-sm font-arcade text-[#10b981] dark:text-[#34d399] flex items-center gap-1 font-bold">
@@ -82,7 +82,7 @@ export default function EncyclopediaPage() {
                   <span className="text-slate-600 dark:text-slate-400 font-mono font-bold">{ref.year}</span>
                 </div>
                 <h3 className="font-pixel text-sm text-slate-900 dark:text-slate-100 font-bold">{ref.title}</h3>
-                <p className="text-slate-700 dark:text-slate-300 leading-relaxed font-medium">{ref.summary}</p>
+                <p className="text-slate-700 dark:text-slate-100 leading-relaxed font-medium">{ref.summary}</p>
                 <a
                   href={ref.url}
                   target="_blank"
