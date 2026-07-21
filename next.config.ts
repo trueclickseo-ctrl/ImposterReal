@@ -10,6 +10,8 @@ const nextConfig: NextConfig = {
     cpus: 1,
     workerThreads: false,
   },
+  // Compress JS/CSS bundles for smaller transfer sizes
+  compress: true,
 };
 
 export default nextConfig;

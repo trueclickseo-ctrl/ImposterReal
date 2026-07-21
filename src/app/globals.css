@@ -174,3 +174,37 @@
 ::-webkit-scrollbar-thumb:hover {
   background: var(--arcade-yellow);
 }
+
+/* =========================================
+   PERFORMANCE OPTIMIZATIONS
+   ========================================= */
+
+/* Skip rendering off-screen sections until scroll — reduces TBT & LCP */
+section,
+article,
+.pixel-box {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 400px;
+}
+
+/* GPU-accelerate animated elements to prevent layout thrash */
+.pixel-btn,
+.pixel-box,
+[class*="animate-"] {
+  will-change: transform;
+}
+
+/* Prevent invisible text during font load */
+@font-face {
+  font-display: swap;
+}
+
+/* Reduce paint cost of heavy shadow elements on mobile */
+@media (max-width: 640px) {
+  .pixel-box {
+    box-shadow: 2px 2px 0px #0f172a;
+  }
+  .pixel-btn {
+    box-shadow: 2px 2px 0px #0f172a;
+  }
+}

@@ -99,10 +99,15 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-              <div className="relative bg-white p-2.5 border-2 border-slate-900 rounded-xl shrink-0 shadow-sm flex items-center justify-center overflow-hidden">
+              <div className="relative bg-white p-2.5 border-2 border-slate-900 rounded-xl shrink-0 shadow-sm flex items-center justify-center overflow-hidden" style={{width: 155, height: 155}}>
                 <img
                   src={`https://api.qrserver.com/v1/create-qr-code/?size=300x300&ecc=H&margin=1&data=${encodeURIComponent(joinUrl)}`}
-                  alt="Scan to join lobby"
+                  alt="Scan QR code to play Imposter game instantly on your smartphone"
+                  width={130}
+                  height={130}
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
                   className="w-[130px] h-[130px] rounded-md"
                 />
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">

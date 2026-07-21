@@ -268,10 +268,15 @@ export default function ImposterGameUI() {
                 </div>
               </div>
               {joinUrl && (
-                <div className="relative bg-white p-3 border-2 border-slate-900 rounded-xl shrink-0 shadow-md flex items-center justify-center overflow-hidden">
+                <div className="relative bg-white p-3 border-2 border-slate-900 rounded-xl shrink-0 shadow-md flex items-center justify-center overflow-hidden" style={{width: 176, height: 176}}>
                   <img
                     src={`https://api.qrserver.com/v1/create-qr-code/?size=300x300&ecc=H&margin=1&data=${encodeURIComponent(joinUrl)}`}
-                    alt="Scan to join lobby"
+                    alt="Scan QR code to join the Imposter game lobby on your phone"
+                    width={150}
+                    height={150}
+                    loading="lazy"
+                    fetchPriority="low"
+                    decoding="async"
                     className="w-[150px] h-[150px] rounded-md"
                   />
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">

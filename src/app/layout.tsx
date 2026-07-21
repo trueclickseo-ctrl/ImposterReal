@@ -77,7 +77,12 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${outfit.variable} ${jakarta.variable} h-full antialiased`}
     >
       <head>
-        {/* Google Tag Manager */}
+        {/* DNS prefetch for external resources — reduces latency */}
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://api.qrserver.com" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+
+        {/* Google Tag Manager — afterInteractive keeps it non-render-blocking */}
         <Script
           id="gtm-script"
           strategy="afterInteractive"
