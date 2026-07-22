@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { QRCodeSVG } from "qrcode.react";
 import confetti from "canvas-confetti";
 import { 
   DEFAULT_WORD_CATEGORIES, 
@@ -269,15 +270,13 @@ export default function ImposterGameUI() {
               </div>
               {joinUrl && (
                 <div className="relative bg-white p-3 border-2 border-slate-900 rounded-xl shrink-0 shadow-md flex items-center justify-center overflow-hidden" style={{width: 176, height: 176}}>
-                  <img
-                    src={`https://api.qrserver.com/v1/create-qr-code/?size=300x300&ecc=H&margin=1&data=${encodeURIComponent(joinUrl)}`}
-                    alt="Scan QR code to join the Imposter game lobby on your phone"
-                    width={150}
-                    height={150}
-                    loading="lazy"
-                    fetchPriority="low"
-                    decoding="async"
-                    className="w-[150px] h-[150px] rounded-md"
+                  <QRCodeSVG
+                    value={joinUrl}
+                    size={150}
+                    level="H"
+                    includeMargin={false}
+                    style={{width: 150, height: 150, display: 'block'}}
+                    aria-label="Scan QR code to join the Imposter game lobby on your phone"
                   />
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                     <div className="w-8 h-8 bg-[#fbbf24] border-2 border-slate-900 rounded-lg flex items-center justify-center font-pixel text-slate-900 text-sm shadow-[1px_1px_0px_#0f172a] shrink-0">

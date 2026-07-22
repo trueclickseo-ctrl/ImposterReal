@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { QRCodeSVG } from "qrcode.react";
 import SEOHead from "@/components/SEOHead";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
@@ -100,15 +101,13 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="relative bg-white p-2.5 border-2 border-slate-900 rounded-xl shrink-0 shadow-sm flex items-center justify-center overflow-hidden" style={{width: 155, height: 155}}>
-                <img
-                  src={`https://api.qrserver.com/v1/create-qr-code/?size=300x300&ecc=H&margin=1&data=${encodeURIComponent(joinUrl)}`}
-                  alt="Scan QR code to play Imposter game instantly on your smartphone"
-                  width={130}
-                  height={130}
-                  loading="eager"
-                  fetchPriority="high"
-                  decoding="async"
-                  className="w-[130px] h-[130px] rounded-md"
+                <QRCodeSVG
+                  value={joinUrl}
+                  size={130}
+                  level="H"
+                  includeMargin={false}
+                  style={{width: 130, height: 130, display: 'block'}}
+                  aria-label="Scan QR code to play Imposter game instantly on your smartphone"
                 />
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                   <div className="w-7 h-7 bg-[#fbbf24] border-2 border-slate-900 rounded-lg flex items-center justify-center font-pixel text-slate-900 text-xs shadow-[1px_1px_0px_#0f172a] shrink-0">

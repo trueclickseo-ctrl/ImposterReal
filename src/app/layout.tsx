@@ -77,6 +77,20 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${outfit.variable} ${jakarta.variable} h-full antialiased`}
     >
       <head>
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-WD0EVL9CFP"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-WD0EVL9CFP');
+            `,
+          }}
+        />
+
         {/* DNS prefetch for external resources — reduces latency */}
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://api.qrserver.com" />
