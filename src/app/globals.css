@@ -36,7 +36,6 @@
     font-weight: 500;
     min-height: 100vh;
     line-height: 1.6;
-    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   h1, h2, h3, .font-pixel {
@@ -181,11 +180,6 @@
 .pixel-btn:hover,
 .pixel-box:hover {
   will-change: transform;
-}
-
-/* Prevent invisible text during font load */
-@font-face {
-  font-display: swap;
 }
 
 /* Safe fallback/accessibility defaults: text elements must never be permanently stuck at 0 opacity */
