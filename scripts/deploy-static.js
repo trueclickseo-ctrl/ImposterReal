@@ -84,3 +84,12 @@ execSync('git push -f origin main', { cwd: projectRoot, stdio: 'inherit' });
 
 console.log("SUCCESS! Static build is now live on the main branch of GitHub. Switch back to 'source' branch locally to continue editing.");
 execSync('git checkout source', { cwd: projectRoot, stdio: 'inherit' });
+
+// 8. Ping Bing IndexNow to notify of updated content
+console.log("\nPinging Bing IndexNow API...");
+try {
+  execSync('node scripts/bing-indexnow.js', { cwd: projectRoot, stdio: 'inherit' });
+} catch (e) {
+  console.log("Warning: IndexNow ping failed (non-blocking):", e.message);
+}
+

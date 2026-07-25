@@ -32,15 +32,13 @@ export async function GET() {
     '/company/privacy',
     '/company/terms',
     '/sitemap',
-    '/keyword-map',
-    '/pr-calendar'
   ];
 
   let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
   xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n`;
 
   for (const page of pages) {
-    const locUrl = `${baseUrl}${page}`;
+    const locUrl = page === '' ? `${baseUrl}/` : `${baseUrl}${page}/`;
     xml += `  <url>\n`;
     xml += `    <loc>${locUrl}</loc>\n`;
     xml += `    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>\n`;
@@ -49,7 +47,7 @@ export async function GET() {
 
     // Add hreflang links for all 14 supported locales
     for (const loc of LOCALES) {
-      xml += `    <xhtml:link rel="alternate" hreflang="${loc.code}" href="${baseUrl}/${loc.code}${page}" />\n`;
+      xml += `    <xhtml:link rel="alternate" hreflang="${loc.code}" href="${baseUrl}/${loc.code}${page}/" />\n`;
     }
 
     xml += `  </url>\n`;

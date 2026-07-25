@@ -177,28 +177,28 @@
   background: var(--arcade-yellow);
 }
 
-/* =========================================
-   PERFORMANCE OPTIMIZATIONS
-   ========================================= */
-
-/* Skip rendering off-screen sections until scroll — reduces TBT & LCP */
-section,
-article,
-.pixel-box {
-  content-visibility: auto;
-  contain-intrinsic-size: 0 400px;
-}
-
-/* GPU-accelerate animated elements to prevent layout thrash */
-.pixel-btn,
-.pixel-box,
-[class*="animate-"] {
+/* GPU-accelerate animated elements to prevent layout thrash, scoped for stability */
+.pixel-btn:hover,
+.pixel-box:hover {
   will-change: transform;
 }
 
 /* Prevent invisible text during font load */
 @font-face {
   font-display: swap;
+}
+
+/* Safe fallback/accessibility defaults: text elements must never be permanently stuck at 0 opacity */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
 }
 
 /* Reduce paint cost of heavy shadow elements on mobile */
