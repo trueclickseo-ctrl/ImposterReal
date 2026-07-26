@@ -10,10 +10,12 @@ export default function ContactPage() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [sending, setSending] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSending(true);
+    setErrorMsg("");
 
     try {
       // Send form submission to FormSubmit, configured to send directly to trueclickseo@gmail.com
@@ -34,13 +36,10 @@ export default function ContactPage() {
       if (response.ok) {
         setSubmitted(true);
       } else {
-        // Fallback mailto trigger if submission relay fails
-        window.location.href = `mailto:trueclickseo@gmail.com?subject=Mail from imposter&body=Name: ${name}%0D%0AEmail: ${email}%0D%0AMessage: ${message}`;
-        setSubmitted(true);
+        setErrorMsg("Failed to send. Please try again or email us directly at trueclickseo@gmail.com");
       }
     } catch (error) {
-      window.location.href = `mailto:trueclickseo@gmail.com?subject=Mail from imposter&body=Name: ${name}%0D%0AEmail: ${email}%0D%0AMessage: ${message}`;
-      setSubmitted(true);
+      setErrorMsg("Connection error. Please try again or email us directly at trueclickseo@gmail.com");
     } finally {
       setSending(false);
     }
@@ -70,6 +69,11 @@ export default function ContactPage() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
+              {errorMsg && (
+                <div className="bg-rose-50 dark:bg-rose-950/80 border-2 border-rose-500 p-4 text-xs font-semibold text-rose-700 dark:text-rose-400 rounded-xl">
+                  {errorMsg}
+                </div>
+              )}
               <div>
                 <label className="font-pixel text-xs text-[#d97706] dark:text-yellow-350 uppercase block mb-1.5 font-bold">Your Name</label>
                 <input
