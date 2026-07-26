@@ -68,6 +68,8 @@ export default function ImposterGameUI() {
       console.error("Firebase Anonymous Auth Failed:", error);
       if (error.code === "auth/operation-not-allowed") {
         setAuthError("Anonymous sign-in is disabled for this project. Please enable 'Anonymous' provider in your Firebase Console under Authentication > Sign-in method.");
+      } else if (error.code === "auth/configuration-not-found" || error.message.includes("configuration-not-found")) {
+        setAuthError("Firebase Authentication has not been activated for this project. Please open your Firebase Console, navigate to 'Authentication', and click 'Get Started' to activate it.");
       } else {
         setAuthError(`Authentication failed: ${error.message}`);
       }
