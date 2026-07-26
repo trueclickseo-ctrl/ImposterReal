@@ -179,11 +179,7 @@ export default function ImposterGameUI() {
     };
 
     try {
-      // Rule requirement: Write /rooms/roomCode first before writing /roomSecrets
       await set(ref(database, `rooms/${generated}`), initialHostState);
-      
-      // Now write the secret mapping separately
-      await set(ref(database, `roomSecrets/${generated}/playerRoles/${playerId}`), "civilian");
 
       // Configure onDisconnect for the Host
       const disconnectRef = ref(database, `rooms/${generated}/players/${playerId}/isConnected`);
@@ -307,6 +303,7 @@ export default function ImposterGameUI() {
       name: newPlayerName.trim(),
       isHost: false,
       isConnected: true,
+      isLocalPlayer: true,
       score: 0
     };
     await set(ref(database, `rooms/${roomCode}/players/${fakeId}`), newP);
@@ -803,7 +800,7 @@ export default function ImposterGameUI() {
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {gameState.players.map((p) => (
                   <div key={p.id} className="bg-[var(--bg-card-alt)] border border-slate-300 dark:border-slate-800 p-3.5 rounded-xl flex items-center justify-between font-arcade text-xl font-bold text-slate-900 dark:text-slate-100 shadow-sm">
-                    <span className="truncate">👤 {p.name} {!p.id.startsWith("player") && !p.isConnected && "(Disconnected)"}</span>
+                    <span className="truncate">👤 {p.name} {!p.isLocalPlayer && !p.isConnected && "(Disconnected)"}</span>
                     {gameState.players.length > 3 && isHost && (
                       <button
                         onClick={() => removePlayer(p.id)}
@@ -900,7 +897,7 @@ export default function ImposterGameUI() {
               Clue Turn: {gameState.players[gameState.currentTurnIndex]?.name}
             </h3>
 
-            {(gameState.players[gameState.currentTurnIndex]?.id === playerId || gameState.players[gameState.currentTurnIndex]?.id.startsWith("player")) ? (
+            {(gameState.players[gameState.currentTurnIndex]?.id === playerId || gameState.players[gameState.currentTurnIndex]?.isLocalPlayer) ? (
               <div className="bg-[var(--bg-card-alt)] border-2 border-[#fbbf24] p-8 rounded-2xl space-y-4 shadow-lg">
                 <p className="font-sans text-base font-semibold text-slate-800 dark:text-slate-100">
                   It's your turn to submit a clue! Type a single word or short phrase that describes the secret word without giving it away to the Imposter.

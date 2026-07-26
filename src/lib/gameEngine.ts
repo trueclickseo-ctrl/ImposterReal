@@ -15,6 +15,8 @@ export interface Player {
   hasVoted: boolean;
   votedForId?: string;
   clue?: string;
+  isLocalPlayer?: boolean;
+  isHost?: boolean;
 }
 
 export interface GameSettings {
