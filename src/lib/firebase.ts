@@ -15,7 +15,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
-const isEmulator = typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1");
+const isEmulator = false;
 const database = getDatabase(app, isEmulator ? "http://127.0.0.1:9000?ns=demo-imposter-real-default-rtdb" : undefined);
 const auth = getAuth(app);
 
