@@ -74,25 +74,45 @@ export default function EncyclopediaPage() {
             <ShieldCheck className="w-6 h-6 text-[#10b981] dark:text-[#34d399]" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {ACADEMIC_REFERENCES.map(ref => (
-              <div key={ref.id} className="bg-[var(--bg-card-alt)] border border-slate-300 dark:border-slate-800 p-5 rounded-xl space-y-2 font-sans text-xs shadow-sm">
-                <div className="flex items-center justify-between">
-                  <span className="pixel-badge bg-slate-200 dark:bg-slate-800 text-[#0284c7] dark:text-[#06b6d4] font-bold">{ref.citationType}</span>
-                  <span className="text-slate-600 dark:text-slate-400 font-mono font-bold">{ref.year}</span>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
+            {/* Image Illustration Column */}
+            <div className="lg:col-span-1 w-full flex justify-center">
+              <picture className="w-full max-w-[280px]">
+                <source srcSet="/images/suspicious_person-desktop.webp 600w, /images/suspicious_person-mobile.webp 300w" sizes="(max-width: 640px) 300px, 600px" type="image/webp" />
+                <img 
+                  src="/images/suspicious_person-desktop.jpg" 
+                  srcSet="/images/suspicious_person-desktop.jpg 600w, /images/suspicious_person-mobile.jpg 300w" 
+                  sizes="(max-width: 640px) 300px, 600px"
+                  width={600}
+                  height={600}
+                  alt="Player secretly bluffing as the imposter in a party game" 
+                  className="w-full h-auto object-cover rounded-2xl border-4 border-slate-900 dark:border-slate-700 shadow-[4px_4px_0px_#0f172a] dark:shadow-[4px_4px_0px_#000]"
+                  loading="lazy"
+                />
+              </picture>
+            </div>
+            
+            {/* References Grid Column */}
+            <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+              {ACADEMIC_REFERENCES.map(ref => (
+                <div key={ref.id} className="bg-[var(--bg-card-alt)] border border-slate-300 dark:border-slate-800 p-5 rounded-xl space-y-2 font-sans text-xs shadow-sm">
+                  <div className="flex items-center justify-between">
+                    <span className="pixel-badge bg-slate-200 dark:bg-slate-800 text-[#0284c7] dark:text-[#06b6d4] font-bold">{ref.citationType}</span>
+                    <span className="text-slate-600 dark:text-slate-400 font-mono font-bold">{ref.year}</span>
+                  </div>
+                  <h3 className="font-pixel text-sm text-slate-900 dark:text-slate-100 font-bold">{ref.title}</h3>
+                  <p className="text-slate-700 dark:text-slate-100 leading-relaxed font-medium">{ref.summary}</p>
+                  <a
+                    href={ref.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-[#d97706] dark:text-[#fbbf24] font-arcade text-base hover:underline pt-1 font-bold"
+                  >
+                    Visit Authority Reference ({ref.publisher}) <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
                 </div>
-                <h3 className="font-pixel text-sm text-slate-900 dark:text-slate-100 font-bold">{ref.title}</h3>
-                <p className="text-slate-700 dark:text-slate-100 leading-relaxed font-medium">{ref.summary}</p>
-                <a
-                  href={ref.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-[#d97706] dark:text-[#fbbf24] font-arcade text-base hover:underline pt-1 font-bold"
-                >
-                  Visit Authority Reference ({ref.publisher}) <ExternalLink className="w-3.5 h-3.5" />
-                </a>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 

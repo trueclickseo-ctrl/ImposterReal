@@ -17,20 +17,38 @@ export default function AdvancedStrategyPage() {
           <p className="font-sans text-sm text-slate-300">Tactics for competitive players and tournament hosts.</p>
         </div>
 
-        <div className="bg-[#141c2e] border-4 border-[#39ff14] p-6 sm:p-10 space-y-6 text-slate-200 font-sans text-sm leading-relaxed shadow-[6px_6px_0px_#000]">
-          <h2 className="font-pixel text-base text-[#ffe600]">Technique 1: Trap Clues (Civilian Strategy)</h2>
-          <p>
-            Give a clue that relates to a secondary, subtle aspect of the secret word. If the word is <em>"Titanic"</em>, say <em>"Iceberg"</em> or <em>"Celine"</em> rather than <em>"Ship"</em>. This forces the Imposter to guess blindly.
-          </p>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+          <div className="lg:col-span-2 bg-[#141c2e] border-4 border-[#39ff14] p-6 sm:p-10 space-y-6 text-slate-200 font-sans text-sm leading-relaxed shadow-[6px_6px_0px_#000]">
+            <h2 className="font-pixel text-base text-[#ffe600]">Technique 1: Trap Clues (Civilian Strategy)</h2>
+            <p>
+              Give a clue that relates to a secondary, subtle aspect of the secret word. If the word is <em>"Titanic"</em>, say <em>"Iceberg"</em> or <em>"Celine"</em> rather than <em>"Ship"</em>. This forces the Imposter to guess blindly.
+            </p>
 
-          <h2 className="font-pixel text-base text-[#00f0ff]">Technique 2: Umbrella Pivoting (Imposter Strategy)</h2>
-          <p>
-            When bluffing as the Imposter, use broad sensory words (e.g. <em>"Heavy"</em>, <em>"Bright"</em>, <em>"Noisy"</em>, <em>"Classic"</em>) that apply to 80% of items in that category.
-          </p>
+            <h2 className="font-pixel text-base text-[#00f0ff]">Technique 2: Umbrella Pivoting (Imposter Strategy)</h2>
+            <p>
+              When bluffing as the Imposter, use broad sensory words (e.g. <em>"Heavy"</em>, <em>"Bright"</em>, <em>"Noisy"</em>, <em>"Classic"</em>) that apply to 80% of items in that category.
+            </p>
 
-          <div className="pt-6 border-t border-slate-800 flex justify-between items-center">
-            <Link href="/play" className="pixel-btn pixel-btn-green text-xs">🎮 Play Competitive Game</Link>
-            <Link href="/learn/scoring-system" className="font-arcade text-lg text-[#ff6b00] hover:underline">Scoring System →</Link>
+            <div className="pt-6 border-t border-slate-800 flex justify-between items-center">
+              <Link href="/play" className="pixel-btn pixel-btn-green text-xs">🎮 Play Competitive Game</Link>
+              <Link href="/learn/scoring-system" className="font-arcade text-lg text-[#ff6b00] hover:underline">Scoring System →</Link>
+            </div>
+          </div>
+
+          <div className="lg:col-span-1 w-full flex justify-center">
+            <picture className="w-full">
+              <source srcSet="/images/strategy_bluff-desktop.webp 900w, /images/strategy_bluff-mobile.webp 480w" sizes="(max-width: 640px) 450px, 900px" type="image/webp" />
+              <img 
+                src="/images/strategy_bluff-desktop.jpg" 
+                srcSet="/images/strategy_bluff-desktop.jpg 900w, /images/strategy_bluff-mobile.jpg 480w" 
+                sizes="(max-width: 640px) 450px, 900px"
+                width={900}
+                height={600}
+                alt="Player thinking of a clever clue while bluffing as the imposter" 
+                className="w-full h-auto object-cover rounded-2xl border-4 border-slate-900 dark:border-slate-700 shadow-[6px_6px_0px_#39ff14]"
+                loading="lazy"
+              />
+            </picture>
           </div>
         </div>
       </div>

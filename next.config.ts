@@ -12,6 +12,9 @@ const nextConfig: NextConfig = {
   },
   // Compress JS/CSS bundles for smaller transfer sizes
   compress: true,
+  images: {
+    unoptimized: true,
+  },
 };
 
 export default nextConfig;

@@ -3,6 +3,12 @@
 # Performance + Security + Routing
 # ================================================
 
+# Serve modern image formats with correct content headers
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+  AddType image/avif .avif
+</IfModule>
+
 # Force HTTPS
 RewriteEngine On
 RewriteCond %{HTTPS} off

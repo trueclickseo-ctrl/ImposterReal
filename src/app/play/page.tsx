@@ -82,18 +82,37 @@ export default function PlayPage() {
         {/* Gameplay Instructions */}
         <div className="pixel-box p-6 sm:p-8 space-y-4 my-12">
           <h2 className="font-pixel text-xl text-[#0284c7] dark:text-[#06b6d4] font-bold">{dictionary.playQuickRules}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 font-sans text-sm">
-            <div className="bg-[var(--bg-card-alt)] p-4 rounded-xl border border-slate-200 dark:border-slate-800 space-y-1">
-              <span className="font-bold text-[#d97706] dark:text-[#fbbf24] text-base block">{dictionary.playStep1Title}</span>
-              <p className="text-slate-700 dark:text-slate-100 font-medium">{dictionary.playStep1Desc}</p>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
+            {/* Steps Column */}
+            <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4 font-sans text-sm">
+              <div className="bg-[var(--bg-card-alt)] p-4 rounded-xl border border-slate-200 dark:border-slate-800 space-y-1">
+                <span className="font-bold text-[#d97706] dark:text-[#fbbf24] text-base block">{dictionary.playStep1Title}</span>
+                <p className="text-slate-700 dark:text-slate-100 font-medium">{dictionary.playStep1Desc}</p>
+              </div>
+              <div className="bg-[var(--bg-card-alt)] p-4 rounded-xl border border-slate-200 dark:border-slate-800 space-y-1">
+                <span className="font-bold text-[#0284c7] dark:text-[#06b6d4] text-base block">{dictionary.playStep2Title}</span>
+                <p className="text-slate-700 dark:text-slate-100 font-medium">{dictionary.playStep2Desc}</p>
+              </div>
+              <div className="bg-[var(--bg-card-alt)] p-4 rounded-xl border border-slate-200 dark:border-slate-800 space-y-1">
+                <span className="font-bold text-[#e11d48] dark:text-[#f43f5e] text-base block">{dictionary.playStep3Title}</span>
+                <p className="text-slate-700 dark:text-slate-100 font-medium">{dictionary.playStep3Desc}</p>
+              </div>
             </div>
-            <div className="bg-[var(--bg-card-alt)] p-4 rounded-xl border border-slate-200 dark:border-slate-800 space-y-1">
-              <span className="font-bold text-[#0284c7] dark:text-[#06b6d4] text-base block">{dictionary.playStep2Title}</span>
-              <p className="text-slate-700 dark:text-slate-100 font-medium">{dictionary.playStep2Desc}</p>
-            </div>
-            <div className="bg-[var(--bg-card-alt)] p-4 rounded-xl border border-slate-200 dark:border-slate-800 space-y-1">
-              <span className="font-bold text-[#e11d48] dark:text-[#f43f5e] text-base block">{dictionary.playStep3Title}</span>
-              <p className="text-slate-700 dark:text-slate-100 font-medium">{dictionary.playStep3Desc}</p>
+            {/* Image Column */}
+            <div className="lg:col-span-1 w-full flex justify-center">
+              <picture className="w-full max-w-[280px]">
+                <source srcSet="/images/confident_clue-desktop.webp 1200w, /images/confident_clue-tablet.webp 800w, /images/confident_clue-mobile.webp 480w" sizes="(max-width: 640px) 300px, 450px" type="image/webp" />
+                <img 
+                  src="/images/confident_clue-desktop.jpg" 
+                  srcSet="/images/confident_clue-desktop.jpg 1200w, /images/confident_clue-tablet.jpg 800w, /images/confident_clue-mobile.jpg 480w" 
+                  sizes="(max-width: 640px) 300px, 450px"
+                  width={1200}
+                  height={800}
+                  alt="Player giving a clue during a round of the Imposter game" 
+                  className="w-full h-auto object-cover rounded-2xl border-4 border-slate-900 dark:border-slate-700 shadow-[4px_4px_0px_#0f172a] dark:shadow-[4px_4px_0px_#000]"
+                  loading="lazy"
+                />
+              </picture>
             </div>
           </div>
         </div>

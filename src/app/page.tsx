@@ -66,82 +66,103 @@ export default function HomePage() {
       <SEOHead includeHowTo={true} />
 
       {/* Hero Section */}
-      <section className="text-center py-12 md:py-20 space-y-6 max-w-4xl mx-auto">
-        <div className="inline-flex items-center gap-2 bg-[#fef3c7] dark:bg-amber-950/80 border border-amber-300 dark:border-amber-700 px-3.5 py-1.5 rounded-full text-amber-900 dark:text-amber-300 font-arcade text-xs font-bold uppercase tracking-wider shadow-xs">
-          <span>✨</span>
-          <span>{dictionary.siteSubtitle}</span>
-        </div>
+      <section className="py-12 md:py-20 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+        {/* Left Column - Hero details */}
+        <div className="space-y-6 text-center md:text-left flex flex-col items-center md:items-start">
+          <div className="inline-flex items-center gap-2 bg-[#fef3c7] dark:bg-amber-950/80 border border-amber-300 dark:border-amber-700 px-3.5 py-1.5 rounded-full text-amber-900 dark:text-amber-300 font-arcade text-xs font-bold uppercase tracking-wider shadow-xs">
+            <span>✨</span>
+            <span>{dictionary.siteSubtitle}</span>
+          </div>
 
-        {/* Direct Barcode scan to join room - PLACED AT THE TOP */}
-        {joinUrl && (
-          <div className="max-w-md mx-auto transform hover:scale-[1.02] transition-transform duration-200">
-            <div className="bg-amber-50 dark:bg-slate-900/90 border-2 border-slate-900 dark:border-slate-700 p-5 rounded-2xl flex items-center justify-between gap-5 shadow-[4px_4px_0px_#0f172a] dark:shadow-[4px_4px_0px_#000]">
-              <div className="text-left space-y-1.5">
-                <h3 className="font-pixel text-sm text-[#ea580c] dark:text-[#fb923c] font-bold flex items-center gap-2">
-                  <span className="relative flex h-2.5 w-2.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                  </span>
-                  <QrCode className="w-5 h-5 animate-pulse" /> SCAN & PLAY ON PHONE
-                </h3>
-                <p className="font-sans text-xs font-semibold text-slate-800 dark:text-slate-200 leading-relaxed">
-                  Scan this barcode with your phone camera to instantly start playing right from your smartphone!
-                </p>
-                
-                {/* Simulated Live World Stats & Click Incrementer */}
-                <div className="mt-2.5 pt-2 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-1 text-[11px] font-arcade text-slate-650 dark:text-slate-350 font-bold">
-                  <div className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400">
-                    <span>🌍</span>
-                    <span>{scanCount.toLocaleString()} scans recorded worldwide!</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 text-indigo-650 dark:text-indigo-300">
-                    <span>🔥</span>
-                    <span>{activeRooms} active party lobbies right now</span>
+          <h1 className="font-pixel text-3xl sm:text-5xl lg:text-6xl text-[#d97706] dark:text-[#fbbf24] leading-tight tracking-tight font-extrabold">
+            {dictionary.heroHeader}
+          </h1>
+
+          <p className="font-sans text-base sm:text-lg text-slate-800 dark:text-slate-100 leading-relaxed font-semibold max-w-2xl">
+            {dictionary.heroSubheader}
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center gap-4 pt-2 w-full justify-center md:justify-start">
+            <Link
+              href="/play"
+              className="pixel-btn pixel-btn-cyan text-sm sm:text-base px-8 py-3.5 w-full sm:w-auto font-extrabold text-center"
+            >
+              <Gamepad2 className="w-5 h-5 inline mr-1.5" />
+              {dictionary.playNowButton}
+            </Link>
+            <Link
+              href="/learn"
+              className="pixel-btn pixel-btn-yellow text-sm sm:text-base px-8 py-3.5 w-full sm:w-auto font-extrabold text-center"
+            >
+              <BookOpen className="w-5 h-5 inline mr-1.5" />
+              {dictionary.rulesHeading}
+            </Link>
+          </div>
+
+          {/* Direct Barcode scan to join room - PLACED AT THE BOTTOM LEFT OF THE TEXT BLOCK */}
+          {joinUrl && (
+            <div className="w-full max-w-md transform hover:scale-[1.02] transition-transform duration-200 pt-4">
+              <div className="bg-amber-50 dark:bg-slate-900/90 border-2 border-slate-900 dark:border-slate-700 p-5 rounded-2xl flex items-center justify-between gap-5 shadow-[4px_4px_0px_#0f172a] dark:shadow-[4px_4px_0px_#000]">
+                <div className="text-left space-y-1.5">
+                  <h3 className="font-pixel text-sm text-[#ea580c] dark:text-[#fb923c] font-bold flex items-center gap-2">
+                    <span className="relative flex h-2.5 w-2.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                    </span>
+                    <QrCode className="w-5 h-5 animate-pulse" /> SCAN & PLAY ON PHONE
+                  </h3>
+                  <p className="font-sans text-xs font-semibold text-slate-800 dark:text-slate-200 leading-relaxed">
+                    Scan this barcode with your phone camera to instantly start playing right from your smartphone!
+                  </p>
+                  
+                  {/* Simulated Live World Stats & Click Incrementer */}
+                  <div className="mt-2.5 pt-2 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-1 text-[11px] font-arcade text-slate-650 dark:text-slate-350 font-bold">
+                    <div className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400">
+                      <span>🌍</span>
+                      <span>{scanCount.toLocaleString()} scans recorded worldwide!</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-indigo-650 dark:text-indigo-300">
+                      <span>🔥</span>
+                      <span>{activeRooms} active party lobbies right now</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="relative bg-white p-2.5 border-2 border-slate-900 rounded-xl shrink-0 shadow-sm flex items-center justify-center overflow-hidden" style={{width: 155, height: 155}}>
-                <QRCodeSVG
-                  value={joinUrl}
-                  size={130}
-                  level="H"
-                  includeMargin={false}
-                  style={{width: 130, height: 130, display: 'block'}}
-                  aria-label="Scan QR code to play Imposter game instantly on your smartphone"
-                />
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="w-7 h-7 bg-[#fbbf24] border-2 border-slate-900 rounded-lg flex items-center justify-center font-pixel text-slate-900 text-xs shadow-[1px_1px_0px_#0f172a] shrink-0">
-                    👾
+                <div className="relative bg-white p-2.5 border-2 border-slate-900 rounded-xl shrink-0 shadow-sm flex items-center justify-center overflow-hidden" style={{width: 155, height: 155}}>
+                  <QRCodeSVG
+                    value={joinUrl}
+                    size={130}
+                    level="H"
+                    includeMargin={false}
+                    style={{width: 130, height: 130, display: 'block'}}
+                    aria-label="Scan QR code to play Imposter game instantly on your smartphone"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="w-7 h-7 bg-[#fbbf24] border-2 border-slate-900 rounded-lg flex items-center justify-center font-pixel text-slate-900 text-xs shadow-[1px_1px_0px_#0f172a] shrink-0">
+                      👾
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
 
-        <h1 className="font-pixel text-3xl sm:text-5xl lg:text-6xl text-[#d97706] dark:text-[#fbbf24] leading-tight tracking-tight font-extrabold">
-          {dictionary.heroHeader}
-        </h1>
-
-        <p className="font-sans text-base sm:text-lg text-slate-800 dark:text-slate-100 max-w-2xl mx-auto leading-relaxed font-semibold">
-          {dictionary.heroSubheader}
-        </p>
-
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-          <Link
-            href="/play"
-            className="pixel-btn pixel-btn-cyan text-sm sm:text-base px-8 py-3.5 w-full sm:w-auto font-extrabold"
-          >
-            <Gamepad2 className="w-5 h-5 inline mr-1.5" />
-            {dictionary.playNowButton}
-          </Link>
-          <Link
-            href="/learn"
-            className="pixel-btn pixel-btn-yellow text-sm sm:text-base px-8 py-3.5 w-full sm:w-auto font-extrabold"
-          >
-            <BookOpen className="w-5 h-5 inline mr-1.5" />
-            {dictionary.rulesHeading}
-          </Link>
+        {/* Right Column - Hero Image */}
+        <div className="w-full flex justify-center">
+          <picture className="w-full max-w-lg">
+            <source srcSet="/images/hero_friends-desktop.webp 1200w, /images/hero_friends-tablet.webp 800w, /images/hero_friends-mobile.webp 480w" sizes="(max-width: 640px) 450px, (max-width: 1024px) 800px, 1200px" type="image/webp" />
+            <img 
+              src="/images/hero_friends-desktop.jpg" 
+              srcSet="/images/hero_friends-desktop.jpg 1200w, /images/hero_friends-tablet.jpg 800w, /images/hero_friends-mobile.jpg 480w" 
+              sizes="(max-width: 640px) 450px, (max-width: 1024px) 800px, 1200px"
+              width={1200}
+              height={800}
+              alt="Friends playing the Imposter social deduction party game together at home" 
+              className="w-full h-auto object-cover rounded-2xl border-4 border-slate-900 dark:border-slate-700 shadow-[6px_6px_0px_#0f172a] dark:shadow-[6px_6px_0px_#000]"
+              loading="eager"
+              fetchPriority="high"
+            />
+          </picture>
         </div>
       </section>
 
