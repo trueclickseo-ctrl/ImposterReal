@@ -1,0 +1,53 @@
+{
+  "rules": {
+    "rooms": {
+      "$roomCode": {
+        ".read": "auth !== null",
+        ".write": "auth !== null && (!data.exists() || (data.child('updatedAt').val() < (now - 3600000) && newData.val() == null))",
+        
+        "status": { ".write": "auth !== null && root.child('rooms').child($roomCode).child('players').child(auth.uid).child('isHost').val() === true" },
+        "settings": { ".write": "auth !== null && root.child('rooms').child($roomCode).child('players').child(auth.uid).child('isHost').val() === true" },
+        "roundNumber": { ".write": "auth !== null && root.child('rooms').child($roomCode).child('players').child(auth.uid).child('isHost').val() === true" },
+        "currentTurnIndex": { ".write": "auth !== null && root.child('rooms').child($roomCode).child('players').child(auth.uid).child('isHost').val() === true" },
+        "activeCategoryName": { ".write": "auth !== null && root.child('rooms').child($roomCode).child('players').child(auth.uid).child('isHost').val() === true" },
+        "winner": { ".write": "auth !== null && root.child('rooms').child($roomCode).child('players').child(auth.uid).child('isHost').val() === true" },
+        "logs": { ".write": "auth !== null && root.child('rooms').child($roomCode).child('players').child(auth.uid).child('isHost').val() === true" },
+        "timerRemaining": { ".write": "auth !== null && root.child('rooms').child($roomCode).child('players').child(auth.uid).child('isHost').val() === true" },
+        
+        "updatedAt": {
+          ".write": "auth !== null && (data.parent().child('players').child(auth.uid).exists() || newData.parent().child('players').child(auth.uid).exists())"
+        },
+        "players": {
+          ".write": "auth !== null && !data.exists()",
+          "$playerId": {
+            ".write": "auth !== null && ($playerId === auth.uid || root.child('rooms').child($roomCode).child('players').child(auth.uid).child('isHost').val() === true)",
+            "isHost": {
+              ".validate": "newData.val() === false || !root.child('rooms').child($roomCode).exists() || root.child('rooms').child($roomCode).child('players').child(auth.uid).child('isHost').val() === true"
+            },
+            "score": {
+              ".validate": "(!data.exists() && newData.val() === 0) || root.child('rooms').child($roomCode).child('players').child(auth.uid).child('isHost').val() === true"
+            },
+            "clue": {
+              ".write": "auth !== null && ($playerId === auth.uid || root.child('rooms').child($roomCode).child('players').child(auth.uid).child('isHost').val() === true)"
+            }
+          }
+        }
+      }
+    },
+    "roomSecrets": {
+      "$roomCode": {
+        "secretWord": {
+          ".read": "auth !== null && root.child('roomSecrets').child($roomCode).child('playerRoles').child(auth.uid).val() === 'civilian'",
+          ".write": "auth !== null && root.child('rooms').child($roomCode).child('players').child(auth.uid).child('isHost').val() === true"
+        },
+        "playerRoles": {
+          "$playerId": {
+            ".read": "auth !== null && ($playerId === auth.uid || root.child('rooms').child($roomCode).child('players').child(auth.uid).child('isHost').val() === true)",
+            ".write": "auth !== null && root.child('rooms').child($roomCode).child('players').child(auth.uid).child('isHost').val() === true"
+          }
+        },
+        ".write": "auth !== null && (newData.val() == null && (!root.child('rooms').child($roomCode).exists() || root.child('rooms').child($roomCode).child('updatedAt').val() < (now - 3600000)))"
+      }
+    }
+  }
+}
