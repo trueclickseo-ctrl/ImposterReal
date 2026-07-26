@@ -17,14 +17,14 @@ export default function GameLogicPage() {
         
         {/* Header */}
         <div className="text-center space-y-3">
-          <Link href="/encyclopedia" className="inline-flex items-center gap-1 font-arcade text-base text-[#ff2a85] hover:underline mb-2">
+          <Link href="/encyclopedia" className="inline-flex items-center gap-1 font-arcade text-base text-[#e70044] dark:text-[#ff2a85] hover:underline mb-2">
             <ArrowLeft className="w-4 h-4" /> Back to Master Encyclopedia
           </Link>
-          <span className="pixel-badge bg-[#ff2a85] text-white">GAME THEORY LOGIC</span>
-          <h1 className="font-pixel text-2xl sm:text-4xl text-[#ff2a85]">
+          <span className="pixel-badge bg-[#e70044] dark:bg-[#ff2a85] text-white">GAME THEORY LOGIC</span>
+          <h1 className="font-pixel text-2xl sm:text-4xl text-[#e70044] dark:text-[#ff2a85]">
             Game Theory & Mathematical Logic
           </h1>
-          <p className="font-sans text-sm text-slate-300 max-w-xl mx-auto">
+          <p className="font-sans text-sm text-slate-600 dark:text-slate-300 max-w-xl mx-auto">
             Formal Bayesian probability equations and information asymmetry principles governing hidden-role deduction.
           </p>
         </div>
@@ -32,32 +32,32 @@ export default function GameLogicPage() {
         {/* Math & Logic Sections */}
         <div className="space-y-6">
           
-          <div className="pixel-box pixel-box-cyan p-6 sm:p-8 bg-[#141c2e] space-y-4">
-            <h2 className="font-pixel text-lg text-[#00f0ff]">1. Information Asymmetry Principle</h2>
-            <div className="bg-[#0a0e1a] border-2 border-slate-700 p-4 font-mono text-sm text-[#ffe600]">
+          <div className="pixel-box pixel-box-cyan p-6 sm:p-8 space-y-4">
+            <h2 className="font-pixel text-lg text-[#0284c7] dark:text-[#00f0ff]">1. Information Asymmetry Principle</h2>
+            <div className="bg-slate-900 dark:bg-[#0a0e1a] border-2 border-slate-300 dark:border-slate-700 p-4 font-mono text-sm text-[#ffe600] dark:text-[#ffe600]">
               {GAME_LOGIC_PROOFS.informationAsymmetry.formula}
             </div>
-            <p className="font-sans text-xs text-slate-300 leading-relaxed">
+            <p className="font-sans text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
               {GAME_LOGIC_PROOFS.informationAsymmetry.description}
             </p>
           </div>
 
-          <div className="pixel-box pixel-box-pink p-6 sm:p-8 bg-[#141c2e] space-y-4">
-            <h2 className="font-pixel text-lg text-[#ff2a85]">2. Bayesian Belief Updating Equation</h2>
-            <div className="bg-[#0a0e1a] border-2 border-slate-700 p-4 font-mono text-sm text-[#39ff14]">
+          <div className="pixel-box pixel-box-pink p-6 sm:p-8 space-y-4">
+            <h2 className="font-pixel text-lg text-[#e70044] dark:text-[#ff2a85]">2. Bayesian Belief Updating Equation</h2>
+            <div className="bg-slate-900 dark:bg-[#0a0e1a] border-2 border-slate-300 dark:border-slate-700 p-4 font-mono text-sm text-[#16a34a] dark:text-[#39ff14]">
               {GAME_LOGIC_PROOFS.bayesianUpdating.formula}
             </div>
-            <p className="font-sans text-xs text-slate-300 leading-relaxed">
+            <p className="font-sans text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
               {GAME_LOGIC_PROOFS.bayesianUpdating.description}
             </p>
           </div>
 
-          <div className="pixel-box p-6 sm:p-8 bg-[#141c2e] space-y-4 border-4 border-[#39ff14]">
-            <h2 className="font-pixel text-lg text-[#39ff14]">3. Nash Equilibrium in Clue Selection</h2>
-            <div className="bg-[#0a0e1a] border-2 border-slate-700 p-4 font-mono text-sm text-[#ffe600]">
+          <div className="pixel-box p-6 sm:p-8 space-y-4 border-4 border-[#16a34a] dark:border-[#39ff14]">
+            <h2 className="font-pixel text-lg text-[#16a34a] dark:text-[#39ff14]">3. Nash Equilibrium in Clue Selection</h2>
+            <div className="bg-slate-900 dark:bg-[#0a0e1a] border-2 border-slate-300 dark:border-slate-700 p-4 font-mono text-sm text-[#ffe600] dark:text-[#ffe600]">
               {GAME_LOGIC_PROOFS.nashEquilibrium.formula}
             </div>
-            <p className="font-sans text-xs text-slate-300 leading-relaxed">
+            <p className="font-sans text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
               {GAME_LOGIC_PROOFS.nashEquilibrium.description}
             </p>
           </div>
@@ -65,13 +65,13 @@ export default function GameLogicPage() {
         </div>
 
         {/* Academic Reference Link */}
-        <div className="bg-[#1e293b] p-4 border border-slate-700 flex justify-between items-center text-xs font-arcade">
-          <span className="text-slate-300">Citing Stanford Encyclopedia of Philosophy & MIT Game Lab Research</span>
+        <div className="bg-slate-100 dark:bg-slate-800 p-4 border border-slate-200 dark:border-slate-700 flex flex-wrap justify-between items-center gap-2 text-xs font-arcade">
+          <span className="text-slate-700 dark:text-slate-300">Citing Stanford Encyclopedia of Philosophy & MIT Game Lab Research</span>
           <a
             href="https://plato.stanford.edu/entries/game-theory/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#ffe600] hover:underline flex items-center gap-1"
+            className="text-amber-600 dark:text-[#ffe600] hover:underline flex items-center gap-1"
           >
             Read Stanford Game Theory Entry <ExternalLink className="w-4 h-4" />
           </a>
@@ -81,3 +81,4 @@ export default function GameLogicPage() {
     </>
   );
 }
+

@@ -17,14 +17,14 @@ export default function HistoryPage() {
         
         {/* Header */}
         <div className="text-center space-y-3">
-          <Link href="/encyclopedia" className="inline-flex items-center gap-1 font-arcade text-base text-[#00f0ff] hover:underline mb-2">
+          <Link href="/encyclopedia" className="inline-flex items-center gap-1 font-arcade text-base text-[#0284c7] dark:text-[#00f0ff] hover:underline mb-2">
             <ArrowLeft className="w-4 h-4" /> Back to Master Encyclopedia
           </Link>
-          <span className="pixel-badge bg-[#00f0ff] text-slate-900">HISTORICAL CHRONOLOGY</span>
-          <h1 className="font-pixel text-2xl sm:text-4xl text-[#00f0ff]">
+          <span className="pixel-badge bg-[#0284c7] dark:bg-[#00f0ff] text-white dark:text-slate-900">HISTORICAL CHRONOLOGY</span>
+          <h1 className="font-pixel text-2xl sm:text-4xl text-[#0284c7] dark:text-[#00f0ff]">
             History & Evolution of Social Deduction
           </h1>
-          <p className="font-sans text-sm text-slate-300 max-w-xl mx-auto">
+          <p className="font-sans text-sm text-slate-600 dark:text-slate-300 max-w-xl mx-auto">
             From 19th-century parlor games to Dmitry Davidoff's 1986 invention of Mafia and modern web-based Imposter games.
           </p>
         </div>
@@ -32,22 +32,22 @@ export default function HistoryPage() {
         {/* Timeline Event Cards */}
         <div className="space-y-6">
           {HISTORICAL_TIMELINE.map((event, idx) => (
-            <div key={idx} className="pixel-box p-6 bg-[#141c2e] border-4 border-[#00f0ff] space-y-3">
-              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-700 pb-3">
+            <div key={idx} className="pixel-box p-6 border-4 border-[#0284c7] dark:border-[#00f0ff] space-y-3">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 dark:border-slate-700 pb-3">
                 <div className="flex items-center gap-3">
-                  <span className="pixel-badge bg-[#ffe600] text-slate-900 font-bold">{event.year}</span>
-                  <h2 className="font-pixel text-base sm:text-lg text-slate-100">{event.title}</h2>
+                  <span className="pixel-badge bg-amber-500 dark:bg-[#ffe600] text-white dark:text-slate-900 font-bold">{event.year}</span>
+                  <h2 className="font-pixel text-base sm:text-lg text-slate-900 dark:text-slate-100">{event.title}</h2>
                 </div>
-                <span className="font-arcade text-sm text-[#00f0ff] flex items-center gap-1">
+                <span className="font-arcade text-sm text-[#0284c7] dark:text-[#00f0ff] flex items-center gap-1">
                   <User className="w-4 h-4" /> {event.creator}
                 </span>
               </div>
 
-              <p className="font-sans text-xs text-slate-300 leading-relaxed">
+              <p className="font-sans text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
                 {event.description}
               </p>
 
-              <div className="bg-[#1e293b] p-3 border-l-4 border-[#ffe600] font-sans text-xs space-y-1">
+              <div className="bg-slate-100 dark:bg-slate-800 p-3 border-l-4 border-amber-500 dark:border-[#ffe600] font-sans text-xs space-y-1 text-slate-800 dark:text-slate-200">
                 <strong>Significance:</strong> {event.significance}
               </div>
 
@@ -56,7 +56,7 @@ export default function HistoryPage() {
                   href={event.authorityLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-[#ffe600] font-arcade text-base hover:underline"
+                  className="inline-flex items-center gap-1 text-amber-600 dark:text-[#ffe600] font-arcade text-base hover:underline"
                 >
                   Verify Source ({event.authoritySource}) <ExternalLink className="w-3.5 h-3.5" />
                 </a>
@@ -69,3 +69,4 @@ export default function HistoryPage() {
     </>
   );
 }
+
