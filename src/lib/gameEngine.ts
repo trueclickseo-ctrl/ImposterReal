@@ -145,8 +145,18 @@ export const DEFAULT_WORD_CATEGORIES: WordCategory[] = [
 export function generateRoomCode(): string {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
   let result = 'IMP-';
-  for (let i = 0; i < 4; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  
+  if (typeof window !== 'undefined' && window.crypto) {
+    const array = new Uint32Array(6);
+    window.crypto.getRandomValues(array);
+    for (let i = 0; i < 6; i++) {
+      result += chars.charAt(array[i] % chars.length);
+    }
+  } else {
+    // Fallback for build time / server-side rendering
+    for (let i = 0; i < 6; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
   }
   return result;
 }
@@ -154,7 +164,7 @@ export function generateRoomCode(): string {
 export function createInitialState(customCategory?: WordCategory, playerNames: string[] = ['Player 1', 'Player 2', 'Player 3', 'Player 4']): GameState {
   const category = customCategory || DEFAULT_WORD_CATEGORIES[0];
   const randomWord = category.words[Math.floor(Math.random() * category.words.length)];
-  const roomCode = generateRoomCode();
+  const roomCode = 'IMP-LOBBY'; // Placeholder to prevent build-time baking in static HTML
 
   const players: Player[] = playerNames.map((name, index) => ({
     id: `player-${index + 1}`,
