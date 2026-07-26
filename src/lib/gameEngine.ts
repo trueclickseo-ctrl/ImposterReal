@@ -204,7 +204,8 @@ export function createInitialState(customCategory?: WordCategory, playerNames: s
 
 export function startNewRound(currentState: GameState, categoryId?: string): GameState {
   const cat = DEFAULT_WORD_CATEGORIES.find(c => c.id === (categoryId || currentState.settings.category)) || DEFAULT_WORD_CATEGORIES[0];
-  const wordsToUse = currentState.settings.customWords.length > 0 ? currentState.settings.customWords : cat.words;
+  const customWords = currentState.settings.customWords || [];
+  const wordsToUse = customWords.length > 0 ? customWords : cat.words;
   const randomWord = wordsToUse[Math.floor(Math.random() * wordsToUse.length)];
 
   // Reset votes & roles

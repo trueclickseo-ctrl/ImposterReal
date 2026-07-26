@@ -159,6 +159,7 @@ export default function ImposterGameUI() {
       status: "lobby",
       settings: {
         category: "movies",
+        customWords: [],
         imposterCount: 1,
         discussionTimeSeconds: 180,
         scoreLimit: 5
