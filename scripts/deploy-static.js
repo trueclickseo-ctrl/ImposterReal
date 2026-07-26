@@ -77,12 +77,19 @@ if (gitignoreContent) {
 }
 
 // 7. Commit and force push to main
-console.log("Committing and force pushing static files to main branch...");
+console.log("Committing and force pushing static files to main branch on GitHub...");
 execSync('git add -A', { cwd: projectRoot, stdio: 'inherit' });
 execSync('git commit -m "deploy: publish static build artifacts"', { cwd: projectRoot, stdio: 'inherit' });
 execSync('git push -f origin main', { cwd: projectRoot, stdio: 'inherit' });
 
-console.log("SUCCESS! Static build is now live on the main branch of GitHub. Switch back to 'source' branch locally to continue editing.");
+console.log("Pushing static build directly to Hostinger via SSH Git hook...");
+try {
+  execSync('git push -f hostinger main', { cwd: projectRoot, stdio: 'inherit' });
+} catch (e) {
+  console.log("Warning: Hostinger SSH push failed:", e.message);
+}
+
+console.log("SUCCESS! Static build is now live on the main branch of GitHub and Hostinger. Switch back to 'source' branch locally to continue editing.");
 execSync('git checkout source', { cwd: projectRoot, stdio: 'inherit' });
 
 // 8. Ping Bing IndexNow to notify of updated content
