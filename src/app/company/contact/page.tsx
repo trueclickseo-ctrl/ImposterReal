@@ -16,8 +16,8 @@ export default function ContactPage() {
     setSending(true);
 
     try {
-      // Send form submission to Formspree, configured to send directly to owner's email with exact subject
-      const response = await fetch("https://formspree.io/f/xqakodqy", {
+      // Send form submission to FormSubmit, configured to send directly to trueclickseo@gmail.com
+      const response = await fetch("https://formsubmit.co/ajax/trueclickseo@gmail.com", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -27,8 +27,7 @@ export default function ContactPage() {
           name: name,
           email: email,
           message: message,
-          _subject: "Mail from imposter",
-          _to: "trueclickseo@gmail.com"
+          _subject: "Mail from imposter"
         })
       });
 
