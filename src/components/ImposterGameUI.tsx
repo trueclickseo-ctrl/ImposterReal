@@ -330,14 +330,21 @@ export default function ImposterGameUI() {
   const startRound = async () => {
     if (!gameState || !roomCode || !playerId) return;
 
-    // Retrieve secret words
-    const categoryDetail = getLocalizedCategory(gameState.settings.category, locale);
-    const roundWords = categoryDetail.words.length > 0 ? categoryDetail.words : DEFAULT_WORD_CATEGORIES[0].words;
-    const randomWord = roundWords[Math.floor(Math.random() * roundWords.length)];
+    // Retrieve secret words safely
+    const categoryDetail = getLocalizedCategory(gameState.settings?.category || "movies", locale || "en");
+    const categoryWords = categoryDetail?.words || [];
+    const roundWords = categoryWords.length > 0 ? categoryWords : (DEFAULT_WORD_CATEGORIES[0]?.words || []);
+    const randomWord = roundWords.length > 0 ? roundWords[Math.floor(Math.random() * roundWords.length)] : "Imposter";
+
+    // Ensure players list is parsed as an array safely
+    const playersList = Array.isArray(gameState.players)
+      ? gameState.players
+      : Object.values(gameState.players || {});
 
     // Setup local game engine state to get assigned roles
     const localState = startNewRound({
       ...gameState,
+      players: playersList,
       // Firebase mapping structure back to engine State object
       imposterIds: gameState.imposterIds || []
     });
