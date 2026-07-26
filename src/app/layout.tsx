@@ -108,6 +108,35 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-WJBPNQVH');`,
           }}
         />
+
+        {/* Fallback rendering script to ensure text visibility across all WKWebView and WebKit engines */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                function forceTextVisible() {
+                  var styleId = 'force-text-visible-override';
+                  if (document.getElementById(styleId)) return;
+                  var css = 'h1, h2, h3, h4, h5, h6, p, li, td, th, a, h1 span, h2 span, h3 span, p span { opacity: 1 !important; visibility: visible !important; }';
+                  var style = document.createElement('style');
+                  style.id = styleId;
+                  style.type = 'text/css';
+                  style.appendChild(document.createTextNode(css));
+                  document.head.appendChild(style);
+                }
+                if (document.readyState === 'loading') {
+                  document.addEventListener('DOMContentLoaded', forceTextVisible);
+                } else {
+                  forceTextVisible();
+                }
+                window.addEventListener('load', forceTextVisible);
+                setTimeout(forceTextVisible, 300);
+                setTimeout(forceTextVisible, 800);
+                setTimeout(forceTextVisible, 1500);
+              })();
+            `,
+          }}
+        />
       </head>
       <body className="min-h-full flex flex-col bg-[var(--bg-primary)] text-[var(--text-primary)] font-sans font-medium">
         {/* Google Tag Manager (noscript) */}
