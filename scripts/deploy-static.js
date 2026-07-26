@@ -24,11 +24,7 @@ try {
   console.log("Note: Source branch commit/push warning:", e.message);
 }
 
-// 2. Go back to main
-console.log("Switching back to main branch...");
-execSync('git checkout main', { cwd: projectRoot, stdio: 'inherit' });
-
-// 3. Temporarily copy out/ to a folder outside the project
+// 2. Temporarily copy out/ to a folder outside the project BEFORE switching branch
 const tempOut = 'd:/Project-ImposterReal/temp_out';
 if (fs.existsSync(tempOut)) {
   fs.rmSync(tempOut, { recursive: true, force: true });
@@ -50,6 +46,10 @@ function copyFolderRecursive(src, dest) {
   }
 }
 copyFolderRecursive(outDir, tempOut);
+
+// 3. Switch to main branch
+console.log("Switching back to main branch...");
+execSync('git checkout main', { cwd: projectRoot, stdio: 'inherit' });
 
 // 4. Delete all tracked files in main branch to make it purely static
 console.log("Cleaning main branch directory using git...");
