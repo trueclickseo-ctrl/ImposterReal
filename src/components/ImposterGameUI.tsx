@@ -15,13 +15,14 @@ import { getLocalizedCategory } from "@/lib/localizedWords";
 import { useLanguage } from "@/context/LanguageContext";
 import { Eye, EyeOff, Timer, CheckCircle, RefreshCw, Plus, Trash2, Smartphone, QrCode } from "lucide-react";
 import { database, auth } from "@/lib/firebase";
-import { ref, onValue, set, update, get, remove } from "firebase/database";
-import { onAuthStateChanged } from "firebase/auth";
+import { ref, onValue, set, update, get, remove, onDisconnect } from "firebase/database";
+import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
 
 export default function ImposterGameUI() {
   const { locale, dictionary } = useLanguage();
   const [mounted, setMounted] = useState(false);
   const [playerId, setPlayerId] = useState<string | null>(null);
+  const [authError, setAuthError] = useState<string | null>(null);
   
   // Game states
   const [roomCode, setRoomCode] = useState<string>("");
@@ -60,34 +61,48 @@ export default function ImposterGameUI() {
       const savedCount = localStorage.getItem("total_qr_scans");
       let currentCount = savedCount ? parseInt(savedCount, 10) : 3452;
       setScanCount(currentCount);
-
-      // Perform clean up sweep of stale rooms
-      const roomsRef = ref(database, "rooms");
-      get(roomsRef).then((snapshot) => {
-        if (snapshot.exists()) {
-          const rooms = snapshot.val();
-          const cutoff = Date.now() - 3600000; // 60 minutes
-          const updates: Record<string, null> = {};
-          
-          for (const code in rooms) {
-            if (rooms[code].updatedAt < cutoff) {
-              updates[`rooms/${code}`] = null;
-              updates[`roomSecrets/${code}`] = null;
-            }
-          }
-          if (Object.keys(updates).length > 0) {
-            update(ref(database), updates).catch((err) => {
-              console.log("Cleanup skipped due to permissions/active lock:", err.message);
-            });
-          }
-        }
-      }).catch((err) => {
-        console.error("Cleanup scan failed:", err.message);
-      });
     }
+
+    // Trigger Anonymous Auth and catch disabled provider errors
+    signInAnonymously(auth).catch((error) => {
+      console.error("Firebase Anonymous Auth Failed:", error);
+      if (error.code === "auth/operation-not-allowed") {
+        setAuthError("Anonymous sign-in is disabled for this project. Please enable 'Anonymous' provider in your Firebase Console under Authentication > Sign-in method.");
+      } else {
+        setAuthError(`Authentication failed: ${error.message}`);
+      }
+    });
 
     return () => unsubscribeAuth();
   }, []);
+
+  // Client-triggered stale room cleanup (runs once player is authenticated)
+  useEffect(() => {
+    if (!playerId) return;
+
+    const roomsRef = ref(database, "rooms");
+    get(roomsRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        const rooms = snapshot.val();
+        const cutoff = Date.now() - 3600000; // 60 minutes
+        const updates: Record<string, null> = {};
+        
+        for (const code in rooms) {
+          if (rooms[code].updatedAt < cutoff) {
+            updates[`rooms/${code}`] = null;
+            updates[`roomSecrets/${code}`] = null;
+          }
+        }
+        if (Object.keys(updates).length > 0) {
+          update(ref(database), updates).catch((err) => {
+            console.log("Cleanup skipped due to permissions/active lock:", err.message);
+          });
+        }
+      }
+    }).catch((err) => {
+      console.error("Cleanup scan failed:", err.message);
+    });
+  }, [playerId]);
 
   // 2. Room Discovery, Joining, and Connection State
   useEffect(() => {
@@ -160,14 +175,22 @@ export default function ImposterGameUI() {
       updatedAt: Date.now()
     };
 
-    // Rule requirement: Write /rooms/roomCode first before writing /roomSecrets
-    await set(ref(database, `rooms/${generated}`), initialHostState);
-    
-    // Now write the secret mapping separately
-    await set(ref(database, `roomSecrets/${generated}/playerRoles/${playerId}`), "civilian");
+    try {
+      // Rule requirement: Write /rooms/roomCode first before writing /roomSecrets
+      await set(ref(database, `rooms/${generated}`), initialHostState);
+      
+      // Now write the secret mapping separately
+      await set(ref(database, `roomSecrets/${generated}/playerRoles/${playerId}`), "civilian");
 
-    sessionStorage.setItem("imposter_host_room", generated);
-    setRoomCode(generated);
+      // Configure onDisconnect for the Host
+      const disconnectRef = ref(database, `rooms/${generated}/players/${playerId}/isConnected`);
+      onDisconnect(disconnectRef).set(false);
+
+      sessionStorage.setItem("imposter_host_room", generated);
+      setRoomCode(generated);
+    } catch (err: any) {
+      console.error("Room creation failed:", err.message);
+    }
   };
 
   // 3. Database Subscriptions
@@ -224,24 +247,13 @@ export default function ImposterGameUI() {
     });
 
     // Handle Connection drops automatically
-    const playerConnectionRef = ref(database, `rooms/${roomCode}/players/${playerId}`);
     onValue(ref(database, ".info/connected"), (snap) => {
       if (snap.val() === true) {
-        update(playerConnectionRef, { isConnected: true });
-        // Set disconnect trigger on server
         const disconnectRef = ref(database, `rooms/${roomCode}/players/${playerId}/isConnected`);
-        set(disconnectRef, false); // Local setup
-        // Realtime setup on disconnect
-        const disconnectHandler = ref(database, `rooms/${roomCode}/players/${playerId}`);
-        // Setup Server Disconnect action
-        const onDisconnectRef = ref(database, `rooms/${roomCode}/players/${playerId}`);
-        // Mark disconnected
-        const updates: any = {};
-        updates[`rooms/${roomCode}/players/${playerId}/isConnected`] = false;
-        // OnDisconnect configuration
-        update(playerConnectionRef, { isConnected: true });
+        onDisconnect(disconnectRef).set(false);
       }
     });
+
 
     return () => {
       unsubscribeRoom();
@@ -254,25 +266,33 @@ export default function ImposterGameUI() {
   const registerRemotePlayer = async () => {
     if (!remotePlayerName.trim() || !roomCode || !playerId) return;
     
-    // Check if slot already exists for reconnect
-    const playerRef = ref(database, `rooms/${roomCode}/players/${playerId}`);
-    const snap = await get(playerRef);
+    try {
+      // Check if slot already exists for reconnect
+      const playerRef = ref(database, `rooms/${roomCode}/players/${playerId}`);
+      const snap = await get(playerRef);
 
-    if (snap.exists()) {
-      // Reconnect
-      await update(playerRef, { isConnected: true });
-    } else {
-      // Join as new player with exactly score: 0
-      const newP = {
-        id: playerId,
-        name: remotePlayerName.trim(),
-        isHost: false,
-        isConnected: true,
-        score: 0 // Secured via rules constraint (must be 0)
-      };
-      await set(playerRef, newP);
+      if (snap.exists()) {
+        // Reconnect
+        await update(playerRef, { isConnected: true });
+      } else {
+        // Join as new player with exactly score: 0
+        const newP = {
+          id: playerId,
+          name: remotePlayerName.trim(),
+          isHost: false,
+          isConnected: true,
+          score: 0 // Secured via rules constraint (must be 0)
+        };
+        await set(playerRef, newP);
+
+        // Configure server-side disconnect handler
+        const disconnectRef = ref(database, `rooms/${roomCode}/players/${playerId}/isConnected`);
+        onDisconnect(disconnectRef).set(false);
+      }
+      setRemoteRegistered(true);
+    } catch (err: any) {
+      console.error("Player join failed:", err.message);
     }
-    setRemoteRegistered(true);
   };
 
   // 5. Game Setup & Category
@@ -470,6 +490,20 @@ export default function ImposterGameUI() {
   };
 
   // 7. Render Loading states
+  if (authError) {
+    return (
+      <div className="max-w-xl mx-auto space-y-4 my-10 p-6 bg-red-50 dark:bg-red-950/20 border-2 border-red-500 rounded-2xl shadow-xl text-center">
+        <h2 className="font-pixel text-xl text-red-650 dark:text-red-400 font-extrabold">⚠️ Authentication Setup Needed</h2>
+        <p className="font-sans text-sm text-slate-800 dark:text-slate-200 font-semibold leading-relaxed">
+          {authError}
+        </p>
+        <div className="text-xs font-sans font-semibold text-slate-650 dark:text-slate-400 pt-2">
+          (This is required to sync multiplayer game rooms in real time)
+        </div>
+      </div>
+    );
+  }
+
   if (!mounted || !playerId) {
     return (
       <div className="flex justify-center items-center py-20">

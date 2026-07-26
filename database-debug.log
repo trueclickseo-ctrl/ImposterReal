@@ -1,0 +1,5 @@
+18:53:19.540 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+18:53:19.720 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+18:53:26.114 [NamespaceSystem-akka.actor.default-dispatcher-7] INFO com.firebase.core.namespace.NamespaceActor - demo-imposter-real-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 147ms, init: 0ms
+18:53:26.239 [NamespaceSystem-blocking-namespace-operation-dispatcher-8] INFO com.firebase.core.namespace.StateManager - Namespace demo-imposter-real-default-rtdb status Active to Active
+18:53:57.073 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO com.firebase.core.namespace.DeadLetterResponder - Message DataPush(List(rooms, IMP-SZH8ZP),com.firebase.util.data.SparseMergeRenderable@1061920653) meant for other actor akka://NamespaceSystem/user/demo-imposter-real-default-rtdb/$t from akka://NamespaceSystem/deadLetters went to deadletter actor

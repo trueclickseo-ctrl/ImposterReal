@@ -1,6 +1,6 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
-import { getDatabase, connectDatabaseEmulator } from "firebase/database";
-import { getAuth, signInAnonymously } from "firebase/auth";
+import { getDatabase, connectDatabaseEmulator, ref, set, update, get } from "firebase/database";
+import { getAuth, signInAnonymously, connectAuthEmulator } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "dummy-api-key",
@@ -14,16 +14,24 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
-const database = getDatabase(app);
+
+const isEmulator = typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1");
+const database = getDatabase(app, isEmulator ? "http://127.0.0.1:9000?ns=demo-imposter-real-default-rtdb" : undefined);
 const auth = getAuth(app);
 
 // Connect to Emulator if running locally
 if (typeof window !== "undefined") {
-  if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+  if (isEmulator) {
     connectDatabaseEmulator(database, "127.0.0.1", 9000);
+    connectAuthEmulator(auth, "http://127.0.0.1:9099");
   }
   (window as any).firebaseDb = database;
   (window as any).firebaseAuth = auth;
+  (window as any).firebaseRef = ref;
+  (window as any).firebaseSet = set;
+  (window as any).firebaseUpdate = update;
+  (window as any).firebaseGet = get;
+  
   signInAnonymously(auth).catch((error) => {
     console.error("Firebase Anonymous Auth Failed:", error);
   });

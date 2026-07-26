@@ -1,6 +1,7 @@
 {
   "rules": {
     "rooms": {
+      ".read": "auth !== null",
       "$roomCode": {
         ".read": "auth !== null",
         ".write": "auth !== null && (!data.exists() || (data.child('updatedAt').val() < (now - 3600000) && newData.val() == null))",
