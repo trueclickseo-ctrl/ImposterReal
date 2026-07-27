@@ -28,6 +28,7 @@ export default function ImposterGameUI() {
   const [roomCode, setRoomCode] = useState<string>("");
   const [gameState, setGameState] = useState<GameState | null>(null);
   const [playerRole, setPlayerRole] = useState<string | null>(null);
+  const [playerRoles, setPlayerRoles] = useState<Record<string, string>>({});
   const [secretWord, setSecretWord] = useState<string | null>(null);
   
   // Local UI states
@@ -236,6 +237,18 @@ export default function ImposterGameUI() {
       setPlayerRole(snapshot.exists() ? snapshot.val() : null);
     });
 
+    // Listen to all player roles (Only host can read, for local Pass & Play)
+    const rolesMapRef = ref(database, `roomSecrets/${roomCode}/playerRoles`);
+    const unsubscribeRolesMap = onValue(rolesMapRef, (snapshot) => {
+      if (snapshot.exists()) {
+        setPlayerRoles(snapshot.val());
+      } else {
+        setPlayerRoles({});
+      }
+    }, (error) => {
+      setPlayerRoles({});
+    });
+
     // Listen to secret word (Only civilians can read)
     const wordRef = ref(database, `roomSecrets/${roomCode}/secretWord`);
     const unsubscribeWord = onValue(wordRef, (snapshot) => {
@@ -257,6 +270,7 @@ export default function ImposterGameUI() {
     return () => {
       unsubscribeRoom();
       unsubscribeRole();
+      unsubscribeRolesMap();
       unsubscribeWord();
     };
   }, [roomCode, playerId]);
@@ -838,54 +852,61 @@ export default function ImposterGameUI() {
               Pass Device To: <span className="text-[#d97706] dark:text-[#fbbf24]">{gameState.players[activePlayerIndex]?.name}</span>
             </h3>
 
-            {!showRoleCard ? (
-              <div className="bg-[var(--bg-card-alt)] border-2 border-[#fbbf24] p-8 rounded-2xl space-y-4 shadow-lg">
-                <div className="text-5xl animate-bounce">🔒</div>
-                <p className="font-sans text-base font-semibold text-slate-800 dark:text-slate-100">
-                  Ensure no other player is watching your screen, then click below to reveal your secret word.
-                </p>
-                <button
-                  onClick={() => setShowRoleCard(true)}
-                  className="pixel-btn pixel-btn-yellow w-full font-bold"
-                >
-                  <Eye className="w-5 h-5 inline mr-2" /> View Secret Word
-                </button>
-              </div>
-            ) : (
-              <div className={`border-2 p-8 rounded-2xl space-y-4 shadow-lg ${
-                playerRole === 'imposter'
-                  ? 'bg-rose-50 dark:bg-rose-950/80 border-rose-500 text-rose-900 dark:text-rose-200'
-                  : 'bg-emerald-50 dark:bg-emerald-950/80 border-emerald-500 text-emerald-900 dark:text-emerald-200'
-              }`}>
-                {playerRole === 'imposter' ? (
-                  <>
-                    <div className="text-5xl animate-pulse">🤫</div>
-                    <h4 className="font-pixel text-2xl text-rose-600 dark:text-rose-400 font-bold">YOU ARE THE IMPOSTER!</h4>
-                    <p className="font-sans text-base font-semibold text-slate-850 dark:text-slate-100 leading-relaxed">
-                      You do not know the secret word! Listen carefully to other players' clues and bluff your way through!
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <div className="text-5xl">🔑</div>
-                    <h4 className="font-pixel text-xs text-emerald-750 dark:text-emerald-400 uppercase font-bold">Your Secret Word:</h4>
-                    <div className="font-pixel text-3xl text-amber-600 dark:text-[#fbbf24] tracking-wider py-3 bg-white/80 dark:bg-black/40 border-2 border-emerald-500 rounded-xl font-extrabold">
-                      {secretWord || "Loading..."}
-                    </div>
-                    <p className="font-sans text-sm font-semibold text-slate-850 dark:text-slate-100 leading-relaxed">
-                      Category: {gameState.activeCategoryName}. Give one subtle clue that won't give it away to the Imposter!
-                    </p>
-                  </>
-                )}
+            {(() => {
+              const activePlayer = gameState.players[activePlayerIndex];
+              const activePlayerRole = activePlayer
+                ? (playerRoles[activePlayer.id] || (activePlayer.id === playerId ? playerRole : null))
+                : null;
 
-                <button
-                  onClick={handleNextPlayerReveal}
-                  className="pixel-btn pixel-btn-cyan w-full mt-4 font-bold"
-                >
-                  <EyeOff className="w-5 h-5 inline mr-2" /> Hide & Pass to Next Player
-                </button>
-              </div>
-            )}
+              return !showRoleCard ? (
+                <div className="bg-[var(--bg-card-alt)] border-2 border-[#fbbf24] p-8 rounded-2xl space-y-4 shadow-lg">
+                  <div className="text-5xl animate-bounce">🔒</div>
+                  <p className="font-sans text-base font-semibold text-slate-800 dark:text-slate-100">
+                    Ensure no other player is watching your screen, then click below to reveal your secret word.
+                  </p>
+                  <button
+                    onClick={() => setShowRoleCard(true)}
+                    className="pixel-btn pixel-btn-yellow w-full font-bold"
+                  >
+                    <Eye className="w-5 h-5 inline mr-2" /> View Secret Word
+                  </button>
+                </div>
+              ) : (
+                <div className={`border-2 p-8 rounded-2xl space-y-4 shadow-lg ${
+                  activePlayerRole === 'imposter'
+                    ? 'bg-rose-50 dark:bg-rose-950/80 border-rose-500 text-rose-900 dark:text-rose-200'
+                    : 'bg-emerald-50 dark:bg-emerald-950/80 border-emerald-500 text-emerald-900 dark:text-emerald-200'
+                }`}>
+                  {activePlayerRole === 'imposter' ? (
+                    <>
+                      <div className="text-5xl animate-pulse">🤫</div>
+                      <h4 className="font-pixel text-2xl text-rose-600 dark:text-rose-400 font-bold">YOU ARE THE IMPOSTER!</h4>
+                      <p className="font-sans text-base font-semibold text-slate-850 dark:text-slate-100 leading-relaxed">
+                        You do not know the secret word! Listen carefully to other players' clues and bluff your way through!
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <div className="text-5xl">🔑</div>
+                      <h4 className="font-pixel text-xs text-emerald-750 dark:text-emerald-400 uppercase font-bold">Your Secret Word:</h4>
+                      <div className="font-pixel text-3xl text-amber-600 dark:text-[#fbbf24] tracking-wider py-3 bg-white/80 dark:bg-black/40 border-2 border-emerald-500 rounded-xl font-extrabold">
+                        {secretWord || "Loading..."}
+                      </div>
+                      <p className="font-sans text-sm font-semibold text-slate-850 dark:text-slate-100 leading-relaxed">
+                        Category: {gameState.activeCategoryName}. Give one subtle clue that won't give it away to the Imposter!
+                      </p>
+                    </>
+                  )}
+
+                  <button
+                    onClick={handleNextPlayerReveal}
+                    className="pixel-btn pixel-btn-cyan w-full mt-4 font-bold"
+                  >
+                    <EyeOff className="w-5 h-5 inline mr-2" /> Hide & Pass to Next Player
+                  </button>
+                </div>
+              );
+            })()}
           </div>
         )}
 
