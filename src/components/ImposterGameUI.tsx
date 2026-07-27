@@ -400,6 +400,10 @@ export default function ImposterGameUI() {
     await update(ref(database, `roomSecrets/${roomCode}`), secretUpdates);
     console.log("[DEBUG startRound] All writes completed successfully!");
     
+    if (roomCode) {
+      sessionStorage.setItem(`secret_word_${roomCode}`, randomWord);
+    }
+    
     setActivePlayerIndex(0);
     setShowRoleCard(false);
   };
@@ -567,6 +571,7 @@ export default function ImposterGameUI() {
 
   const currentPlayer = gameState.players.find(p => p.id === playerId);
   const isHost = currentPlayer?.isHost || false;
+  const isLocalPassAndPlay = gameState?.players.every(p => p.isHost || p.isLocalPlayer) || false;
 
   // Render Remote Mobile Client Join Interface
   if (remoteJoinMode) {
@@ -902,7 +907,7 @@ export default function ImposterGameUI() {
                       <div className="text-5xl">🔑</div>
                       <h4 className="font-pixel text-xs text-emerald-750 dark:text-emerald-400 uppercase font-bold">Your Secret Word:</h4>
                       <div className="font-pixel text-3xl text-amber-600 dark:text-[#fbbf24] tracking-wider py-3 bg-white/80 dark:bg-black/40 border-2 border-emerald-500 rounded-xl font-extrabold">
-                        {secretWord || "Loading..."}
+                        {secretWord || (isLocalPassAndPlay ? sessionStorage.getItem(`secret_word_${roomCode}`) : null) || "Loading..."}
                       </div>
                       <p className="font-sans text-sm font-semibold text-slate-850 dark:text-slate-100 leading-relaxed">
                         Category: {gameState.activeCategoryName}. Give one subtle clue that won't give it away to the Imposter!

@@ -37,14 +37,14 @@
     },
     "roomSecrets": {
       "$roomCode": {
-        ".read": "auth !== null && root.child('rooms').child($roomCode).child('players').child(auth.uid).child('isHost').val() === true",
         "secretWord": {
           ".read": "auth !== null && root.child('roomSecrets').child($roomCode).child('playerRoles').child(auth.uid).val() === 'civilian'",
           ".write": "auth !== null && root.child('rooms').child($roomCode).child('players').child(auth.uid).child('isHost').val() === true"
         },
         "playerRoles": {
+          ".read": "auth !== null && root.child('rooms').child($roomCode).child('players').child(auth.uid).child('isHost').val() === true",
           "$playerId": {
-            ".read": "auth !== null && $playerId === auth.uid",
+            ".read": "auth !== null && ($playerId === auth.uid || root.child('rooms').child($roomCode).child('players').child(auth.uid).child('isHost').val() === true)",
             ".write": "auth !== null && ($playerId === auth.uid || root.child('rooms').child($roomCode).child('players').child(auth.uid).child('isHost').val() === true)"
           }
         },
