@@ -231,32 +231,39 @@ export default function ImposterGameUI() {
       }
     });
 
-    // Listen to current player secrets (role & word)
-    const roleRef = ref(database, `roomSecrets/${roomCode}/playerRoles/${playerId}`);
-    const unsubscribeRole = onValue(roleRef, (snapshot) => {
-      setPlayerRole(snapshot.exists() ? snapshot.val() : null);
-    });
+    // Only subscribe to room secrets if the game has started (status !== 'lobby')
+    let unsubscribeRole = () => {};
+    let unsubscribeRolesMap = () => {};
+    let unsubscribeWord = () => {};
 
-    // Listen to all player roles (Only host can read, for local Pass & Play)
-    const rolesMapRef = ref(database, `roomSecrets/${roomCode}/playerRoles`);
-    const unsubscribeRolesMap = onValue(rolesMapRef, (snapshot) => {
-      if (snapshot.exists()) {
-        setPlayerRoles(snapshot.val());
-      } else {
+    if (gameState && gameState.status !== "lobby") {
+      // Listen to current player secrets (role & word)
+      const roleRef = ref(database, `roomSecrets/${roomCode}/playerRoles/${playerId}`);
+      unsubscribeRole = onValue(roleRef, (snapshot) => {
+        setPlayerRole(snapshot.exists() ? snapshot.val() : null);
+      });
+
+      // Listen to all player roles (Only host can read, for local Pass & Play)
+      const rolesMapRef = ref(database, `roomSecrets/${roomCode}/playerRoles`);
+      unsubscribeRolesMap = onValue(rolesMapRef, (snapshot) => {
+        if (snapshot.exists()) {
+          setPlayerRoles(snapshot.val());
+        } else {
+          setPlayerRoles({});
+        }
+      }, (error) => {
         setPlayerRoles({});
-      }
-    }, (error) => {
-      setPlayerRoles({});
-    });
+      });
 
-    // Listen to secret word (Only civilians can read)
-    const wordRef = ref(database, `roomSecrets/${roomCode}/secretWord`);
-    const unsubscribeWord = onValue(wordRef, (snapshot) => {
-      setSecretWord(snapshot.exists() ? snapshot.val() : null);
-    }, (error) => {
-      // Imposter client will trigger Permission Denied here, which is expected & handled
-      setSecretWord(null);
-    });
+      // Listen to secret word (Only civilians can read)
+      const wordRef = ref(database, `roomSecrets/${roomCode}/secretWord`);
+      unsubscribeWord = onValue(wordRef, (snapshot) => {
+        setSecretWord(snapshot.exists() ? snapshot.val() : null);
+      }, (error) => {
+        // Imposter client will trigger Permission Denied here, which is expected & handled
+        setSecretWord(null);
+      });
+    }
 
     // Handle Connection drops automatically
     onValue(ref(database, ".info/connected"), (snap) => {
@@ -273,7 +280,7 @@ export default function ImposterGameUI() {
       unsubscribeRolesMap();
       unsubscribeWord();
     };
-  }, [roomCode, playerId]);
+  }, [roomCode, playerId, gameState?.status]);
 
   // 4. Remote Player Join
   const registerRemotePlayer = async () => {
@@ -378,6 +385,7 @@ export default function ImposterGameUI() {
     });
 
     // Rule requirement: Write /rooms/roomCode first before writing /roomSecrets
+    console.log("[DEBUG startRound] Writing roomUpdates:", roomUpdates);
     await update(ref(database, `rooms/${roomCode}`), roomUpdates);
 
     // Update /roomSecrets separately with the roles & words
@@ -388,7 +396,9 @@ export default function ImposterGameUI() {
       secretUpdates[`playerRoles/${p.id}`] = p.role;
     });
 
+    console.log("[DEBUG startRound] Writing secretUpdates:", secretUpdates);
     await update(ref(database, `roomSecrets/${roomCode}`), secretUpdates);
+    console.log("[DEBUG startRound] All writes completed successfully!");
     
     setActivePlayerIndex(0);
     setShowRoleCard(false);
@@ -552,6 +562,8 @@ export default function ImposterGameUI() {
       </div>
     );
   }
+
+
 
   const currentPlayer = gameState.players.find(p => p.id === playerId);
   const isHost = currentPlayer?.isHost || false;
