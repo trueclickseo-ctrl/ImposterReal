@@ -425,102 +425,128 @@ export default function ImposterGameUI() {
   };
 
   const submitClue = async (clueText: string) => {
-    if (!clueText.trim() || !roomCode || !playerId) return;
+    if (!clueText.trim() || !roomCode || !playerId || !gameState) return;
     
-    // Save clue to player node
-    await update(ref(database, `rooms/${roomCode}/players/${playerId}`), {
-      clue: clueText.trim()
-    });
+    const activePlayerId = gameState.players[gameState.currentTurnIndex]?.id || playerId;
+    
+    console.log("[DEBUG submitClue] Submitting clue for activePlayerId:", activePlayerId, "clueText:", clueText);
+    try {
+      // Save clue to player node
+      await update(ref(database, `rooms/${roomCode}/players/${activePlayerId}`), {
+        clue: clueText.trim()
+      });
+      console.log("[DEBUG submitClue] Clue written successfully in database.");
 
-    // If all active players submitted clues, proceed automatically to discussion
-    if (gameState) {
+      // If all active players submitted clues, proceed automatically to discussion
       const nextIndex = gameState.currentTurnIndex + 1;
       if (nextIndex < gameState.players.length) {
+        console.log("[DEBUG submitClue] Advancing to next player's clue turn index:", nextIndex);
         await update(ref(database, `rooms/${roomCode}`), {
           currentTurnIndex: nextIndex,
           updatedAt: Date.now()
         });
       } else {
+        console.log("[DEBUG submitClue] All players have submitted clues. Advancing to discussion phase.");
         await update(ref(database, `rooms/${roomCode}`), {
           status: "discussion",
           timerRemaining: gameState.settings.discussionTimeSeconds,
           updatedAt: Date.now()
         });
       }
+    } catch (error) {
+      console.error("[DEBUG submitClue Error occurred]:", error);
     }
   };
 
   const submitVote = async (targetId: string) => {
     if (!roomCode || !playerId || !gameState) return;
     
-    await update(ref(database, `rooms/${roomCode}/players/${playerId}`), {
-      hasVoted: true,
-      votedForId: targetId
-    });
-
-    // Check if everyone has voted
-    const snap = await get(ref(database, `rooms/${roomCode}/players`));
-    const playersMap = snap.val() || {};
-    const playersList = Object.keys(playersMap).map(id => playersMap[id]);
-    
-    const allVoted = playersList.every(p => p.hasVoted);
-    if (allVoted) {
-      // Tally votes
-      const votes: Record<string, number> = {};
-      playersList.forEach(p => {
-        if (p.votedForId) {
-          votes[p.votedForId] = (votes[p.votedForId] || 0) + 1;
-        }
+    console.log("[DEBUG submitVote] Initiating vote update for playerId:", playerId, "targetId:", targetId);
+    try {
+      await update(ref(database, `rooms/${roomCode}/players/${playerId}`), {
+        hasVoted: true,
+        votedForId: targetId
       });
+      console.log("[DEBUG submitVote] Vote update completed successfully in database.");
 
-      // Find player with max votes
-      let maxVotePlayerId = "";
-      let maxVotes = 0;
-      playersList.forEach(p => {
-        if ((votes[p.id] || 0) > maxVotes) {
-          maxVotes = votes[p.id];
-          maxVotePlayerId = p.id;
-        }
-      });
+      // Check if everyone has voted
+      const snap = await get(ref(database, `rooms/${roomCode}/players`));
+      const playersMap = snap.val() || {};
+      const playersList = Object.keys(playersMap).map(id => playersMap[id]);
+      
+      const isLocalPassAndPlay = playersList.every(p => p.isHost || p.isLocalPlayer);
+      const allVoted = isLocalPassAndPlay ? true : playersList.every(p => p.hasVoted);
+      
+      console.log("[DEBUG submitVote] Voting status checked:", { isLocalPassAndPlay, allVoted });
 
-      // Get secrets to check if the voted player is imposter
-      const rolesSnap = await get(ref(database, `roomSecrets/${roomCode}/playerRoles`));
-      const roles = rolesSnap.val() || {};
-      const votedRole = roles[maxVotePlayerId];
-
-      const imposterCaught = votedRole === "imposter";
-      const winner = imposterCaught ? "civilians" : "imposters";
-
-      if (imposterCaught) {
-        confetti({
-          particleCount: 120,
-          spread: 70,
-          origin: { y: 0.6 }
-        });
-      }
-
-      // Update scores & log winner (Only host is allowed to write winner/scores)
-      if (gameState.players.find(p => p.id === playerId && p.isHost)) {
-        const updates: any = {
-          status: "game-over",
-          winner: winner,
-          updatedAt: Date.now()
-        };
-
+      if (allVoted) {
+        // Tally votes
+        const votes: Record<string, number> = {};
         playersList.forEach(p => {
-          let scoreIncrease = 0;
-          if (winner === "civilians" && roles[p.id] === "civilian") {
-            scoreIncrease = 1;
-          } else if (winner === "imposters" && roles[p.id] === "imposter") {
-            scoreIncrease = 2;
-          }
-          if (scoreIncrease > 0) {
-            updates[`players/${p.id}/score`] = p.score + scoreIncrease;
+          // In local pass and play, we tally using the vote that was just cast
+          const votedFor = isLocalPassAndPlay ? targetId : p.votedForId;
+          if (votedFor) {
+            votes[votedFor] = (votes[votedFor] || 0) + 1;
           }
         });
 
-        await update(ref(database, `rooms/${roomCode}`), updates);
+        // Find player with max votes
+        let maxVotePlayerId = "";
+        let maxVotes = 0;
+        playersList.forEach(p => {
+          if ((votes[p.id] || 0) > maxVotes) {
+            maxVotes = votes[p.id];
+            maxVotePlayerId = p.id;
+          }
+        });
+
+        console.log("[DEBUG submitVote] Tally results:", { votes, maxVotePlayerId, maxVotes });
+
+        // Get secrets to check if the voted player is imposter
+        const rolesSnap = await get(ref(database, `roomSecrets/${roomCode}/playerRoles`));
+        const roles = rolesSnap.val() || {};
+        const votedRole = roles[maxVotePlayerId];
+
+        const imposterCaught = votedRole === "imposter";
+        const winner = imposterCaught ? "civilians" : "imposters";
+
+        console.log("[DEBUG submitVote] Game result tallied:", { votedRole, imposterCaught, winner });
+
+        if (imposterCaught) {
+          confetti({
+            particleCount: 120,
+            spread: 70,
+            origin: { y: 0.6 }
+          });
+        }
+
+        // Update scores & log winner (Only host is allowed to write winner/scores)
+        if (gameState.players.find(p => p.id === playerId && p.isHost)) {
+          const updates: any = {
+            status: "game-over",
+            winner: winner,
+            updatedAt: Date.now()
+          };
+
+          playersList.forEach(p => {
+            let scoreIncrease = 0;
+            if (winner === "civilians" && roles[p.id] === "civilian") {
+              scoreIncrease = 1;
+            } else if (winner === "imposters" && roles[p.id] === "imposter") {
+              scoreIncrease = 2;
+            }
+            if (scoreIncrease > 0) {
+              updates[`players/${p.id}/score`] = p.score + scoreIncrease;
+            }
+          });
+
+          console.log("[DEBUG submitVote] Writing game-over updates to database:", updates);
+          await update(ref(database, `rooms/${roomCode}`), updates);
+          console.log("[DEBUG submitVote] Game-over updates written successfully.");
+        }
       }
+    } catch (error) {
+      console.error("[DEBUG submitVote Error occurred]:", error);
     }
   };
 
