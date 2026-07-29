@@ -2,10 +2,13 @@ import SEOHead from "@/components/SEOHead";
 import Link from "next/link";
 import { LOCALES } from "@/lib/i18n";
 
-export const metadata = {
-  title: "HTML Sitemap | Imposter App Site Tree",
-  description: "Complete navigable site map for Imposter App. Crawlable breadcrumb-friendly tree architecture.",
-};
+import { getPageMetadata } from "@/lib/metadata";
+
+export const metadata = getPageMetadata(
+  "/sitemap",
+  "HTML Sitemap | Imposter App Site Tree",
+  "Complete navigable site map for Imposter App. Crawlable breadcrumb-friendly tree architecture."
+);
 
 export default function HTMLSitemapPage() {
   const tree = [

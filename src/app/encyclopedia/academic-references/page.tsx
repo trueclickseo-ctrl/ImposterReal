@@ -3,10 +3,13 @@ import Link from "next/link";
 import { ACADEMIC_REFERENCES } from "@/lib/encyclopedia";
 import { Award, ExternalLink, ArrowLeft, ShieldCheck, FileText } from "lucide-react";
 
-export const metadata = {
-  title: "High-Authority Academic References & Bibliography | Imposter",
-  description: "Curated academic bibliography and high-authority reference list: BoardGameGeek database, Stanford Encyclopedia of Philosophy, MIT Game Lab, and ACM Digital Library.",
-};
+import { getPageMetadata } from "@/lib/metadata";
+
+export const metadata = getPageMetadata(
+  "/encyclopedia/academic-references",
+  "High-Authority Academic References & Bibliography | Imposter",
+  "Curated academic bibliography and high-authority reference list: BoardGameGeek database, Stanford Encyclopedia of Philosophy, MIT Game Lab, and ACM Digital Library."
+);
 
 export default function AcademicReferencesPage() {
   return (
@@ -17,7 +20,7 @@ export default function AcademicReferencesPage() {
         
         {/* Header */}
         <div className="text-center space-y-3">
-          <Link href="/encyclopedia" className="inline-flex items-center gap-1 font-arcade text-base text-[#16a34a] dark:text-[#39ff14] hover:underline mb-2">
+          <Link href="/encyclopedia/" className="inline-flex items-center gap-1 font-arcade text-base text-[#16a34a] dark:text-[#39ff14] hover:underline mb-2">
             <ArrowLeft className="w-4 h-4" /> Back to Master Encyclopedia
           </Link>
           <span className="pixel-badge bg-[#16a34a] dark:bg-[#39ff14] text-white dark:text-slate-900">ACADEMIC BIBLIOGRAPHY</span>

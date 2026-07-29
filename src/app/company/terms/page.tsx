@@ -1,9 +1,11 @@
 import SEOHead from "@/components/SEOHead";
+import { getPageMetadata } from "@/lib/metadata";
 
-export const metadata = {
-  title: "Terms of Service | Imposter Party Game",
-  description: "Terms of Service governing the use of the Imposter browser game and word category services.",
-};
+export const metadata = getPageMetadata(
+  "/company/terms",
+  "Terms of Service | Imposter Party Game",
+  "Terms of Service governing the use of the Imposter browser game and word category services."
+);
 
 export default function TermsPage() {
   return (

@@ -84,14 +84,14 @@ export default function HomePage() {
 
           <div className="flex flex-col sm:flex-row items-center gap-4 pt-2 w-full justify-center md:justify-start">
             <Link
-              href="/play"
+              href="/play/"
               className="pixel-btn pixel-btn-cyan text-sm sm:text-base px-8 py-3.5 w-full sm:w-auto font-extrabold text-center"
             >
               <Gamepad2 className="w-5 h-5 inline mr-1.5" />
               {dictionary.playNowButton}
             </Link>
             <Link
-              href="/learn"
+              href="/learn/"
               className="pixel-btn pixel-btn-yellow text-sm sm:text-base px-8 py-3.5 w-full sm:w-auto font-extrabold text-center"
             >
               <BookOpen className="w-5 h-5 inline mr-1.5" />
@@ -229,7 +229,7 @@ export default function HomePage() {
             <span className="pixel-badge bg-[#16a34a] dark:bg-[#34d399] text-white dark:text-slate-900 font-bold">WORD LIBRARY</span>
             <h2 className="font-pixel text-xl sm:text-2xl text-[#16a34a] dark:text-[#34d399] mt-1 font-bold">{dictionary.wordLibraryHeading}</h2>
           </div>
-          <Link href="/word-library" className="pixel-btn pixel-btn-green text-xs font-bold">
+          <Link href="/word-library/" className="pixel-btn pixel-btn-green text-xs font-bold">
             Explore All Words <ArrowRight className="w-4 h-4 inline" />
           </Link>
         </div>

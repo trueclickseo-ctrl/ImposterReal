@@ -1,10 +1,13 @@
 import SEOHead from "@/components/SEOHead";
 import Link from "next/link";
 
-export const metadata = {
-  title: "Imposter Beginner Guide | 5 Tips for First-Time Players",
-  description: "New to Imposter? Learn essential beginner tips for giving safe clues, recognizing bluffing patterns, and avoiding suspicion.",
-};
+import { getPageMetadata } from "@/lib/metadata";
+
+export const metadata = getPageMetadata(
+  "/learn/beginner-guide",
+  "Imposter Beginner Guide | 5 Tips for First-Time Players",
+  "New to Imposter? Learn essential beginner tips for giving safe clues, recognizing bluffing patterns, and avoiding suspicion."
+);
 
 export default function BeginnerGuidePage() {
   return (
@@ -28,8 +31,8 @@ export default function BeginnerGuidePage() {
           <p>If you are the Imposter and go 4th, listen carefully to the first 3 clues to guess the theme before giving your clue.</p>
 
           <div className="pt-6 border-t border-slate-800 flex justify-between items-center">
-            <Link href="/play" className="pixel-btn pixel-btn-pink text-xs">🎮 Test Your Skills Now</Link>
-            <Link href="/learn/advanced-strategy" className="font-arcade text-lg text-[#39ff14] hover:underline">Advanced Strategy →</Link>
+            <Link href="/play/" className="pixel-btn pixel-btn-pink text-xs">🎮 Test Your Skills Now</Link>
+            <Link href="/learn/advanced-strategy/" className="font-arcade text-lg text-[#39ff14] hover:underline">Advanced Strategy →</Link>
           </div>
         </div>
       </div>

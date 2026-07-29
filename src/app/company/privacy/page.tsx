@@ -1,9 +1,11 @@
 import SEOHead from "@/components/SEOHead";
+import { getPageMetadata } from "@/lib/metadata";
 
-export const metadata = {
-  title: "Privacy Policy | Imposter Party Game",
-  description: "Privacy Policy for Imposter App. We do not collect personal data, tracking cookies, or stored conversations.",
-};
+export const metadata = getPageMetadata(
+  "/company/privacy",
+  "Privacy Policy | Imposter Party Game",
+  "Privacy Policy for Imposter App. We do not collect personal data, tracking cookies, or stored conversations."
+);
 
 export default function PrivacyPage() {
   return (

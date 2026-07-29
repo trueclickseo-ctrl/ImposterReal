@@ -1,9 +1,12 @@
 import SEOHead from "@/components/SEOHead";
 
-export const metadata = {
-  title: "Semantic SEO Map & Keyword Targeting | Imposter Strategy",
-  description: "Phase 2 Semantic SEO Mapping Table for Imposter App. Pillar URL mapping, cluster pages, keyword targets, search intent, and internal links.",
-};
+import { getPageMetadata } from "@/lib/metadata";
+
+export const metadata = getPageMetadata(
+  "/keyword-map",
+  "Semantic SEO Map & Keyword Targeting | Imposter Strategy",
+  "Phase 2 Semantic SEO Mapping Table for Imposter App. Pillar URL mapping, cluster pages, keyword targets, search intent, and internal links."
+);
 
 export default function KeywordMapPage() {
   const keywordMap = [

@@ -2,10 +2,13 @@ import SEOHead from "@/components/SEOHead";
 import Link from "next/link";
 import { HelpCircle } from "lucide-react";
 
-export const metadata = {
-  title: "Imposter FAQ & Answers | Frequently Asked Questions",
-  description: "Complete FAQ directory for the Imposter browser game: pricing, player counts, device compatibility, rule edge cases, and online safety.",
-};
+import { getPageMetadata } from "@/lib/metadata";
+
+export const metadata = getPageMetadata(
+  "/learn/faq",
+  "Imposter FAQ & Answers | Frequently Asked Questions",
+  "Complete FAQ directory for the Imposter browser game: pricing, player counts, device compatibility, rule edge cases, and online safety."
+);
 
 export default function FAQPage() {
   const faqItems = [
@@ -54,8 +57,8 @@ export default function FAQPage() {
             </div>
 
             <div className="pt-6 border-t border-slate-800 flex justify-between items-center">
-              <Link href="/play" className="pixel-btn pixel-btn-cyan text-xs">🎮 Play Now Free</Link>
-              <Link href="/company/contact" className="font-arcade text-lg text-[#00f0ff] hover:underline">Ask a Question →</Link>
+              <Link href="/play/" className="pixel-btn pixel-btn-cyan text-xs">🎮 Play Now Free</Link>
+              <Link href="/company/contact/" className="font-arcade text-lg text-[#00f0ff] hover:underline">Ask a Question →</Link>
             </div>
           </div>
 

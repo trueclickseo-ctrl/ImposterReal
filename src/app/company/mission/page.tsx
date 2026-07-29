@@ -1,9 +1,11 @@
 import SEOHead from "@/components/SEOHead";
+import { getPageMetadata } from "@/lib/metadata";
 
-export const metadata = {
-  title: "Our Mission | Imposter Game Studios",
-  description: "Our mission is to bring people together through accessible, free, browser-based party games with zero paywalls or barrier to entry.",
-};
+export const metadata = getPageMetadata(
+  "/company/mission",
+  "Our Mission | Imposter Game Studios",
+  "Our mission is to bring people together through accessible, free, browser-based party games with zero paywalls or barrier to entry."
+);
 
 export default function MissionPage() {
   return (

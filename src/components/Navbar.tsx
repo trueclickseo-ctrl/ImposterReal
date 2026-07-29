@@ -39,31 +39,31 @@ export default function Navbar() {
 
         {/* Desktop Nav Links */}
         <nav className="hidden lg:flex items-center gap-5 font-arcade text-base uppercase tracking-wide font-bold mx-auto">
-          <Link href="/play" className="text-slate-700 dark:text-slate-200 hover:text-[#d97706] dark:hover:text-[#fbbf24] flex items-center gap-1.5 transition-colors px-1 py-0.5">
+          <Link href="/play/" className="text-slate-700 dark:text-slate-200 hover:text-[#d97706] dark:hover:text-[#fbbf24] flex items-center gap-1.5 transition-colors px-1 py-0.5">
             <Gamepad2 className="w-4 h-4 text-[#d97706] dark:text-[#fbbf24]" />
             {dictionary.navPlay}
           </Link>
-          <Link href="/encyclopedia" className="text-[#d97706] dark:text-[#fbbf24] hover:text-[#0284c7] dark:hover:text-[#06b6d4] flex items-center gap-1.5 transition-colors font-extrabold px-1 py-0.5">
+          <Link href="/encyclopedia/" className="text-[#d97706] dark:text-[#fbbf24] hover:text-[#0284c7] dark:hover:text-[#06b6d4] flex items-center gap-1.5 transition-colors font-extrabold px-1 py-0.5">
             <BookMarked className="w-4 h-4 text-[#d97706] dark:text-[#fbbf24]" />
             {dictionary.navEncyclopedia}
           </Link>
-          <Link href="/learn" className="text-slate-700 dark:text-slate-200 hover:text-[#0284c7] dark:hover:text-[#06b6d4] flex items-center gap-1.5 transition-colors px-1 py-0.5">
+          <Link href="/learn/" className="text-slate-700 dark:text-slate-200 hover:text-[#0284c7] dark:hover:text-[#06b6d4] flex items-center gap-1.5 transition-colors px-1 py-0.5">
             <BookOpen className="w-4 h-4 text-[#0284c7] dark:text-[#06b6d4]" />
             {dictionary.navLearn}
           </Link>
-          <Link href="/word-library" className="text-slate-700 dark:text-slate-200 hover:text-[#e11d48] dark:hover:text-[#f43f5e] flex items-center gap-1.5 transition-colors px-1 py-0.5">
+          <Link href="/word-library/" className="text-slate-700 dark:text-slate-200 hover:text-[#e11d48] dark:hover:text-[#f43f5e] flex items-center gap-1.5 transition-colors px-1 py-0.5">
             <Library className="w-4 h-4 text-[#e11d48] dark:text-[#f43f5e]" />
             {dictionary.navWords}
           </Link>
-          <Link href="/game-modes" className="text-slate-700 dark:text-slate-200 hover:text-[#10b981] dark:hover:text-[#34d399] flex items-center gap-1.5 transition-colors px-1 py-0.5">
+          <Link href="/game-modes/" className="text-slate-700 dark:text-slate-200 hover:text-[#10b981] dark:hover:text-[#34d399] flex items-center gap-1.5 transition-colors px-1 py-0.5">
             <Sparkles className="w-4 h-4 text-[#10b981] dark:text-[#34d399]" />
             {dictionary.navModes}
           </Link>
-          <Link href="/blog" className="text-slate-700 dark:text-slate-200 hover:text-[#ea580c] dark:hover:text-[#fb923c] flex items-center gap-1.5 transition-colors px-1 py-0.5">
+          <Link href="/blog/" className="text-slate-700 dark:text-slate-200 hover:text-[#ea580c] dark:hover:text-[#fb923c] flex items-center gap-1.5 transition-colors px-1 py-0.5">
             <Newspaper className="w-4 h-4 text-[#ea580c] dark:text-[#fb923c]" />
             {dictionary.navBlog}
           </Link>
-          <Link href="/resources" className="text-slate-700 dark:text-slate-200 hover:text-[#8b5cf6] dark:hover:text-[#a78bfa] flex items-center gap-1.5 transition-colors px-1 py-0.5">
+          <Link href="/resources/" className="text-slate-700 dark:text-slate-200 hover:text-[#8b5cf6] dark:hover:text-[#a78bfa] flex items-center gap-1.5 transition-colors px-1 py-0.5">
             <FolderDown className="w-4 h-4 text-[#8b5cf6] dark:text-[#a78bfa]" />
             {dictionary.navCards}
           </Link>
@@ -119,25 +119,25 @@ export default function Navbar() {
             </select>
           </div>
 
-          <Link href="/play" onClick={() => setMobileMenuOpen(false)} className="block text-[#d97706] dark:text-[#fbbf24] hover:underline">
+          <Link href="/play/" onClick={() => setMobileMenuOpen(false)} className="block text-[#d97706] dark:text-[#fbbf24] hover:underline">
             🎮 {dictionary.navPlay}
           </Link>
-          <Link href="/encyclopedia" onClick={() => setMobileMenuOpen(false)} className="block text-[#d97706] dark:text-[#fbbf24] hover:underline font-extrabold">
+          <Link href="/encyclopedia/" onClick={() => setMobileMenuOpen(false)} className="block text-[#d97706] dark:text-[#fbbf24] hover:underline font-extrabold">
             📚 {dictionary.navEncyclopedia}
           </Link>
-          <Link href="/learn" onClick={() => setMobileMenuOpen(false)} className="block text-[#0284c7] dark:text-[#06b6d4] hover:underline">
+          <Link href="/learn/" onClick={() => setMobileMenuOpen(false)} className="block text-[#0284c7] dark:text-[#06b6d4] hover:underline">
             📖 {dictionary.navLearn}
           </Link>
-          <Link href="/word-library" onClick={() => setMobileMenuOpen(false)} className="block text-[#e11d48] dark:text-[#f43f5e] hover:underline">
+          <Link href="/word-library/" onClick={() => setMobileMenuOpen(false)} className="block text-[#e11d48] dark:text-[#f43f5e] hover:underline">
             📚 {dictionary.navWords}
           </Link>
-          <Link href="/game-modes" onClick={() => setMobileMenuOpen(false)} className="block text-[#10b981] dark:text-[#34d399] hover:underline">
+          <Link href="/game-modes/" onClick={() => setMobileMenuOpen(false)} className="block text-[#10b981] dark:text-[#34d399] hover:underline">
             ⚡ {dictionary.navModes}
           </Link>
-          <Link href="/blog" onClick={() => setMobileMenuOpen(false)} className="block text-[#ea580c] dark:text-[#fb923c] hover:underline">
+          <Link href="/blog/" onClick={() => setMobileMenuOpen(false)} className="block text-[#ea580c] dark:text-[#fb923c] hover:underline">
             📰 {dictionary.navBlog}
           </Link>
-          <Link href="/resources" onClick={() => setMobileMenuOpen(false)} className="block text-[#8b5cf6] dark:text-[#a78bfa] hover:underline">
+          <Link href="/resources/" onClick={() => setMobileMenuOpen(false)} className="block text-[#8b5cf6] dark:text-[#a78bfa] hover:underline">
             🎴 {dictionary.navCards}
           </Link>
         </div>

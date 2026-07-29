@@ -44,12 +44,6 @@ export async function GET() {
     xml += `    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>\n`;
     xml += `    <changefreq>daily</changefreq>\n`;
     xml += `    <priority>${page === '' ? '1.0' : '0.8'}</priority>\n`;
-
-    // Add hreflang links for all 14 supported locales
-    for (const loc of LOCALES) {
-      xml += `    <xhtml:link rel="alternate" hreflang="${loc.code}" href="${baseUrl}/${loc.code}${page}/" />\n`;
-    }
-
     xml += `  </url>\n`;
   }
 

@@ -29,7 +29,7 @@ export default function EncyclopediaPage() {
         {/* 3 Main Pillar Sections Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           
-          <Link href="/encyclopedia/history" className="pixel-box pixel-box-cyan p-6 space-y-3">
+          <Link href="/encyclopedia/history/" className="pixel-box pixel-box-cyan p-6 space-y-3">
             <History className="w-8 h-8 text-[#0284c7] dark:text-[#06b6d4]" />
             <h2 className="font-pixel text-xl text-[#0284c7] dark:text-[#06b6d4] font-bold">1. {dictionary.historyHeading}</h2>
             <p className="font-sans text-sm font-semibold text-slate-700 dark:text-slate-100 leading-relaxed">
@@ -40,7 +40,7 @@ export default function EncyclopediaPage() {
             </div>
           </Link>
 
-          <Link href="/encyclopedia/game-logic" className="pixel-box pixel-box-pink p-6 space-y-3">
+          <Link href="/encyclopedia/game-logic/" className="pixel-box pixel-box-pink p-6 space-y-3">
             <Binary className="w-8 h-8 text-[#e11d48] dark:text-[#f43f5e]" />
             <h2 className="font-pixel text-xl text-[#e11d48] dark:text-[#f43f5e] font-bold">2. {dictionary.gameLogicHeading}</h2>
             <p className="font-sans text-sm font-semibold text-slate-700 dark:text-slate-100 leading-relaxed">
@@ -51,7 +51,7 @@ export default function EncyclopediaPage() {
             </div>
           </Link>
 
-          <Link href="/encyclopedia/academic-references" className="pixel-box p-6 border-2 border-[#10b981] dark:border-[#34d399] space-y-3">
+          <Link href="/encyclopedia/academic-references/" className="pixel-box p-6 border-2 border-[#10b981] dark:border-[#34d399] space-y-3">
             <Award className="w-8 h-8 text-[#10b981] dark:text-[#34d399]" />
             <h2 className="font-pixel text-xl text-[#10b981] dark:text-[#34d399] font-bold">3. {dictionary.academicRefHeading}</h2>
             <p className="font-sans text-sm font-semibold text-slate-700 dark:text-slate-100 leading-relaxed">

@@ -1,11 +1,13 @@
 import SEOHead from "@/components/SEOHead";
 import Link from "next/link";
 import { Trophy, Flame, MessageSquare, Send, Users, Star } from "lucide-react";
+import { getPageMetadata } from "@/lib/metadata";
 
-export const metadata = {
-  title: "Imposter Community | Leaderboards, Challenges & Discord",
-  description: "Join the Imposter party game community. Check weekly leaderboards, compete in bluffing challenges, join our Discord, and submit feature requests.",
-};
+export const metadata = getPageMetadata(
+  "/community",
+  "Imposter Community | Leaderboards, Challenges & Discord",
+  "Join the Imposter party game community. Check weekly leaderboards, compete in bluffing challenges, join our Discord, and submit feature requests."
+);
 
 export default function CommunityPage() {
   const leaderboard = [
@@ -41,7 +43,7 @@ export default function CommunityPage() {
             <h2 className="font-pixel text-lg text-slate-100">Win 3 Rounds as Imposter Without Single Suspicion Vote</h2>
             <p className="font-sans text-xs text-slate-300">Reward: Exclusive "Master of Mirage" Profile Badge & Discord Role.</p>
           </div>
-          <Link href="/play" className="pixel-btn pixel-btn-yellow text-xs shrink-0">
+          <Link href="/play/" className="pixel-btn pixel-btn-yellow text-xs shrink-0">
             Accept Challenge
           </Link>
         </div>
@@ -95,7 +97,7 @@ export default function CommunityPage() {
               <p className="font-sans text-xs text-slate-300">
                 Have a new word category idea or feature request? We read every submission!
               </p>
-              <Link href="/company/contact" className="pixel-btn pixel-btn-green text-xs block text-center">
+              <Link href="/company/contact/" className="pixel-btn pixel-btn-green text-xs block text-center">
                 ✉️ Submit Suggestion
               </Link>
             </div>

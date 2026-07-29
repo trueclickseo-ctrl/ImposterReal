@@ -1,9 +1,12 @@
 import SEOHead from "@/components/SEOHead";
 
-export const metadata = {
-  title: "90-Day Digital PR & Off-Page SEO Strategy | Imposter",
-  description: "Phase 6 Off-Page SEO Strategy: Outreach targets, link building categories, and 90-day digital PR campaign content calendar.",
-};
+import { getPageMetadata } from "@/lib/metadata";
+
+export const metadata = getPageMetadata(
+  "/pr-calendar",
+  "90-Day Digital PR & Off-Page SEO Strategy | Imposter",
+  "Phase 6 Off-Page SEO Strategy: Outreach targets, link building categories, and 90-day digital PR campaign content calendar."
+);
 
 export default function PRCalendarPage() {
   const outreachTargets = [

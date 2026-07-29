@@ -2,10 +2,13 @@ import SEOHead from "@/components/SEOHead";
 import Link from "next/link";
 import { BookOpen, CheckCircle, AlertCircle } from "lucide-react";
 
-export const metadata = {
-  title: "Official Imposter Game Rules | Step-by-Step Instructions",
-  description: "Official rules for playing the Imposter word party game. Learn role assignment, clue-giving rounds, voting mechanics, and winning conditions.",
-};
+import { getPageMetadata } from "@/lib/metadata";
+
+export const metadata = getPageMetadata(
+  "/learn/rules",
+  "Official Imposter Game Rules | Step-by-Step Instructions",
+  "Official rules for playing the Imposter word party game. Learn role assignment, clue-giving rounds, voting mechanics, and winning conditions."
+);
 
 export default function RulesPage() {
   const faqItems = [
@@ -75,10 +78,10 @@ export default function RulesPage() {
             </ul>
 
             <div className="pt-6 border-t border-slate-800 flex justify-between items-center">
-              <Link href="/play" className="pixel-btn pixel-btn-yellow text-xs">
+              <Link href="/play/" className="pixel-btn pixel-btn-yellow text-xs">
                 🎮 Ready? Play Now
               </Link>
-              <Link href="/learn/beginner-guide" className="font-arcade text-lg text-[#00f0ff] hover:underline">
+              <Link href="/learn/beginner-guide/" className="font-arcade text-lg text-[#00f0ff] hover:underline">
                 Next: Beginner Tips →
               </Link>
             </div>

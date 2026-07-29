@@ -1,10 +1,13 @@
 import SEOHead from "@/components/SEOHead";
 import Link from "next/link";
 
-export const metadata = {
-  title: "Advanced Strategy for Imposter | Master Bluffing & Traps",
-  description: "Level up your Imposter gameplay with advanced tactics: trap clues, linguistic anchoring, turn-order manipulation, and counter-bluffing.",
-};
+import { getPageMetadata } from "@/lib/metadata";
+
+export const metadata = getPageMetadata(
+  "/learn/advanced-strategy",
+  "Advanced Strategy for Imposter | Master Bluffing & Traps",
+  "Level up your Imposter gameplay with advanced tactics: trap clues, linguistic anchoring, turn-order manipulation, and counter-bluffing."
+);
 
 export default function AdvancedStrategyPage() {
   return (
@@ -30,8 +33,8 @@ export default function AdvancedStrategyPage() {
             </p>
 
             <div className="pt-6 border-t border-slate-800 flex justify-between items-center">
-              <Link href="/play" className="pixel-btn pixel-btn-green text-xs">🎮 Play Competitive Game</Link>
-              <Link href="/learn/scoring-system" className="font-arcade text-lg text-[#ff6b00] hover:underline">Scoring System →</Link>
+              <Link href="/play/" className="pixel-btn pixel-btn-green text-xs">🎮 Play Competitive Game</Link>
+              <Link href="/learn/scoring-system/" className="font-arcade text-lg text-[#ff6b00] hover:underline">Scoring System →</Link>
             </div>
           </div>
 

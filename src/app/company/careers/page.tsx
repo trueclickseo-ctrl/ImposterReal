@@ -1,9 +1,11 @@
 import SEOHead from "@/components/SEOHead";
+import { getPageMetadata } from "@/lib/metadata";
 
-export const metadata = {
-  title: "Careers | Join Imposter Game Studios",
-  description: "Explore career opportunities at Imposter Game Studios. We build high-performance web multiplayer games and social deduction experiences.",
-};
+export const metadata = getPageMetadata(
+  "/company/careers",
+  "Careers | Join Imposter Game Studios",
+  "Explore career opportunities at Imposter Game Studios. We build high-performance web multiplayer games and social deduction experiences."
+);
 
 export default function CareersPage() {
   return (

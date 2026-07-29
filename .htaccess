@@ -9,10 +9,24 @@
   AddType image/avif .avif
 </IfModule>
 
-# Force HTTPS
+# Force HTTPS and Non-WWW (Canonical Domain)
 RewriteEngine On
+RewriteBase /
+
+# 1. Redirect www to non-www
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+# 2. Redirect HTTP to HTTPS
 RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# 3. Force trailing slash on all directories/routes (excluding files, sitemap.xml, and robots.txt)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !sitemap\.xml$
+RewriteCond %{REQUEST_URI} !robots\.txt$
+RewriteCond %{REQUEST_URI} !(.*)/$
+RewriteRule ^(.*)$ https://imposterland.com/$1/ [R=301,L]
 
 # ================================================
 # GZIP Compression (major PageSpeed win)

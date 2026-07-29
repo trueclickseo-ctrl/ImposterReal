@@ -1,10 +1,13 @@
 import SEOHead from "@/components/SEOHead";
 import Link from "next/link";
 
-export const metadata = {
-  title: "Imposter Scoring System | Points & Tournament Rules",
-  description: "Official tournament scoring rules for Imposter. How points are awarded to Civilians and Imposters across multi-round match games.",
-};
+import { getPageMetadata } from "@/lib/metadata";
+
+export const metadata = getPageMetadata(
+  "/learn/scoring-system",
+  "Imposter Scoring System | Points & Tournament Rules",
+  "Official tournament scoring rules for Imposter. How points are awarded to Civilians and Imposters across multi-round match games."
+);
 
 export default function ScoringSystemPage() {
   return (
@@ -50,8 +53,8 @@ export default function ScoringSystemPage() {
             </div>
 
             <div className="pt-6 border-t border-slate-800 flex justify-between items-center">
-              <Link href="/play" className="pixel-btn pixel-btn-yellow text-xs">🎮 Play Scoring Match</Link>
-              <Link href="/community" className="font-arcade text-lg text-[#00f0ff] hover:underline">View Leaderboards →</Link>
+              <Link href="/play/" className="pixel-btn pixel-btn-yellow text-xs">🎮 Play Scoring Match</Link>
+              <Link href="/community/" className="font-arcade text-lg text-[#00f0ff] hover:underline">View Leaderboards →</Link>
             </div>
           </div>
 

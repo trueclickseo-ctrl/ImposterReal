@@ -1,10 +1,13 @@
 import SEOHead from "@/components/SEOHead";
 import Link from "next/link";
 
-export const metadata = {
-  title: "What is the Imposter Game? | Social Deduction Overview",
-  description: "Learn what the Imposter game is, how social deduction bluffing works, why it is popular for parties and icebreakers, and how to play for free online.",
-};
+import { getPageMetadata } from "@/lib/metadata";
+
+export const metadata = getPageMetadata(
+  "/learn/what-is-imposter",
+  "What is the Imposter Game? | Social Deduction Overview",
+  "Learn what the Imposter game is, how social deduction bluffing works, why it is popular for parties and icebreakers, and how to play for free online."
+);
 
 export default function WhatIsImposterPage() {
   return (
@@ -31,8 +34,8 @@ export default function WhatIsImposterPage() {
           </ul>
 
           <div className="pt-6 border-t border-slate-800 flex justify-between items-center">
-            <Link href="/play" className="pixel-btn pixel-btn-cyan text-xs">🎮 Play Imposter Now</Link>
-            <Link href="/learn/rules" className="font-arcade text-lg text-[#ffe600] hover:underline">Read Rules →</Link>
+            <Link href="/play/" className="pixel-btn pixel-btn-cyan text-xs">🎮 Play Imposter Now</Link>
+            <Link href="/learn/rules/" className="font-arcade text-lg text-[#ffe600] hover:underline">Read Rules →</Link>
           </div>
         </div>
       </div>

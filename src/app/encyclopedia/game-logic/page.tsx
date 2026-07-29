@@ -3,10 +3,13 @@ import Link from "next/link";
 import { GAME_LOGIC_PROOFS } from "@/lib/encyclopedia";
 import { Binary, ArrowLeft, ExternalLink, ShieldCheck } from "lucide-react";
 
-export const metadata = {
-  title: "Game Theory & Mathematical Logic of Imposter | Formal Analysis",
-  description: "Formal mathematical logic, Bayesian probability equations, information asymmetry, and Nash Equilibrium in social deduction word games.",
-};
+import { getPageMetadata } from "@/lib/metadata";
+
+export const metadata = getPageMetadata(
+  "/encyclopedia/game-logic",
+  "Game Theory & Mathematical Logic of Imposter | Formal Analysis",
+  "Formal mathematical logic, Bayesian probability equations, information asymmetry, and Nash Equilibrium in social deduction word games."
+);
 
 export default function GameLogicPage() {
   return (
@@ -17,7 +20,7 @@ export default function GameLogicPage() {
         
         {/* Header */}
         <div className="text-center space-y-3">
-          <Link href="/encyclopedia" className="inline-flex items-center gap-1 font-arcade text-base text-[#e70044] dark:text-[#ff2a85] hover:underline mb-2">
+          <Link href="/encyclopedia/" className="inline-flex items-center gap-1 font-arcade text-base text-[#e70044] dark:text-[#ff2a85] hover:underline mb-2">
             <ArrowLeft className="w-4 h-4" /> Back to Master Encyclopedia
           </Link>
           <span className="pixel-badge bg-[#e70044] dark:bg-[#ff2a85] text-white">GAME THEORY LOGIC</span>

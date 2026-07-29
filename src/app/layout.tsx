@@ -24,9 +24,16 @@ const jakarta = Plus_Jakarta_Sans({
   weight: ["400", "500", "600", "700", "800"],
 });
 
+import { getPageMetadata } from "@/lib/metadata";
+
+const baseMetadata = getPageMetadata(
+  "/",
+  "Imposter | Free Online Social Deduction Party Game",
+  "Play Imposter — a fast, free browser-based word deduction party game for friends, teams, and classrooms. No download needed. Custom rooms & 1,000+ categories."
+);
+
 export const metadata: Metadata = {
-  title: "Imposter | Free Online Social Deduction Party Game",
-  description: "Play Imposter — a fast, free browser-based word deduction party game for friends, teams, and classrooms. No download needed. Custom rooms & 1,000+ categories.",
+  ...baseMetadata,
   metadataBase: new URL("https://imposterland.com"),
   keywords: ["imposter game", "party game online", "social deduction game", "word bluffing game", "spyfall online", "among us word game"],
   icons: {
@@ -36,9 +43,6 @@ export const metadata: Metadata = {
     ],
     shortcut: "/favicon.svg",
     apple: "/favicon.svg",
-  },
-  alternates: {
-    canonical: "https://imposterland.com",
   },
   openGraph: {
     title: "Imposter | Free Online Social Deduction Party Game",

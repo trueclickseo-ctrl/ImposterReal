@@ -3,10 +3,13 @@ import Link from "next/link";
 import { HISTORICAL_TIMELINE } from "@/lib/encyclopedia";
 import { History, ExternalLink, Calendar, User, ArrowLeft } from "lucide-react";
 
-export const metadata = {
-  title: "History of Social Deduction Games | Victorian Parlor to Imposter App",
-  description: "Chronological history of social deduction games: 19th-century parlor games, Dmitry Davidoff's 1986 Mafia, Spyfall, Among Us, and modern Imposter word games.",
-};
+import { getPageMetadata } from "@/lib/metadata";
+
+export const metadata = getPageMetadata(
+  "/encyclopedia/history",
+  "History of Social Deduction Games | Victorian Parlor to Imposter App",
+  "Chronological history of social deduction games: 19th-century parlor games, Dmitry Davidoff's 1986 Mafia, Spyfall, Among Us, and modern Imposter word games."
+);
 
 export default function HistoryPage() {
   return (
@@ -17,7 +20,7 @@ export default function HistoryPage() {
         
         {/* Header */}
         <div className="text-center space-y-3">
-          <Link href="/encyclopedia" className="inline-flex items-center gap-1 font-arcade text-base text-[#0284c7] dark:text-[#00f0ff] hover:underline mb-2">
+          <Link href="/encyclopedia/" className="inline-flex items-center gap-1 font-arcade text-base text-[#0284c7] dark:text-[#00f0ff] hover:underline mb-2">
             <ArrowLeft className="w-4 h-4" /> Back to Master Encyclopedia
           </Link>
           <span className="pixel-badge bg-[#0284c7] dark:bg-[#00f0ff] text-white dark:text-slate-900">HISTORICAL CHRONOLOGY</span>

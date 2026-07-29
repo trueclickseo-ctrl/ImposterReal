@@ -1,9 +1,11 @@
 import SEOHead from "@/components/SEOHead";
+import { getPageMetadata } from "@/lib/metadata";
 
-export const metadata = {
-  title: "About Imposter Game Studios | Our Story & Vision",
-  description: "Learn about Imposter Game Studios, our retro 8-bit aesthetic inspiration, and our mission to create instant, free multiplayer browser games.",
-};
+export const metadata = getPageMetadata(
+  "/company/about",
+  "About Imposter Game Studios | Our Story & Vision",
+  "Learn about Imposter Game Studios, our retro 8-bit aesthetic inspiration, and our mission to create instant, free multiplayer browser games."
+);
 
 export default function AboutPage() {
   return (
