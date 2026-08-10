@@ -1,7 +1,8 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { SupportedLocale, Dictionary, DICTIONARIES } from "@/lib/i18n";
+import { usePathname } from "next/navigation";
+import { SupportedLocale, Dictionary, DICTIONARIES, LOCALES } from "@/lib/i18n";
 
 interface LanguageContextType {
   locale: SupportedLocale;
@@ -12,16 +13,43 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<SupportedLocale>("en");
+function getLocaleFromPath(pathname: string | null): SupportedLocale | null {
+  if (!pathname) return null;
+  const segments = pathname.split("/").filter(Boolean);
+  if (segments.length > 0) {
+    const firstSegment = segments[0] as SupportedLocale;
+    if (LOCALES.some(l => l.code === firstSegment)) {
+      return firstSegment;
+    }
+  }
+  return null;
+}
+
+export function LanguageProvider({ children, initialLocale }: { children: React.ReactNode; initialLocale?: SupportedLocale }) {
+  const pathname = usePathname();
+  const pathLocale = getLocaleFromPath(pathname);
+  
+  const defaultLocale = initialLocale || pathLocale || "en";
+  const [locale, setLocaleState] = useState<SupportedLocale>(defaultLocale);
 
   useEffect(() => {
-    const savedLocale = (localStorage.getItem("locale") as SupportedLocale) || "en";
-    if (DICTIONARIES[savedLocale]) {
-      setLocaleState(savedLocale);
-      document.documentElement.lang = savedLocale;
+    const currentPathLocale = getLocaleFromPath(pathname);
+    if (currentPathLocale && DICTIONARIES[currentPathLocale]) {
+      setLocaleState(currentPathLocale);
+      document.documentElement.lang = currentPathLocale;
+      localStorage.setItem("locale", currentPathLocale);
+    } else if (initialLocale && DICTIONARIES[initialLocale]) {
+      setLocaleState(initialLocale);
+      document.documentElement.lang = initialLocale;
+      localStorage.setItem("locale", initialLocale);
+    } else {
+      const savedLocale = (localStorage.getItem("locale") as SupportedLocale) || "en";
+      if (DICTIONARIES[savedLocale]) {
+        setLocaleState(savedLocale);
+        document.documentElement.lang = savedLocale;
+      }
     }
-  }, []);
+  }, [pathname, initialLocale]);
 
   const setLocale = (newLocale: SupportedLocale) => {
     if (DICTIONARIES[newLocale]) {
@@ -56,3 +84,4 @@ export function useLanguage() {
   }
   return context;
 }
+

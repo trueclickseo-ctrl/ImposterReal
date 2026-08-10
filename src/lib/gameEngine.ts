@@ -212,9 +212,9 @@ export function startNewRound(currentState: GameState, categoryId?: string): Gam
 
   // Reset votes & roles
   const imposterCount = Math.min(currentState.settings.imposterCount, Math.floor(currentState.players.length / 2));
-  const newPlayers = currentState.players.map(p => ({
+  const newPlayers: Player[] = currentState.players.map(p => ({
     ...p,
-    role: 'civilian' as const,
+    role: 'civilian',
     hasVoted: false,
     votedForId: undefined,
     clue: undefined

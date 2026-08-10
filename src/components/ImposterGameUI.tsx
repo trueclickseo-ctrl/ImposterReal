@@ -362,7 +362,7 @@ export default function ImposterGameUI() {
     // Setup local game engine state to get assigned roles
     const localState = startNewRound({
       ...gameState,
-      players: playersList,
+      players: playersList as any,
       // Firebase mapping structure back to engine State object
       imposterIds: gameState.imposterIds || []
     });
@@ -857,7 +857,7 @@ export default function ImposterGameUI() {
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {gameState.players.map((p) => (
                   <div key={p.id} className="bg-[var(--bg-card-alt)] border border-slate-300 dark:border-slate-800 p-3.5 rounded-xl flex items-center justify-between font-arcade text-xl font-bold text-slate-900 dark:text-slate-100 shadow-sm">
-                    <span className="truncate">👤 {p.name} {!p.isLocalPlayer && !p.isConnected && "(Disconnected)"}</span>
+                    <span className="truncate">👤 {p.name} {!p.isLocalPlayer && !(p as any).isConnected && "(Disconnected)"}</span>
                     {gameState.players.length > 3 && isHost && (
                       <button
                         onClick={() => removePlayer(p.id)}

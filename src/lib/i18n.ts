@@ -79,6 +79,7 @@ export interface Dictionary {
   footerOurMission: string;
   footerContactUs: string;
   footerPrivacy: string;
+  footerRights?: string;
 
   // Home Page
   siteTitle: string;

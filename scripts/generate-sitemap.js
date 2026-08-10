@@ -1,64 +1,89 @@
 const fs = require('fs');
 const path = require('path');
 
-const projectRoot = 'd:/Project-PDFverse/SpinVerse';
-const appDir = path.join(projectRoot, 'src/app');
-const sitemapPath = path.join(projectRoot, 'public/sitemap.xml');
+const projectRoot = 'd:/Project-ImposterReal';
+const sitemapPath = path.join(projectRoot, 'sitemap.xml');
+const publicSitemapPath = path.join(projectRoot, 'public/sitemap.xml');
 
-// Helper to recursively find all page.tsx files
-function getRoutes(dir, baseRoute = '') {
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
-  let routes = [];
+const LOCALES = [
+  'en', 'de', 'fr', 'es', 'pt', 'it', 'tr', 'nl', 'pl', 'sv', 'ru', 'uk', 
+  'el', 'no', 'da', 'fi', 'hu', 'ro', 'cs', 'hr', 'id', 'zh', 'ja', 'ar', 
+  'hi', 'ko', 'vi', 'th'
+];
 
-  for (const entry of entries) {
-    if (entry.isDirectory()) {
-      // Ignore Next.js special files/folders
-      if (entry.name.startsWith('_') || entry.name.startsWith('.') || entry.name === 'node_modules' || entry.name === 'api') {
-        continue;
-      }
-      routes = routes.concat(getRoutes(path.join(dir, entry.name), `${baseRoute}/${entry.name}`));
-    } else if (entry.name === 'page.tsx') {
-      routes.push(baseRoute === '' ? '/' : baseRoute);
-    }
-  }
+const pages = [
+  '',
+  '/play',
+  '/encyclopedia',
+  '/encyclopedia/history',
+  '/encyclopedia/game-logic',
+  '/encyclopedia/academic-references',
+  '/learn',
+  '/learn/rules',
+  '/learn/what-is-imposter',
+  '/learn/beginner-guide',
+  '/learn/advanced-strategy',
+  '/learn/scoring-system',
+  '/learn/faq',
+  '/word-library',
+  '/game-modes',
+  '/blog',
+  '/resources',
+  '/community',
+  '/company/about',
+  '/company/mission',
+  '/company/careers',
+  '/company/contact',
+  '/company/privacy',
+  '/company/terms',
+  '/sitemap',
+];
 
-  return routes;
-}
-
-const allRoutes = getRoutes(appDir);
-
-// Sort routes to make sitemap clean
-allRoutes.sort((a, b) => {
-  const depthA = a.split('/').length;
-  const depthB = b.split('/').length;
-  if (depthA !== depthB) {
-    return depthA - depthB;
-  }
-  return a.localeCompare(b);
-});
-
+const baseUrl = 'https://imposterland.com';
 const today = new Date().toISOString().split('T')[0];
 
-let xmlContent = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-`;
+let xmlContent = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+xmlContent += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n`;
 
-for (const route of allRoutes) {
-  // Normalize routes
-  const cleanRoute = route === '/' ? '' : route;
-  const priority = route === '/' ? '1.0' : (route.split('/').length > 2 ? '0.7' : '0.8');
-  const changefreq = route === '/' ? 'daily' : (route.split('/').length > 2 ? 'monthly' : 'weekly');
+const getHreflangXml = (page) => {
+  let links = `    <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}${page === '' ? '/' : page + '/'}" />\n`;
+  for (const code of LOCALES) {
+    links += `    <xhtml:link rel="alternate" hreflang="${code}" href="${baseUrl}/${code}${page}/" />\n`;
+  }
+  return links;
+};
 
-  xmlContent += `  <url>
-    <loc>https://spinverse.com${cleanRoute}</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>${changefreq}</changefreq>
-    <priority>${priority}</priority>
-  </url>
-`;
+// 1. Unprefixed URLs
+for (const page of pages) {
+  const locUrl = page === '' ? `${baseUrl}/` : `${baseUrl}${page}/`;
+  xmlContent += `  <url>\n`;
+  xmlContent += `    <loc>${locUrl}</loc>\n`;
+  xmlContent += `    <lastmod>${today}</lastmod>\n`;
+  xmlContent += `    <changefreq>daily</changefreq>\n`;
+  xmlContent += `    <priority>${page === '' ? '1.0' : '0.8'}</priority>\n`;
+  xmlContent += getHreflangXml(page);
+  xmlContent += `  </url>\n`;
+}
+
+// 2. Localized URLs
+for (const code of LOCALES) {
+  for (const page of pages) {
+    const locUrl = `${baseUrl}/${code}${page}/`;
+    xmlContent += `  <url>\n`;
+    xmlContent += `    <loc>${locUrl}</loc>\n`;
+    xmlContent += `    <lastmod>${today}</lastmod>\n`;
+    xmlContent += `    <changefreq>daily</changefreq>\n`;
+    xmlContent += `    <priority>${page === '' ? '0.9' : '0.7'}</priority>\n`;
+    xmlContent += getHreflangXml(page);
+    xmlContent += `  </url>\n`;
+  }
 }
 
 xmlContent += `</urlset>\n`;
 
 fs.writeFileSync(sitemapPath, xmlContent, 'utf-8');
-console.log(`Successfully generated sitemap at ${sitemapPath} with ${allRoutes.length} URLs!`);
+if (fs.existsSync(path.dirname(publicSitemapPath))) {
+  fs.writeFileSync(publicSitemapPath, xmlContent, 'utf-8');
+}
+
+console.log(`Successfully generated sitemap.xml!`);

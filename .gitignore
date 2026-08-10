@@ -42,3 +42,6 @@ next-env.d.ts
 # JDK
 /jdk/
 /jdk.zip
+/scratch/
+/temp_out/
+
