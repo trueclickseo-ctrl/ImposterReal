@@ -184,10 +184,33 @@ export async function generateMetadata({
   }
 
   const dict = getDictionary(locale);
-  const metaObj = dict.meta[pathKey];
-  const title = metaObj ? metaObj.title : routeInfo.defaultTitle;
-  const description = metaObj ? metaObj.description : routeInfo.defaultDesc;
+  let pageTitle = routeInfo.defaultTitle.split("|")[0].trim();
+  let description = routeInfo.defaultDesc;
 
+  if (pathKey === "learn") {
+    pageTitle = dict.learnHub.title;
+    description = dict.learnHub.subtitle;
+  } else if (pathKey === "learn/faq") {
+    pageTitle = dict.learnFaq.title;
+    description = dict.learnFaq.subtitle;
+  } else if (pathKey === "learn/rules") {
+    pageTitle = dict.learnRules.title;
+    description = dict.learnRules.subtitle;
+  } else if (pathKey === "game-modes") {
+    pageTitle = dict.gameModes.title;
+    description = dict.gameModes.subtitle;
+  } else if (pathKey === "company/about") {
+    pageTitle = dict.companyAbout.title;
+    description = dict.companyAbout.subtitle;
+  } else if (pathKey === "company/contact") {
+    pageTitle = dict.companyContact.title;
+    description = dict.companyContact.subtitle;
+  } else if (dict.meta[pathKey]) {
+    pageTitle = dict.meta[pathKey].title;
+    description = dict.meta[pathKey].description;
+  }
+
+  const title = `${pageTitle} | Imposter`;
   return getPageMetadata(`/${locale}/${pathKey}`, title, description, locale);
 }
 

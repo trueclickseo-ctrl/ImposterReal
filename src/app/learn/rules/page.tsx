@@ -1,16 +1,16 @@
+"use client";
+
 import SEOHead from "@/components/SEOHead";
 import Link from "next/link";
 import { BookOpen, CheckCircle, AlertCircle } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
+import { getDictionary } from "@/dictionaries";
+import { LearnRulesContent } from "@/dictionaries/types";
 
-import { getPageMetadata } from "@/lib/metadata";
+export default function RulesPage(props: any) {
+  const { locale } = useLanguage();
+  const rulesData: LearnRulesContent = props?.content || getDictionary(locale).learnRules;
 
-export const metadata = getPageMetadata(
-  "/learn/rules",
-  "Official Imposter Game Rules | Step-by-Step Instructions",
-  "Official rules for playing the Imposter word party game. Learn role assignment, clue-giving rounds, voting mechanics, and winning conditions."
-);
-
-export default function RulesPage() {
   const faqItems = [
     {
       question: "How long does a round of Imposter last?",
@@ -24,79 +24,58 @@ export default function RulesPage() {
 
       <div className="max-w-4xl mx-auto space-y-8">
         <div className="text-center space-y-2">
-          <span className="pixel-badge bg-[#ffe600] text-slate-900">OFFICIAL RULEBOOK</span>
-          <h1 className="font-pixel text-2xl sm:text-4xl text-[#ffe600]">How to Play Imposter: Complete Rules</h1>
-          <p className="font-sans text-sm text-slate-300">Simple, easy-to-learn rules for 3 to 20 players.</p>
+          <span className="pixel-badge bg-[#ffe600] text-slate-900">{rulesData.badge}</span>
+          <h1 className="font-pixel text-2xl sm:text-4xl text-[#ffe600]">{rulesData.title}</h1>
+          <p className="font-sans text-sm text-slate-300">{rulesData.subtitle}</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           <div className="lg:col-span-2 bg-[#141c2e] border-4 border-[#ffe600] p-6 sm:p-10 space-y-6 text-slate-200 font-sans text-sm leading-relaxed shadow-[6px_6px_0px_#000]">
             
             <h2 className="font-pixel text-lg text-[#00f0ff] flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-[#39ff14]" /> Step 1: Preparation & Setup
+              <CheckCircle className="w-5 h-5 text-[#39ff14]" /> {rulesData.quickSummaryTitle}
             </h2>
-            <p>
-              Choose a category from the Word Library (e.g. Blockbuster Movies, Food, Travel, or Funny Words). Select 1 Imposter for groups of 3–8 players, or 2 Imposters for groups of 9–20 players.
-            </p>
 
-            <h2 className="font-pixel text-lg text-[#00f0ff] flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-[#39ff14]" /> Step 2: Role Reveal
-            </h2>
-            <p>
-              Each player views their private role card on their device screen or by passing a shared phone around. Civilians see the secret word (e.g. "Eiffel Tower"). The Imposter sees an alert stating <em>"YOU ARE THE IMPOSTER"</em>.
-            </p>
-
-            <h2 className="font-pixel text-lg text-[#00f0ff] flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-[#39ff14]" /> Step 3: Clue Round
-            </h2>
-            <p>
-              Moving clockwise, each player speaks exactly ONE word clue.
-            </p>
-            <div className="bg-[#1e293b] border-l-4 border-[#ffe600] p-4 text-xs space-y-1">
-              <strong>Example:</strong> Secret Word is <em>"Pizza"</em>.
-              <ul className="list-disc list-inside mt-1 space-y-1">
-                <li>Player A (Civilian): "Cheese"</li>
-                <li>Player B (Civilian): "Italian"</li>
-                <li>Player C (Imposter): "Delicious" (Bluffing successfully!)</li>
-                <li>Player D (Civilian): "Slice"</li>
-              </ul>
+            <div className="space-y-4 pt-2">
+              {rulesData.steps.map((step, idx) => (
+                <div key={idx} className="bg-[#1e293b] border-2 border-slate-700 p-4 space-y-1">
+                  <h3 className="font-pixel text-xs text-[#ffe600]">{step.title}</h3>
+                  <p className="text-xs text-slate-300">{step.description}</p>
+                </div>
+              ))}
             </div>
 
-            <h2 className="font-pixel text-lg text-[#00f0ff] flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-[#39ff14]" /> Step 4: Discussion & Voting
-            </h2>
-            <p>
-              Set a 3-minute timer to discuss suspicious clues. When the timer expires, everyone counts down "3... 2... 1..." and points to their suspected Imposter simultaneously.
-            </p>
+            <div className="pt-6 border-t border-slate-800 space-y-4">
+              <h2 className="font-pixel text-base text-[#ffe600]">{rulesData.articleTitle}</h2>
+              <p>{rulesData.articleP1}</p>
 
-            <h2 className="font-pixel text-lg text-[#00f0ff] flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-[#39ff14]" /> Step 5: Winning Conditions
-            </h2>
-            <ul className="list-disc list-inside space-y-2">
-              <li><strong>Civilians Win:</strong> If the majority votes out the actual Imposter.</li>
-              <li><strong>Imposter Wins:</strong> If an innocent civilian is voted out, or if the Imposter correctly guesses the secret word!</li>
-            </ul>
+              <h3 className="font-pixel text-xs text-[#00f0ff]">{rulesData.articleH2}</h3>
+              <p>{rulesData.articleP2}</p>
+              <ul className="list-disc pl-5 space-y-1 text-xs text-slate-300">
+                <li>{rulesData.articleLi1}</li>
+                <li>{rulesData.articleLi2}</li>
+              </ul>
+
+              <h3 className="font-pixel text-xs text-[#00f0ff]">{rulesData.articleH3}</h3>
+              <p>{rulesData.articleP3}</p>
+            </div>
 
             <div className="pt-6 border-t border-slate-800 flex justify-between items-center">
-              <Link href="/play/" className="pixel-btn pixel-btn-yellow text-xs">
-                🎮 Ready? Play Now
-              </Link>
-              <Link href="/learn/beginner-guide/" className="font-arcade text-lg text-[#00f0ff] hover:underline">
-                Next: Beginner Tips →
-              </Link>
+              <Link href="/play/" className="pixel-btn pixel-btn-yellow text-xs">🎮 Start Game</Link>
+              <Link href="/learn/faq/" className="font-arcade text-lg text-[#00f0ff] hover:underline">Read FAQ →</Link>
             </div>
           </div>
 
           <div className="lg:col-span-1 w-full flex justify-center">
-            <picture className="w-full">
-              <source srcSet="/images/rules_setup-desktop.webp 900w, /images/rules_setup-mobile.webp 480w" sizes="(max-width: 640px) 450px, 900px" type="image/webp" />
+            <picture className="w-full max-w-[280px]">
+              <source srcSet="/images/rules_book-desktop.webp 500w, /images/rules_book-mobile.webp 300w" sizes="(max-width: 640px) 300px, 500px" type="image/webp" />
               <img 
-                src="/images/rules_setup-desktop.jpg" 
-                srcSet="/images/rules_setup-desktop.jpg 900w, /images/rules_setup-mobile.jpg 480w" 
-                sizes="(max-width: 640px) 450px, 900px"
-                width={900}
-                height={600}
-                alt="Friends setting up the Imposter party game with role cards" 
+                src="/images/rules_book-desktop.jpg" 
+                srcSet="/images/rules_book-desktop.jpg 500w, /images/rules_book-mobile.jpg 300w" 
+                sizes="(max-width: 640px) 300px, 500px"
+                width={500}
+                height={500}
+                alt="Official rulebook illustration for Imposter game"
                 className="w-full h-auto object-cover rounded-2xl border-4 border-slate-900 dark:border-slate-700 shadow-[6px_6px_0px_#ffe600]"
                 loading="lazy"
               />
