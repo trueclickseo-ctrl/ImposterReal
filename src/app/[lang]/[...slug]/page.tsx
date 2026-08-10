@@ -28,7 +28,7 @@ import PrivacyPage from "@/app/company/privacy/page";
 import TermsPage from "@/app/company/terms/page";
 import SitemapPage from "@/app/sitemap/page";
 
-const ROUTE_MAP: Record<string, { component: React.ComponentType; titleKey?: string; descKey?: string; defaultTitle: string; defaultDesc: string }> = {
+const ROUTE_MAP: Record<string, { component: React.ComponentType<any>; contentKey?: string; titleKey?: string; descKey?: string; defaultTitle: string; defaultDesc: string }> = {
   "play": {
     component: PlayPage,
     defaultTitle: "Play Imposter Online Free | Instant Game Rooms",
@@ -167,6 +167,8 @@ export function generateStaticParams() {
   return params;
 }
 
+import { getDictionary } from "@/dictionaries";
+
 export async function generateMetadata({
   params,
 }: {
@@ -181,9 +183,10 @@ export async function generateMetadata({
     return {};
   }
 
-  const dict = DICTIONARIES[locale] || DICTIONARIES["en"];
-  const title = dict.siteTitle ? `${routeInfo.defaultTitle.split("|")[0].trim()} | ${dict.siteTitle}` : routeInfo.defaultTitle;
-  const description = dict.siteSubtitle ? `${routeInfo.defaultDesc}` : routeInfo.defaultDesc;
+  const dict = getDictionary(locale);
+  const metaObj = dict.meta[pathKey];
+  const title = metaObj ? metaObj.title : routeInfo.defaultTitle;
+  const description = metaObj ? metaObj.description : routeInfo.defaultDesc;
 
   return getPageMetadata(`/${locale}/${pathKey}`, title, description, locale);
 }
@@ -201,6 +204,9 @@ export default async function LocalizedSubPage({
     notFound();
   }
 
+  const locale = lang as SupportedLocale;
+  const dict = getDictionary(locale);
   const Component = routeInfo.component;
-  return <Component />;
+  
+  return <Component content={dict[routeInfo.contentKey as keyof typeof dict]} />;
 }
