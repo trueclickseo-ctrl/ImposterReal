@@ -42,7 +42,7 @@ const pages = [
 const baseUrl = 'https://imposterland.com';
 const today = new Date().toISOString().split('T')[0];
 
-let xmlContent = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+let xmlContent = `<?xml version="1.0" encoding="UTF-8"?>\n<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>\n`;
 xmlContent += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n`;
 
 const getHreflangXml = (page) => {
