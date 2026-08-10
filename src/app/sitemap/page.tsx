@@ -15,94 +15,94 @@ export default function HTMLSitemapPage() {
     { title: "Home", url: "/" },
     { 
       title: "Play", 
-      url: "/play",
+      url: "/play/",
       children: [
-        { title: "Browser Game", url: "/play" },
-        { title: "Create a Room", url: "/play?mode=create" },
-        { title: "Join a Room", url: "/play?mode=join" },
-        { title: "Mobile Play", url: "/play?mode=mobile" },
-        { title: "Desktop Play", url: "/play?mode=desktop" }
+        { title: "Browser Game", url: "/play/" },
+        { title: "Create a Room", url: "/play/?mode=create" },
+        { title: "Join a Room", url: "/play/?mode=join" },
+        { title: "Mobile Play", url: "/play/?mode=mobile" },
+        { title: "Desktop Play", url: "/play/?mode=desktop" }
       ]
     },
     {
       title: "Learn",
-      url: "/learn",
+      url: "/learn/",
       children: [
-        { title: "What Is Imposter Game?", url: "/learn/what-is-imposter" },
-        { title: "Official Rules", url: "/learn/rules" },
-        { title: "Beginner Guide", url: "/learn/beginner-guide" },
-        { title: "Advanced Strategy", url: "/learn/advanced-strategy" },
-        { title: "Scoring System", url: "/learn/scoring-system" },
-        { title: "FAQ & Answers", url: "/learn/faq" }
+        { title: "What Is Imposter Game?", url: "/learn/what-is-imposter/" },
+        { title: "Official Rules", url: "/learn/rules/" },
+        { title: "Beginner Guide", url: "/learn/beginner-guide/" },
+        { title: "Advanced Strategy", url: "/learn/advanced-strategy/" },
+        { title: "Scoring System", url: "/learn/scoring-system/" },
+        { title: "FAQ & Answers", url: "/learn/faq/" }
       ]
     },
     {
       title: "Word Library",
-      url: "/word-library",
+      url: "/word-library/",
       children: [
-        { title: "Blockbuster Movies", url: "/word-library?cat=movies" },
-        { title: "Food & Gourmet", url: "/word-library?cat=food" },
-        { title: "Travel Landmarks", url: "/word-library?cat=travel" },
-        { title: "Funny Words", url: "/word-library?cat=funny" },
-        { title: "Family & Animals", url: "/word-library?cat=family" },
-        { title: "Brainiac & Hard", url: "/word-library?cat=hard" },
-        { title: "Custom Generator", url: "/word-library" }
+        { title: "Blockbuster Movies", url: "/word-library/?cat=movies" },
+        { title: "Food & Gourmet", url: "/word-library/?cat=food" },
+        { title: "Travel Landmarks", url: "/word-library/?cat=travel" },
+        { title: "Funny Words", url: "/word-library/?cat=funny" },
+        { title: "Family & Animals", url: "/word-library/?cat=family" },
+        { title: "Brainiac & Hard", url: "/word-library/?cat=hard" },
+        { title: "Custom Generator", url: "/word-library/" }
       ]
     },
     {
       title: "Game Modes",
-      url: "/game-modes",
+      url: "/game-modes/",
       children: [
-        { title: "Classic Mode", url: "/game-modes#classic" },
-        { title: "Team Mode", url: "/game-modes#team" },
-        { title: "Drawing Mode", url: "/game-modes#drawing" },
-        { title: "Timed Speed Mode", url: "/game-modes#timed" },
-        { title: "Classroom Mode", url: "/game-modes#classroom" },
-        { title: "Office Icebreaker Mode", url: "/game-modes#office" }
+        { title: "Classic Mode", url: "/game-modes/#classic" },
+        { title: "Team Mode", url: "/game-modes/#team" },
+        { title: "Drawing Mode", url: "/game-modes/#drawing" },
+        { title: "Timed Speed Mode", url: "/game-modes/#timed" },
+        { title: "Classroom Mode", url: "/game-modes/#classroom" },
+        { title: "Office Icebreaker Mode", url: "/game-modes/#office" }
       ]
     },
     {
       title: "Blog",
-      url: "/blog",
+      url: "/blog/",
       children: [
-        { title: "15 Party Game Ideas", url: "/blog" },
-        { title: "Social Deduction Compared", url: "/blog" },
-        { title: "Psychology of Bluffing", url: "/blog" },
-        { title: "Family Activity Guides", url: "/blog" },
-        { title: "Team-Building Guides", url: "/blog" },
-        { title: "Game Design Notes", url: "/blog" },
-        { title: "Product Updates", url: "/blog" }
+        { title: "15 Party Game Ideas", url: "/blog/" },
+        { title: "Social Deduction Compared", url: "/blog/" },
+        { title: "Psychology of Bluffing", url: "/blog/" },
+        { title: "Family Activity Guides", url: "/blog/" },
+        { title: "Team-Building Guides", url: "/blog/" },
+        { title: "Game Design Notes", url: "/blog/" },
+        { title: "Product Updates", url: "/blog/" }
       ]
     },
     {
       title: "Resources",
-      url: "/resources",
+      url: "/resources/",
       children: [
-        { title: "Printable Cards", url: "/resources" },
-        { title: "PDF Rule Sheets", url: "/resources" },
-        { title: "Teacher's Guide", url: "/resources" },
-        { title: "Event Kit", url: "/resources" }
+        { title: "Printable Cards", url: "/resources/" },
+        { title: "PDF Rule Sheets", url: "/resources/" },
+        { title: "Teacher's Guide", url: "/resources/" },
+        { title: "Event Kit", url: "/resources/" }
       ]
     },
     {
       title: "Community",
-      url: "/community",
+      url: "/community/",
       children: [
-        { title: "Leaderboards", url: "/community" },
-        { title: "Weekly Challenges", url: "/community" },
-        { title: "Discord", url: "/community" }
+        { title: "Leaderboards", url: "/community/" },
+        { title: "Weekly Challenges", url: "/community/" },
+        { title: "Discord", url: "/community/" }
       ]
     },
     {
       title: "Company",
-      url: "/company/about",
+      url: "/company/about/",
       children: [
-        { title: "About Us", url: "/company/about" },
-        { title: "Our Mission", url: "/company/mission" },
-        { title: "Careers", url: "/company/careers" },
-        { title: "Contact", url: "/company/contact" },
-        { title: "Privacy Policy", url: "/company/privacy" },
-        { title: "Terms of Service", url: "/company/terms" }
+        { title: "About Us", url: "/company/about/" },
+        { title: "Our Mission", url: "/company/mission/" },
+        { title: "Careers", url: "/company/careers/" },
+        { title: "Contact", url: "/company/contact/" },
+        { title: "Privacy Policy", url: "/company/privacy/" },
+        { title: "Terms of Service", url: "/company/terms/" }
       ]
     }
   ];

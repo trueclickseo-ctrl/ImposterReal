@@ -103,7 +103,7 @@ export function generateWebSiteSchema() {
     "name": "Imposter Party Game",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://imposterland.com/word-library?q={search_term_string}",
+      "target": "https://imposterland.com/word-library/?q={search_term_string}",
       "query-input": "required name=search_term_string"
     }
   };

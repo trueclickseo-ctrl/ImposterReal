@@ -56,6 +56,29 @@ export function LanguageProvider({ children, initialLocale }: { children: React.
       setLocaleState(newLocale);
       localStorage.setItem("locale", newLocale);
       document.documentElement.lang = newLocale;
+
+      if (typeof window !== "undefined") {
+        const path = window.location.pathname;
+        const segments = path.split("/").filter(Boolean);
+        if (segments.length > 0 && LOCALES.some((l) => l.code === segments[0])) {
+          segments[0] = newLocale;
+          const newPath = "/" + segments.join("/") + "/";
+          if (path !== newPath) {
+            window.location.href = newPath;
+          }
+        } else if (path !== "/") {
+          const newPath = "/" + newLocale + (path.startsWith("/") ? path : "/" + path);
+          const cleanNewPath = newPath.endsWith("/") ? newPath : newPath + "/";
+          if (path !== cleanNewPath) {
+            window.location.href = cleanNewPath;
+          }
+        } else {
+          const newPath = "/" + newLocale + "/";
+          if (path !== newPath) {
+            window.location.href = newPath;
+          }
+        }
+      }
     }
   };
 
