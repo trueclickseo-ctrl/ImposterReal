@@ -68,10 +68,10 @@ export default function RulesPage(props: any) {
 
           <div className="lg:col-span-1 w-full flex justify-center">
             <picture className="w-full max-w-[280px]">
-              <source srcSet="/images/rules_book-desktop.webp 500w, /images/rules_book-mobile.webp 300w" sizes="(max-width: 640px) 300px, 500px" type="image/webp" />
+              <source srcSet="/images/rules_setup-desktop.webp 500w, /images/rules_setup-mobile.webp 300w" sizes="(max-width: 640px) 300px, 500px" type="image/webp" />
               <img 
-                src="/images/rules_book-desktop.jpg" 
-                srcSet="/images/rules_book-desktop.jpg 500w, /images/rules_book-mobile.jpg 300w" 
+                src="/images/rules_setup-desktop.jpg" 
+                srcSet="/images/rules_setup-desktop.jpg 500w, /images/rules_setup-mobile.jpg 300w" 
                 sizes="(max-width: 640px) 300px, 500px"
                 width={500}
                 height={500}

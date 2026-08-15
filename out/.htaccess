@@ -3,6 +3,12 @@
 # Performance + Security + Routing
 # ================================================
 
+# Serve modern image formats with correct content headers
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+  AddType image/avif .avif
+</IfModule>
+
 # Force HTTPS and Non-WWW (Canonical Domain)
 RewriteEngine On
 RewriteBase /
@@ -15,8 +21,18 @@ RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 
-# 3. Force trailing slash on all directories/routes (excluding files, sitemap.xml, and robots.txt)
+# 3. 301 Redirect deprecated /cyclopedia typo routes to /encyclopedia
+RewriteRule ^cyclopedia/(.*)$ https://imposterland.com/encyclopedia/$1 [R=301,L]
+RewriteRule ^cyclopedia/?$ https://imposterland.com/encyclopedia/ [R=301,L]
+RewriteRule ^([a-z]{2})/cyclopedia/(.*)$ https://imposterland.com/$1/encyclopedia/$2 [R=301,L]
+RewriteRule ^([a-z]{2})/cyclopedia/?$ https://imposterland.com/$1/encyclopedia/ [R=301,L]
+
+# 4. 301 Redirect /imposter-deutsch to German page /de/imposter-deutsch/
+RewriteRule ^imposter-deutsch/?$ https://imposterland.com/de/imposter-deutsch/ [R=301,L]
+
+# 5. Force trailing slash on all directories/routes (excluding files, static assets, sitemap.xml, and robots.txt)
 RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !\.(jpg|jpeg|png|gif|webp|avif|svg|ico|css|js|json|xml|txt|woff|woff2|ttf)$ [NC]
 RewriteCond %{REQUEST_URI} !sitemap\.xml$
 RewriteCond %{REQUEST_URI} !robots\.txt$
 RewriteCond %{REQUEST_URI} !(.*)/$
@@ -53,9 +69,9 @@ RewriteRule ^(.*)$ https://imposterland.com/$1/ [R=301,L]
 <IfModule mod_expires.c>
   ExpiresActive On
 
-  # HTML — short cache, revalidate
-  ExpiresByType text/html "access plus 1 hour"
-
+  # HTML — do not cache to ensure users always get the latest build references
+  ExpiresByType text/html "access plus 0 seconds"
+  
   # CSS & JavaScript — long cache (filenames are hashed by Next.js)
   ExpiresByType text/css "access plus 1 year"
   ExpiresByType application/javascript "access plus 1 year"
@@ -86,8 +102,11 @@ RewriteRule ^(.*)$ https://imposterland.com/$1/ [R=301,L]
     Header set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
   <FilesMatch "\.(html)$">
-    Header set Cache-Control "public, max-age=3600, must-revalidate"
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
   </FilesMatch>
+  <Files "sitemap.xml">
+    Header set Content-Type "application/xml; charset=utf-8"
+  </Files>
 </IfModule>
 
 # ================================================
