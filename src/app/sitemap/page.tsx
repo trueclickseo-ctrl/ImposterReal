@@ -65,6 +65,10 @@ export default function HTMLSitemapPage() {
       title: "Blog",
       url: "/blog/",
       children: [
+        { title: "What Is Social Deduction? (Pillar)", url: "/blog/what-is-social-deduction/" },
+        { title: "Dmitry Davidoff Biography", url: "/blog/dmitry-davidoff/" },
+        { title: "What Does Imposter Mean?", url: "/blog/what-does-imposter-mean/" },
+        { title: "Imposter auf Deutsch", url: "/de/imposter-deutsch/" },
         { title: "15 Party Game Ideas", url: "/blog/" },
         { title: "Social Deduction Compared", url: "/blog/" },
         { title: "Psychology of Bluffing", url: "/blog/" },

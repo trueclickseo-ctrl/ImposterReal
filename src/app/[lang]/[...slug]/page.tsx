@@ -18,6 +18,10 @@ import FAQPage from "@/app/learn/faq/page";
 import WordLibraryPage from "@/app/word-library/page";
 import GameModesPage from "@/app/game-modes/page";
 import BlogPage from "@/app/blog/page";
+import DmitryDavidoffPage from "@/app/blog/dmitry-davidoff/page";
+import ImposterDeutschPage from "@/app/de/imposter-deutsch/page";
+import WhatDoesImposterMeanPage from "@/app/blog/what-does-imposter-mean/page";
+import WhatIsSocialDeductionPage from "@/app/blog/what-is-social-deduction/page";
 import ResourcesPage from "@/app/resources/page";
 import CommunityPage from "@/app/community/page";
 import AboutPage from "@/app/company/about/page";
@@ -103,6 +107,31 @@ const ROUTE_MAP: Record<string, { component: React.ComponentType<any>; contentKe
     component: BlogPage,
     defaultTitle: "Party Game Blog & Game Design Articles | Imposter",
     defaultDesc: "Read articles on party game mechanics, icebreakers, virtual team building, and game night ideas."
+  },
+  "blog/dmitry-davidoff": {
+    component: DmitryDavidoffPage,
+    defaultTitle: "Dmitry Davidoff: Creator of Mafia & Social Deduction | Imposter",
+    defaultDesc: "Discover Dmitry Davidoff, the Moscow psychology student who invented Mafia in 1987 and birthed the modern social deduction game genre."
+  },
+  "imposter-deutsch": {
+    component: ImposterDeutschPage,
+    defaultTitle: "Imposter auf Deutsch: Was das Wort wirklich bedeutet | Imposter",
+    defaultDesc: "Was bedeutet Imposter auf Deutsch? Erfahre die genaue Übersetzung (Betrüger, Hochstapler) und die Bedeutung des Begriffs in Spielen wie Among Us."
+  },
+  "blog/imposter-deutsch": {
+    component: ImposterDeutschPage,
+    defaultTitle: "Imposter auf Deutsch: Was das Wort wirklich bedeutet | Imposter",
+    defaultDesc: "Was bedeutet Imposter auf Deutsch? Erfahre die genaue Übersetzung (Betrüger, Hochstapler) und die Bedeutung des Begriffs in Spielen wie Among Us."
+  },
+  "blog/what-does-imposter-mean": {
+    component: WhatDoesImposterMeanPage,
+    defaultTitle: "What Does Imposter Mean? Definition, Origin & Gaming | Imposter",
+    defaultDesc: "Learn the definition and origin of imposter (or impostor), why the word exploded in gaming culture, and how it differs from imposter syndrome."
+  },
+  "blog/what-is-social-deduction": {
+    component: WhatIsSocialDeductionPage,
+    defaultTitle: "What Is Social Deduction? Guide to Hidden Role Games | Imposter",
+    defaultDesc: "Explore social deduction games: core mechanics, history from Dmitry Davidoff's Mafia to Among Us, popular examples, and why hidden role games are popular."
   },
   "resources": {
     component: ResourcesPage,
