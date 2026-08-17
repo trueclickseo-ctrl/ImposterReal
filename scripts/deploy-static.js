@@ -4,9 +4,47 @@ const { execSync } = require('child_process');
 
 const projectRoot = 'd:/Project-ImposterReal';
 const outDir = path.join(projectRoot, 'out');
+const MIN_HTML_FILES = 870; // 28 locales x 31 routes = ~874 pages
 
 if (!fs.existsSync(outDir)) {
-  console.error("Error: out/ directory does not exist. Run npm run build first.");
+  console.error("❌ DEPLOY ERROR: out/ directory does not exist. Run 'npm run build' first.");
+  process.exit(1);
+}
+
+// 0. Pre-deploy Build Verification & Page Count Guard
+function getAllHtmlFiles(dir) {
+  let results = [];
+  const list = fs.readdirSync(dir, { withFileTypes: true });
+  for (const item of list) {
+    const fullPath = path.join(dir, item.name);
+    if (item.isDirectory()) {
+      results = results.concat(getAllHtmlFiles(fullPath));
+    } else if (item.name.endsWith('.html')) {
+      results.push(fullPath);
+    }
+  }
+  return results;
+}
+
+const htmlFiles = getAllHtmlFiles(outDir);
+console.log(`\n🔍 PRE-DEPLOY GUARD: Verifying static build artifacts...`);
+console.log(`   Generated static HTML pages: ${htmlFiles.length}`);
+
+if (htmlFiles.length < MIN_HTML_FILES) {
+  console.error(`❌ DEPLOYMENT ABORTED: Static build generated only ${htmlFiles.length} HTML files, but minimum required threshold is ${MIN_HTML_FILES}.`);
+  console.error(`   This indicates localized routes failed to pre-render. Aborting deployment to protect production.`);
+  process.exit(1);
+}
+
+console.log(`✅ Page count check passed (${htmlFiles.length} >= ${MIN_HTML_FILES}).`);
+
+// Run sitewide link and asset audit
+console.log(`\n🔍 PRE-DEPLOY GUARD: Running sitewide link & asset audit...`);
+try {
+  execSync('node scripts/audit.js', { cwd: projectRoot, stdio: 'inherit' });
+  console.log(`✅ Sitewide audit passed cleanly.`);
+} catch (e) {
+  console.error(`❌ DEPLOYMENT ABORTED: Sitewide link audit failed. Fix broken links or missing assets before deploying.`);
   process.exit(1);
 }
 
@@ -15,7 +53,7 @@ const gitignorePath = path.join(projectRoot, '.gitignore');
 const gitignoreContent = fs.existsSync(gitignorePath) ? fs.readFileSync(gitignorePath, 'utf8') : '';
 
 // 1. Save current work to "source" branch
-console.log("Saving source code to 'source' branch...");
+console.log("\nSaving source code to 'source' branch...");
 try {
   execSync('git add -A', { cwd: projectRoot, stdio: 'inherit' });
   execSync('git commit -m "chore: save source branch progress"', { cwd: projectRoot, stdio: 'inherit' });
@@ -86,7 +124,7 @@ try {
   console.log("Note: Main branch commit/push warning (might be nothing to commit):", e.message);
 }
 
-console.log("SUCCESS! Static build is now live on the main branch of GitHub. Switch back to 'source' branch locally to continue editing.");
+console.log("🎉 SUCCESS! Verified static build is live on main branch. Switched back to 'source' branch.");
 execSync('git checkout source', { cwd: projectRoot, stdio: 'inherit' });
 
 // 8. Ping Bing IndexNow to notify of updated content
@@ -96,4 +134,3 @@ try {
 } catch (e) {
   console.log("Warning: IndexNow ping failed (non-blocking):", e.message);
 }
-

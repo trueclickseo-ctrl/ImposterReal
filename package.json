@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "audit": "node scripts/audit.js",
+    "deploy": "next build && node scripts/generate-sitemap.js && node scripts/deploy-static.js",
     "start": "next start",
     "lint": "eslint"
   },
