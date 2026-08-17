@@ -144,7 +144,7 @@ export default function BlogPage() {
               </div>
               <div className="pt-2">
                 <Link href={art.url} className="inline-flex items-center gap-1 font-arcade text-xs text-[#0284c7] dark:text-[#38bdf8] hover:underline font-bold">
-                  Read Article →
+                  {dictionary.rule1Cta || "Read Article"} →
                 </Link>
               </div>
             </div>
