@@ -99,10 +99,10 @@ export default function BlogPage() {
         
         {/* Header */}
         <div className="text-center space-y-3">
-          <span className="pixel-badge bg-[#fb923c] text-slate-950 font-bold">PARTY GAME BLOG</span>
-          <h1 className="font-pixel text-2xl sm:text-4xl text-[#ea580c] dark:text-[#fb923c] font-extrabold">Insights, Strategy & Party Guides</h1>
+          <span className="pixel-badge bg-[#fb923c] text-slate-950 font-bold">{dictionary.navBlog || "PARTY GAME BLOG"}</span>
+          <h1 className="font-pixel text-2xl sm:text-4xl text-[#ea580c] dark:text-[#fb923c] font-extrabold">{dictionary.blogHeader}</h1>
           <p className="font-sans text-base font-medium text-slate-700 dark:text-slate-200 max-w-xl mx-auto">
-            Articles on social deduction mechanics, party planning, and game design.
+            {dictionary.blogSub}
           </p>
         </div>
 
