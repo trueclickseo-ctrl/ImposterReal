@@ -3,7 +3,7 @@ import SEOHead from "@/components/SEOHead";
 import { getPageMetadata } from "@/lib/metadata";
 
 export const metadata = getPageMetadata(
-  "/keyword-map",
+  "/keyword-map/",
   "Semantic SEO Map & Keyword Targeting | Imposter Strategy",
   "Phase 2 Semantic SEO Mapping Table for Imposter App. Pillar URL mapping, cluster pages, keyword targets, search intent, and internal links."
 );
@@ -16,31 +16,31 @@ export default function KeywordMapPage() {
       targetKeyword: "party game online",
       searchIntent: "Informational / Transactional",
       clusters: ["social deduction games", "hidden role games", "icebreaker games", "family games"],
-      internalLinks: "/play, /learn/rules, /word-library"
+      internalLinks: "/play/, /learn/rules/, /word-library/"
     },
     {
       pillar: "Pillar 2: Imposter Game",
-      url: "/play",
+      url: "/play/",
       targetKeyword: "imposter game online",
       searchIntent: "Transactional / Game Play",
       clusters: ["imposter game rules", "how to play imposter", "imposter clues", "imposter categories"],
-      internalLinks: "/learn, /game-modes, /word-library"
+      internalLinks: "/learn/, /game-modes/, /word-library/"
     },
     {
       pillar: "Pillar 3: Word & Category Generator",
-      url: "/word-library",
+      url: "/word-library/",
       targetKeyword: "random word generator party game",
       searchIntent: "Informational / Tool Use",
       clusters: ["imposter words", "funny words", "classroom words", "custom category generator"],
-      internalLinks: "/play, /resources, /learn/beginner-guide"
+      internalLinks: "/play/, /resources/, /learn/beginner-guide/"
     },
     {
       pillar: "Pillar 4: Team & Group Activities",
-      url: "/game-modes",
+      url: "/game-modes/",
       targetKeyword: "office icebreaker party game",
       searchIntent: "Informational / Commercial",
       clusters: ["classroom activities", "office games", "youth group games", "team building"],
-      internalLinks: "/resources, /community, /company/about"
+      internalLinks: "/resources/, /community/, /company/about/"
     }
   ];
 
