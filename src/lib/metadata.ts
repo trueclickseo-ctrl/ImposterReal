@@ -7,7 +7,7 @@ export function getHreflangAlternates(unprefixedPath: string) {
 
   const alternates: Record<string, string> = {
     'x-default': `${baseUrl}${cleanPath}/`,
-    'en': `${baseUrl}/en${cleanPath}/`,
+    'en': `${baseUrl}${cleanPath}/`,
   };
 
   LOCALES.forEach(loc => {
@@ -43,8 +43,16 @@ export function getPageMetadata(path: string, title: string, description: string
     }
   }
 
-  // Self-referencing canonical tag for every URL
-  const canonical = `${baseUrl}${cleanPath}${cleanPath.endsWith("/") || cleanPath === "" ? "" : "/"}`;
+  // Canonical calculation:
+  // For /en/ prefixed paths, canonical points to the primary unprefixed URL
+  let canonicalPath = cleanPath;
+  if (cleanPath.startsWith("/en/")) {
+    canonicalPath = cleanPath.slice(3);
+  } else if (cleanPath === "/en") {
+    canonicalPath = "";
+  }
+
+  const canonical = `${baseUrl}${canonicalPath}${canonicalPath.endsWith("/") || canonicalPath === "" ? "" : "/"}`;
 
   return {
     title,

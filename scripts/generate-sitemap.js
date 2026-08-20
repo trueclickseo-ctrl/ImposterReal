@@ -31,7 +31,6 @@ const PAGES = [
   '/blog/dmitry-davidoff',
   '/blog/what-does-imposter-mean',
   '/blog/what-is-social-deduction',
-  '/imposter-deutsch',
   '/resources',
   '/community',
   '/company/about',
@@ -52,13 +51,16 @@ xmlContent += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns
 const getHreflangXml = (page) => {
   const unprefixed = page === '' ? '/' : `${page}/`;
   let links = `    <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}${unprefixed}" />\n`;
+  links += `    <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}${unprefixed}" />\n`;
   for (const code of LOCALES) {
-    links += `    <xhtml:link rel="alternate" hreflang="${code}" href="${baseUrl}/${code}${page}/" />\n`;
+    if (code !== 'en') {
+      links += `    <xhtml:link rel="alternate" hreflang="${code}" href="${baseUrl}/${code}${page}/" />\n`;
+    }
   }
   return links;
 };
 
-// 1. Unprefixed URLs
+// 1. Unprefixed Default English URLs
 for (const page of PAGES) {
   const locUrl = page === '' ? `${baseUrl}/` : `${baseUrl}${page}/`;
   xmlContent += `  <url>\n`;
@@ -70,8 +72,19 @@ for (const page of PAGES) {
   xmlContent += `  </url>\n`;
 }
 
-// 2. Localized URLs across all 28 locales
+// 2. German imposter-deutsch
+xmlContent += `  <url>\n`;
+xmlContent += `    <loc>${baseUrl}/de/imposter-deutsch/</loc>\n`;
+xmlContent += `    <lastmod>${today}</lastmod>\n`;
+xmlContent += `    <changefreq>daily</changefreq>\n`;
+xmlContent += `    <priority>0.8</priority>\n`;
+xmlContent += `    <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/de/imposter-deutsch/" />\n`;
+xmlContent += `    <xhtml:link rel="alternate" hreflang="de" href="${baseUrl}/de/imposter-deutsch/" />\n`;
+xmlContent += `  </url>\n`;
+
+// 3. Localized URLs (Non-English)
 for (const code of LOCALES) {
+  if (code === 'en') continue;
   for (const page of PAGES) {
     const locUrl = `${baseUrl}/${code}${page}/`;
     xmlContent += `  <url>\n`;
