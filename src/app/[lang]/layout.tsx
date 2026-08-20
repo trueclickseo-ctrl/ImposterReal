@@ -3,7 +3,7 @@ import { LOCALES, SupportedLocale } from "@/lib/i18n";
 import { LanguageProvider } from "@/context/LanguageContext";
 
 export function generateStaticParams() {
-  return LOCALES.filter((loc) => loc.code !== 'en').map((loc) => ({ lang: loc.code }));
+  return LOCALES.map((loc) => ({ lang: loc.code }));
 }
 
 export default async function LocalizedLayout({

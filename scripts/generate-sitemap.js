@@ -11,7 +11,7 @@ const LOCALES = [
   'hi', 'ko', 'vi', 'th'
 ];
 
-const MULTI_LANG_PAGES = [
+const PAGES = [
   '',
   '/play',
   '/encyclopedia',
@@ -28,6 +28,10 @@ const MULTI_LANG_PAGES = [
   '/word-library',
   '/game-modes',
   '/blog',
+  '/blog/dmitry-davidoff',
+  '/blog/what-does-imposter-mean',
+  '/blog/what-is-social-deduction',
+  '/imposter-deutsch',
   '/resources',
   '/community',
   '/company/about',
@@ -39,68 +43,45 @@ const MULTI_LANG_PAGES = [
   '/sitemap',
 ];
 
-const SINGLE_LANG_PAGES = [
-  { path: '/blog/dmitry-davidoff', lang: 'en', url: 'https://imposterland.com/blog/dmitry-davidoff/' },
-  { path: '/blog/what-does-imposter-mean', lang: 'en', url: 'https://imposterland.com/blog/what-does-imposter-mean/' },
-  { path: '/blog/what-is-social-deduction', lang: 'en', url: 'https://imposterland.com/blog/what-is-social-deduction/' },
-  { path: '/de/imposter-deutsch', lang: 'de', url: 'https://imposterland.com/de/imposter-deutsch/' },
-];
-
 const baseUrl = 'https://imposterland.com';
 const today = new Date().toISOString().split('T')[0];
 
 let xmlContent = `<?xml version="1.0" encoding="UTF-8"?>\n<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>\n`;
 xmlContent += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n`;
 
-const getMultiLangHreflangXml = (page) => {
+const getHreflangXml = (page) => {
   const unprefixed = page === '' ? '/' : `${page}/`;
   let links = `    <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}${unprefixed}" />\n`;
-  links += `    <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}${unprefixed}" />\n`;
   for (const code of LOCALES) {
-    if (code !== 'en') {
-      links += `    <xhtml:link rel="alternate" hreflang="${code}" href="${baseUrl}/${code}${page}/" />\n`;
-    }
+    links += `    <xhtml:link rel="alternate" hreflang="${code}" href="${baseUrl}/${code}${page}/" />\n`;
   }
   return links;
 };
 
-// 1. Unprefixed Multi-language URLs (English Default)
-for (const page of MULTI_LANG_PAGES) {
+// 1. Unprefixed URLs
+for (const page of PAGES) {
   const locUrl = page === '' ? `${baseUrl}/` : `${baseUrl}${page}/`;
   xmlContent += `  <url>\n`;
   xmlContent += `    <loc>${locUrl}</loc>\n`;
   xmlContent += `    <lastmod>${today}</lastmod>\n`;
   xmlContent += `    <changefreq>daily</changefreq>\n`;
   xmlContent += `    <priority>${page === '' ? '1.0' : '0.8'}</priority>\n`;
-  xmlContent += getMultiLangHreflangXml(page);
+  xmlContent += getHreflangXml(page);
   xmlContent += `  </url>\n`;
 }
 
-// 2. Localized Multi-language URLs (Non-English)
+// 2. Localized URLs across all 28 locales
 for (const code of LOCALES) {
-  if (code === 'en') continue;
-  for (const page of MULTI_LANG_PAGES) {
+  for (const page of PAGES) {
     const locUrl = `${baseUrl}/${code}${page}/`;
     xmlContent += `  <url>\n`;
     xmlContent += `    <loc>${locUrl}</loc>\n`;
     xmlContent += `    <lastmod>${today}</lastmod>\n`;
     xmlContent += `    <changefreq>daily</changefreq>\n`;
     xmlContent += `    <priority>${page === '' ? '0.9' : '0.7'}</priority>\n`;
-    xmlContent += getMultiLangHreflangXml(page);
+    xmlContent += getHreflangXml(page);
     xmlContent += `  </url>\n`;
   }
-}
-
-// 3. Single-language Pages
-for (const item of SINGLE_LANG_PAGES) {
-  xmlContent += `  <url>\n`;
-  xmlContent += `    <loc>${item.url}</loc>\n`;
-  xmlContent += `    <lastmod>${today}</lastmod>\n`;
-  xmlContent += `    <changefreq>daily</changefreq>\n`;
-  xmlContent += `    <priority>0.8</priority>\n`;
-  xmlContent += `    <xhtml:link rel="alternate" hreflang="x-default" href="${item.url}" />\n`;
-  xmlContent += `    <xhtml:link rel="alternate" hreflang="${item.lang}" href="${item.url}" />\n`;
-  xmlContent += `  </url>\n`;
 }
 
 xmlContent += `</urlset>\n`;

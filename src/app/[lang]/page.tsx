@@ -4,7 +4,7 @@ import { getPageMetadata } from "@/lib/metadata";
 import HomePage from "@/app/page";
 
 export function generateStaticParams() {
-  return LOCALES.filter((loc) => loc.code !== 'en').map((loc) => ({ lang: loc.code }));
+  return LOCALES.map((loc) => ({ lang: loc.code }));
 }
 
 export async function generateMetadata({
