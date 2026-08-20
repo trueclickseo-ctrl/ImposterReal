@@ -27,8 +27,15 @@ RewriteRule ^cyclopedia/?$ https://imposterland.com/encyclopedia/ [R=301,L]
 RewriteRule ^([a-z]{2})/cyclopedia/(.*)$ https://imposterland.com/$1/encyclopedia/$2 [R=301,L]
 RewriteRule ^([a-z]{2})/cyclopedia/?$ https://imposterland.com/$1/encyclopedia/ [R=301,L]
 
-# 4. 301 Redirect /imposter-deutsch to German page /de/imposter-deutsch/
+# 4. 301 Redirect /en/ routes to canonical unprefixed routes
+RewriteRule ^en/(.*)$ https://imposterland.com/$1 [R=301,L]
+RewriteRule ^en/?$ https://imposterland.com/ [R=301,L]
+
+# 5. 301 Redirect imposter-deutsch variants to canonical German page /de/imposter-deutsch/
 RewriteRule ^imposter-deutsch/?$ https://imposterland.com/de/imposter-deutsch/ [R=301,L]
+RewriteRule ^blog/imposter-deutsch/?$ https://imposterland.com/de/imposter-deutsch/ [R=301,L]
+RewriteRule ^([a-z]{2})/imposter-deutsch/?$ https://imposterland.com/de/imposter-deutsch/ [R=301,L]
+RewriteRule ^([a-z]{2})/blog/imposter-deutsch/?$ https://imposterland.com/de/imposter-deutsch/ [R=301,L]
 
 # 5. Force trailing slash on all directories/routes (excluding files, static assets, sitemap.xml, and robots.txt)
 RewriteCond %{REQUEST_FILENAME} !-f

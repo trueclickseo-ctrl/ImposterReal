@@ -180,16 +180,36 @@ const ROUTE_MAP: Record<string, { component: React.ComponentType<any>; contentKe
   }
 };
 
+const SINGLE_LANG_ROUTES: Record<string, string> = {
+  "blog/dmitry-davidoff": "en",
+  "blog/what-does-imposter-mean": "en",
+  "blog/what-is-social-deduction": "en",
+  "imposter-deutsch": "de",
+  "blog/imposter-deutsch": "de",
+};
+
 export function generateStaticParams() {
-  const routes = Object.keys(ROUTE_MAP).map(r => r.split('/'));
+  const routes = Object.keys(ROUTE_MAP).map(r => ({ key: r, slug: r.split('/') }));
   const params: { lang: string; slug: string[] }[] = [];
 
   for (const loc of LOCALES) {
-    for (const slug of routes) {
-      params.push({
-        lang: loc.code,
-        slug: slug,
-      });
+    if (loc.code === 'en') continue;
+
+    for (const route of routes) {
+      const allowedLang = SINGLE_LANG_ROUTES[route.key];
+      if (allowedLang) {
+        if (allowedLang === loc.code) {
+          params.push({
+            lang: loc.code,
+            slug: route.slug,
+          });
+        }
+      } else {
+        params.push({
+          lang: loc.code,
+          slug: route.slug,
+        });
+      }
     }
   }
 

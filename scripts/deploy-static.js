@@ -4,7 +4,7 @@ const { execSync } = require('child_process');
 
 const projectRoot = 'd:/Project-ImposterReal';
 const outDir = path.join(projectRoot, 'out');
-const MIN_HTML_FILES = 870; // 28 locales x 31 routes = ~874 pages
+const MIN_HTML_FILES = 680; // 27 non-English locales x 25 routes + 29 English/single-lang routes = ~705 clean pages
 
 if (!fs.existsSync(outDir)) {
   console.error("❌ DEPLOY ERROR: out/ directory does not exist. Run 'npm run build' first.");
