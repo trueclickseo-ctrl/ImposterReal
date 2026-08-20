@@ -27,8 +27,25 @@ RewriteRule ^cyclopedia/?$ https://imposterland.com/encyclopedia/ [R=301,L]
 RewriteRule ^([a-z]{2})/cyclopedia/(.*)$ https://imposterland.com/$1/encyclopedia/$2 [R=301,L]
 RewriteRule ^([a-z]{2})/cyclopedia/?$ https://imposterland.com/$1/encyclopedia/ [R=301,L]
 
-# 4. 301 Redirect /imposter-deutsch to German page /de/imposter-deutsch/
-RewriteRule ^imposter-deutsch/?$ https://imposterland.com/de/imposter-deutsch/ [R=301,L]
+# 4. 301 Redirect /en/ routes to canonical unprefixed routes
+RewriteCond %{REQUEST_URI} ^/en(?:/(.*))?$ [NC]
+RewriteRule ^en(?:/(.*))?$ https://imposterland.com/$1 [R=301,L]
+
+# 5. 301 Redirect untranslated locale requests for single-language blog posts to canonical URLs
+RewriteCond %{REQUEST_URI} ^/[a-z]{2}/blog/what-does-imposter-mean/?$ [NC]
+RewriteRule ^.*$ https://imposterland.com/blog/what-does-imposter-mean/ [R=301,L]
+
+RewriteCond %{REQUEST_URI} ^/[a-z]{2}/blog/dmitry-davidoff/?$ [NC]
+RewriteRule ^.*$ https://imposterland.com/blog/dmitry-davidoff/ [R=301,L]
+
+RewriteCond %{REQUEST_URI} ^/[a-z]{2}/blog/what-is-social-deduction/?$ [NC]
+RewriteRule ^.*$ https://imposterland.com/blog/what-is-social-deduction/ [R=301,L]
+
+# 6. 301 Redirect imposter-deutsch variants to canonical German page /de/imposter-deutsch/
+RewriteCond %{REQUEST_URI} ^/(?:blog/)?imposter-deutsch/?$ [NC,OR]
+RewriteCond %{REQUEST_URI} ^/[a-z]{2}/(?:blog/)?imposter-deutsch/?$ [NC]
+RewriteCond %{REQUEST_URI} !^/de/imposter-deutsch/?$ [NC]
+RewriteRule ^.*$ https://imposterland.com/de/imposter-deutsch/ [R=301,L]
 
 # 5. Force trailing slash on all directories/routes (excluding files, static assets, sitemap.xml, and robots.txt)
 RewriteCond %{REQUEST_FILENAME} !-f
