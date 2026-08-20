@@ -85,47 +85,55 @@ function copyFolderRecursive(src, dest) {
 }
 copyFolderRecursive(outDir, tempOut);
 
-// 3. Switch to main branch
-console.log("Switching back to main branch...");
-execSync('git checkout main', { cwd: projectRoot, stdio: 'inherit' });
-
-// 4. Delete all tracked files in main branch to make it purely static
-console.log("Cleaning main branch directory using git...");
-execSync('git rm -rf .', { cwd: projectRoot, stdio: 'inherit' });
-
-// 5. Copy temp folder contents back to project root
-console.log("Placing static build files at the root...");
-const tempEntries = fs.readdirSync(tempOut);
-tempEntries.forEach(entry => {
-  const srcPath = path.join(tempOut, entry);
-  const destPath = path.join(projectRoot, entry);
-  if (fs.statSync(srcPath).isDirectory()) {
-    copyFolderRecursive(srcPath, destPath);
-  } else {
-    fs.copyFileSync(srcPath, destPath);
-  }
-});
-
-// Clean up temp
-fs.rmSync(tempOut, { recursive: true, force: true });
-
-// 6. Restore .gitignore
-if (gitignoreContent) {
-  fs.writeFileSync(gitignorePath, gitignoreContent, 'utf8');
-}
-
-// 7. Commit and force push to main
-console.log("Committing and force pushing static files to main branch on GitHub...");
 try {
-  execSync('git add -A', { cwd: projectRoot, stdio: 'inherit' });
-  execSync('git commit -m "deploy: publish static build artifacts"', { cwd: projectRoot, stdio: 'inherit' });
-  execSync('git push -f origin main', { cwd: projectRoot, stdio: 'inherit' });
-} catch (e) {
-  console.log("Note: Main branch commit/push warning (might be nothing to commit):", e.message);
-}
+  // 3. Switch to main branch
+  console.log("Switching back to main branch...");
+  execSync('git checkout main', { cwd: projectRoot, stdio: 'inherit' });
 
-console.log("🎉 SUCCESS! Verified static build is live on main branch. Switched back to 'source' branch.");
-execSync('git checkout source', { cwd: projectRoot, stdio: 'inherit' });
+  // 4. Delete all tracked files in main branch to make it purely static
+  console.log("Cleaning main branch directory using git...");
+  execSync('git rm -rf .', { cwd: projectRoot, stdio: 'inherit' });
+
+  // 5. Copy temp folder contents back to project root
+  console.log("Placing static build files at the root...");
+  const tempEntries = fs.readdirSync(tempOut);
+  tempEntries.forEach(entry => {
+    const srcPath = path.join(tempOut, entry);
+    const destPath = path.join(projectRoot, entry);
+    if (fs.statSync(srcPath).isDirectory()) {
+      copyFolderRecursive(srcPath, destPath);
+    } else {
+      fs.copyFileSync(srcPath, destPath);
+    }
+  });
+
+  // Clean up temp
+  fs.rmSync(tempOut, { recursive: true, force: true });
+
+  // 6. Restore .gitignore
+  if (gitignoreContent) {
+    fs.writeFileSync(gitignorePath, gitignoreContent, 'utf8');
+  }
+
+  // 7. Commit and force push to main
+  console.log("Committing and force pushing static files to main branch on GitHub...");
+  try {
+    execSync('git add -A', { cwd: projectRoot, stdio: 'inherit' });
+    execSync('git commit -m "deploy: publish static build artifacts"', { cwd: projectRoot, stdio: 'inherit' });
+    execSync('git push -f origin main', { cwd: projectRoot, stdio: 'inherit' });
+  } catch (e) {
+    console.log("Note: Main branch commit/push warning (might be nothing to commit):", e.message);
+  }
+
+  console.log("🎉 SUCCESS! Verified static build is live on main branch.");
+} finally {
+  console.log("Ensuring we switch back to 'source' branch...");
+  try {
+    execSync('git checkout -f source', { cwd: projectRoot, stdio: 'inherit' });
+  } catch (e) {
+    console.error("Error switching back to source branch:", e.message);
+  }
+}
 
 // 8. Ping Bing IndexNow to notify of updated content
 console.log("\nPinging Bing IndexNow API...");
